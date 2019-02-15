@@ -9,6 +9,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 
+ *This class contains all the customers in the database. 
+ *It has attributes such as a bank card, and loyalty points, 
+ *acquired during a travel reservation.
+ *
+ * @author Nicolas
+ *
+ */
+
 @Entity
 @Getter
 @Setter
@@ -16,7 +26,14 @@ import lombok.ToString;
 @ToString
 public class Customer extends Person {
 
+	/**
+	 * @param Customer's card
+	 */
 	private String card;
+	
+	/**
+	 * @param Customer's fidelity points
+	 */
 	private Long fidelityPoint;
 
 	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd) {
