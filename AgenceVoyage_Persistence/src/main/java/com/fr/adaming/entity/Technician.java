@@ -16,19 +16,19 @@ import lombok.ToString;
 @ToString
 public class Customer extends Person {
 
-	private String job;
-	private Date jobStartDate;
+	private String card;
+	private Long fidelityPoint;
 
 	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd) {
 		super(name, firstName, birthDate, adress, mail, pwd);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd, String job,
-			Date jobStartDate) {
+	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd,
+			String card, Long fidelityPoint) {
 		super(name, firstName, birthDate, adress, mail, pwd);
-		this.job = job;
-		this.jobStartDate = jobStartDate;
+		this.card = card;
+		this.fidelityPoint = fidelityPoint;
 	}
 
 }
