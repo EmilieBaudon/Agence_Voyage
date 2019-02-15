@@ -24,4 +24,14 @@ public class Person {
 	private String mail;
 	private String pwd;
 
+	public Person(String name, String firstName, Date birthDate, String adress, String mail, String pwd) {
+		super();
+		this.name = name;
+		this.firstName = firstName;
+		this.birthDate = birthDate;
+		Adress = adress;
+		this.mail = mail;
+		this.pwd = pwd;
+	}
+
 }
