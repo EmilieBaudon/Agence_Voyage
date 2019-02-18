@@ -3,7 +3,11 @@ package com.fr.adaming.Service;
 import java.util.List;
 
 import com.fr.adaming.entity.Person;
-
+/**
+ * 
+ * @author EmilieBaudon
+ *
+ */
 public interface IPersonService {
 
 	public Person create(Person person);
