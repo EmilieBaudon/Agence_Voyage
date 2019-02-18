@@ -1,6 +1,10 @@
 package com.fr.adaming.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,15 +30,18 @@ public class Hotel {
 	/**
 	 * @param Hotel ID
 	 */
-	Long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	/**
 	 * @param Hotel Name 
 	 */
-	String name;
+	@Column(unique=true, nullable=false)
+	private String name;
 	/**
 	 * @param Hotel Description 
 	 */
-	String desc;
+	private String desc;
 
 	public Hotel(String name, String desc) {
 		super();
