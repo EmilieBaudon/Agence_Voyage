@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 /**
 *The entity Booking is about the choices of customers 
 *It's linked to customers and travel
@@ -26,6 +27,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
+@ToString
 public class Booking {
 
 	/**

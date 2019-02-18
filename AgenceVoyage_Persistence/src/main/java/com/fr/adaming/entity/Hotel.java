@@ -1,6 +1,12 @@
 package com.fr.adaming.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +41,23 @@ public class Hotel {
 	 * @param Hotel Description 
 	 */
 	String desc;
-
+	/**
+	 * @param The travel's list associated to the hostel
+	 * @author Karguel
+	 */
+	@JsonManagedReference
+	@OneToMany(mappedBy="hotel" , fetch = FetchType.LAZY)
+	List <Travel> ltravel;
+	
+	/**
+	 *  @param The standing's list associated to the hostel
+	 * 
+	 */
+	@JsonManagedReference
+	@OneToMany(mappedBy="hotel" , fetch = FetchType.LAZY)
+	List <Standing> lstanding;
+	
+	
 	public Hotel(String name, String desc) {
 		super();
 		this.name = name;
