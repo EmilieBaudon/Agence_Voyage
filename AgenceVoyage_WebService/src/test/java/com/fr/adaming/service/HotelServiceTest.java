@@ -50,7 +50,7 @@ public class HotelServiceTest {
 	@Test
 	public void a_createHotelTest() {
 		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
-		service.create(testHotel);
+		testHotel = service.create(testHotel);
 		assertNotNull(testHotel);
 
 	}

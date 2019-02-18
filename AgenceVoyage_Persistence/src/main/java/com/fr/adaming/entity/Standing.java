@@ -62,6 +62,7 @@ public class Standing {
 	/**
 	 * @param Description of the Standing category
 	 */
+	@Column(name="descr")
 	private String desc;
 	/**
 	 * @param hotel associated to Standing
