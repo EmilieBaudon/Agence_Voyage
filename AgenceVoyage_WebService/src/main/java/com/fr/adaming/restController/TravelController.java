@@ -34,6 +34,9 @@ public class TravelController implements IController<TravelDto> {
 
 	private TravelDto dto;
 
+	/**
+	 * @Method createObject create an object in database with the parameter
+	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody TravelDto dto) {
@@ -51,6 +54,9 @@ public class TravelController implements IController<TravelDto> {
 		}
 	}
 
+	/**
+	 * @Method updateObject update an object in database
+	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.POST)
 	public String updateObject(@RequestBody TravelDto obj) {
@@ -66,6 +72,9 @@ public class TravelController implements IController<TravelDto> {
 		}
 	}
 
+	/**
+	 * @Method readById read by id an object in database
+	 */
 	@Override
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
 	public TravelDto readById(@PathVariable(value = "id") Long id) {
@@ -76,6 +85,9 @@ public class TravelController implements IController<TravelDto> {
 		return dto;
 	}
 
+	/**
+	 * @Method readAll read all travels in database
+	 */
 	@Override
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
 	public List<TravelDto> readAll() {
@@ -89,6 +101,9 @@ public class TravelController implements IController<TravelDto> {
 	
 	}
 
+	/**
+	 * @Method delete delete an object with the id
+	 */
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
