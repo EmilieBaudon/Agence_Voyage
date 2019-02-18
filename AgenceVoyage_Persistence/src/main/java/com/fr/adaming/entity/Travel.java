@@ -34,7 +34,6 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-
 public class Travel {
 	/**
 	 * @param Travel Id

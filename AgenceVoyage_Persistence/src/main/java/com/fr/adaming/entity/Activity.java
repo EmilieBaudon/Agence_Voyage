@@ -1,6 +1,10 @@
 package com.fr.adaming.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +12,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * This class summarizes all the activities that a traveler can do in the hotel he is staying.
- * The activities a person can do depend on the Standing of the hotel this person is staying at.
+ * This class summarizes all the activities that a traveler can do in the hotel
+ * he is staying. The activities a person can do depend on the Standing of the
+ * hotel this person is staying at.
  * 
  * @author Quentin
  *
@@ -25,18 +30,20 @@ public class Activity {
 	/**
 	 * @param Activity ID
 	 */
-	
-	Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	/**
-	 * @param  Activity Name
+	 * @param Activity Name
 	 */
-	String name;
-	
+	@Column(unique = true)
+	private String name;
+
 	/**
 	 * @param Activity description
 	 */
-	
-	String desc;
+
+	private String desc;
 
 	public Activity(String name, String desc) {
 		super();

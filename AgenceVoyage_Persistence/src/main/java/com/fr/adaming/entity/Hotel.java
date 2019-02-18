@@ -1,10 +1,17 @@
+
 package com.fr.adaming.entity;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +38,7 @@ public class Hotel {
 	 * @param Hotel ID
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	/**
 	 * @param Hotel Name 
@@ -42,11 +49,32 @@ public class Hotel {
 	 * @param Hotel Description 
 	 */
 	private String desc;
+	/**
+	 * @param The travel's list associated to the hostel
+	 * @author Karguel
+	 */
+	@JsonManagedReference
+	@OneToMany(mappedBy="hotel" , fetch = FetchType.LAZY)
+	List <Travel> ltravel;
+	
+	/**
+	 *  @param The standing's list associated to the hostel
+	 * 
+	 */
+	@JsonManagedReference
+	@OneToMany(mappedBy="hotel" , fetch = FetchType.LAZY)
+	List <Standing> lstanding;
 
-	public Hotel(String name, String desc) {
+	public Hotel(String name, String desc, List<Travel> ltravel, List<Standing> lstanding) {
 		super();
 		this.name = name;
 		this.desc = desc;
+		this.ltravel = ltravel;
+		this.lstanding = lstanding;
 	}
+	
+	
+	
+
 
 }

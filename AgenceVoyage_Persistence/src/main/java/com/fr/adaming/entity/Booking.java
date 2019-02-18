@@ -13,17 +13,22 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-/**
-*The entity Booking is about the choices of customers 
-*It's linked to customers and travel
-*
-*
-*@author Karguel
-*/
+import lombok.ToString;
 
+/**
+ * The entity Booking is about the choices of customers It's linked to customers
+ * and travel
+ *
+ *
+ * @author Karguel
+ */
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+
 public class Booking {
 
 	/**
@@ -32,22 +37,27 @@ public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	/**
-	 * @param nbrAdult 
+	 * @param nbrAdult
 	 */
 	private int nbrAdult;
+
 	/**
 	 * @param nbrChild
 	 */
 	private int nbrChild;
+
 	/**
 	 * @param totalPrice
 	 */
 	private Double totalPrice;
+
 	/**
 	 * @param pointAddFidelity
 	 */
 	private Long pointAddFidelity;
+
 	/**
 	 * @param customer
 	 */
@@ -55,8 +65,7 @@ public class Booking {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer")
 	private Customer customer;
-	
-	
+
 	/**
 	 * @param travel
 	 */
@@ -75,6 +84,5 @@ public class Booking {
 		this.customer = customer;
 		this.travel = travel;
 	}
-	
-	
+
 }
