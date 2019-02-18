@@ -1,6 +1,6 @@
 package com.fr.adaming.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -57,12 +57,12 @@ public class Travel {
 	 * @param periodBegin
 	 */
 	@Column(nullable = false)
-	private Date periodBegin;
+	private LocalDate periodBegin;
 	/**
 	 * @param periodEnd
 	 */
 	@Column(nullable = false)
-	private Date periodEnd;
+	private LocalDate periodEnd;
 	/**
 	 * @param list of booking
 	 */
@@ -83,7 +83,7 @@ public class Travel {
 	@JoinColumn(name = "hotel")
 	private Hotel lhotel;
 
-	public Travel(int nbrNight, String destination, Date periodBegin, Date periodEnd, List<Booking> lbooking,
+	public Travel(int nbrNight, String destination, LocalDate periodBegin, LocalDate periodEnd, List<Booking> lbooking,
 			List<Flight> lflight, Hotel lhotel) {
 		super();
 		this.nbrNight = nbrNight;
