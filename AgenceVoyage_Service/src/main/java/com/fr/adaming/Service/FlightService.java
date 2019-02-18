@@ -63,8 +63,14 @@ public class FlightService implements IService<Flight> {
 	 * @method delete an flight in the database thanks to the id put in the
 	 *         parameter
 	 */
-	public void deleteById(Long id) {
-		dao.deleteById(id);
+	public Boolean deleteById(Long id) {
+		try {
+			dao.deleteById(id);
+			return true;
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**

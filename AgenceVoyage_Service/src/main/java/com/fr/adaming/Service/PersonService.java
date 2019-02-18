@@ -3,6 +3,7 @@ package com.fr.adaming.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IPersonDao;
@@ -14,17 +15,18 @@ import com.fr.adaming.entity.Person;
  *
  */
 @Service
+@Qualifier("PersonService")
 public class PersonService implements IPersonService {
 	
 	/**
-	 * dao contain all the CRUD methods (Create, Read, Update and delete)
+	 * @param dao contain all the CRUD methods (Create, Read, Update and delete)
 	 */
 	@Autowired
 	IPersonDao dao;
 
 	
 	/**
-	 * Create the person given in the database
+	 * @method Create the person given in the database
 	 * Return Null if the person already exist
 	 */
 	@Override
@@ -41,7 +43,7 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * Update the person given
+	 * @method Update the person given
 	 * if the person do not exit in the database, return Null
 	 */
 	@Override
@@ -58,7 +60,7 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * Return a person with its Mail
+	 * @method Return a person with its Mail
 	 * Return Null if the Mail do not exist in the database
 	 */
 	@Override
@@ -77,7 +79,7 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * Return a person with its Mail
+	 * @method  Return a person with its Mail
 	 * Return Null if the Mail do not exist in the database	 
 	 */
 	@Override
@@ -90,7 +92,7 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * return all the people in the database
+	 * @method return all the people in the database
 	 * return null if the database is empty
 	 */
 	@Override
@@ -103,32 +105,36 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * delete a person with its id if it exist in the database
+	 * @method delete a person with its id if it exist in the database
 	 */
 	@Override
-	public void deleteById(Long id) {
+	public boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return false;
 		}
 	}
 
 	/**
-	 * delete a person with its Mail if it exist in the database
+	 * @method delete a person with its Mail if it exist in the database
 	 */
 	@Override
-	public void deleteByEmail(String email) {
+	public boolean deleteByEmail(String email) {
 		try {
 			Person user = dao.findByMail(email);
 			dao.deleteById(user.getId());
+			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return false;
 		}
 	}
 
 	/**
-	 * Connect a person if its Mail and Pwd are correct
+	 * @method Connect a person if its Mail and Pwd are correct
 	 */
 	@Override
 	public Person Login(String email, String pwd) {
