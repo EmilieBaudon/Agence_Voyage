@@ -2,22 +2,10 @@ package com.fr.adaming.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fr.adaming.entity.Travel;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 
@@ -57,6 +45,6 @@ public class FlightDto {
 	/**
 	 * @param TravelDto
 	 */	
-	private Travel travel;	
+	private TravelDto travelDto;	
 
 }

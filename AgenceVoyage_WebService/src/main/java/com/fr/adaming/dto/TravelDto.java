@@ -3,25 +3,12 @@ package com.fr.adaming.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 
@@ -59,17 +46,16 @@ public class TravelDto {
 	private LocalDate periodEnd;
 	
 	/**
-	 * @param booking
+	 * @param list of booking
 	 */	
-	private BookingDto booking;
+	private List<BookingDto> lbookingDto;
+	/**
+	 * @param list of flight
+	 */	
+	private List<FlightDto> lflightDto;
 	
 	/**
-	 * @param flight
+	 * @param hotelDto
 	 */	
-	private FlightDto flight;
-	
-	/**
-	 * @param hotel
-	 */	
-	private HotelDto hotel;
+	private HotelDto hotelDto;
 }
