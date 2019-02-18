@@ -1,9 +1,14 @@
+
 package com.fr.adaming.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -32,15 +37,18 @@ public class Hotel {
 	/**
 	 * @param Hotel ID
 	 */
-	Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	/**
 	 * @param Hotel Name 
 	 */
-	String name;
+	@Column(unique=true, nullable=false)
+	private String name;
 	/**
 	 * @param Hotel Description 
 	 */
-	String desc;
+	private String desc;
 	/**
 	 * @param The travel's list associated to the hostel
 	 * @author Karguel
@@ -56,12 +64,17 @@ public class Hotel {
 	@JsonManagedReference
 	@OneToMany(mappedBy="hotel" , fetch = FetchType.LAZY)
 	List <Standing> lstanding;
-	
-	
-	public Hotel(String name, String desc) {
+
+	public Hotel(String name, String desc, List<Travel> ltravel, List<Standing> lstanding) {
 		super();
 		this.name = name;
 		this.desc = desc;
+		this.ltravel = ltravel;
+		this.lstanding = lstanding;
 	}
+	
+	
+	
+
 
 }

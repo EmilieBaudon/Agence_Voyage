@@ -3,6 +3,7 @@ package com.fr.adaming.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -43,19 +44,23 @@ public class Travel {
 	/**
 	 * @param number of nights
 	 */
+	@Column(nullable = false)
 	private int nbrNight;
 
 	/**
 	 * @param destiantion
 	 */
+	@Column(nullable = false)
 	private String destination;
 	/**
 	 * @param periodBegin
 	 */
+	@Column(nullable = false)
 	private Date periodBegin;
 	/**
 	 * @param periodEnd
 	 */
+	@Column(nullable = false)
 	private Date periodEnd;
 	/**
 	 * @param list of booking

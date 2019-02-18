@@ -1,6 +1,6 @@
 package com.fr.adaming.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -47,20 +47,13 @@ public class Customer extends Person {
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	List<Booking> lbooking;
 
-	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd) {
+	public Customer(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd) {
 		super(name, firstName, birthDate, adress, mail, pwd);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd, String card,
-			Long fidelityPoint) {
-		super(name, firstName, birthDate, adress, mail, pwd);
-		this.card = card;
-		this.fidelityPoint = fidelityPoint;
-	}
-
-	public Customer(String name, String firstName, Date birthDate, String adress, String mail, String pwd, String card,
-			Long fidelityPoint, List<Booking> lbooking) {
+	public Customer(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd,
+			String card, Long fidelityPoint, List<Booking> lbooking) {
 		super(name, firstName, birthDate, adress, mail, pwd);
 		this.card = card;
 		this.fidelityPoint = fidelityPoint;

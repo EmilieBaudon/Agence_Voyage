@@ -1,8 +1,12 @@
 package com.fr.adaming.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +15,9 @@ import lombok.ToString;
 
 /**
  * 
- * This class contains all the people in the database. 
- * The customers and the technicians. 
- * They have as attributes an id, a name, a premom, 
- * a date of birth, an address, an email, and a password.
+ * This class contains all the people in the database. The customers and the
+ * technicians. They have as attributes an id, a name, a premom, a date of
+ * birth, an address, an email, and a password.
  * 
  * @author Nicolas
  *
@@ -30,39 +33,41 @@ public class Person {
 	/**
 	 * @param Person id
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	/**
 	 * @param Person name
 	 */
 	private String name;
-	
+
 	/**
 	 * @param Person first name
 	 */
 	private String firstName;
-	
+
 	/**
-	 * @param Person date of birth 
+	 * @param Person date of birth
 	 */
-	private Date birthDate;
-	
+	private LocalDate birthDate;
+
 	/**
-	 * @param Person adress 
+	 * @param Person adress
 	 */
 	private String Adress;
-	
+
 	/**
-	 * @param Person mail 
+	 * @param Person mail
 	 */
 	private String mail;
-	
+
 	/**
-	 * @param Person password 
+	 * @param Person password
 	 */
 	private String pwd;
 
-	public Person(String name, String firstName, Date birthDate, String adress, String mail, String pwd) {
+	public Person(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd) {
 		super();
 		this.name = name;
 		this.firstName = firstName;

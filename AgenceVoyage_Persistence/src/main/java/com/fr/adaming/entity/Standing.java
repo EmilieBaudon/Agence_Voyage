@@ -1,9 +1,14 @@
+
 package com.fr.adaming.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -37,23 +42,27 @@ public class Standing {
 	/**
 	 * @param Standing ID
 	 */
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	/**
 	 * @param Number of rooms
 	 */
-	int nbRoom;
+	@Column(nullable = false)
+	private int nbRoom;
 	/**
 	 * @param Room cost for one child
 	 */
-	double priceChild;
+	private double priceChild;
 	/**
 	 * @param Room cost for one adult
 	 */
-	double priceAdult;
+	private double priceAdult;
 	/**
 	 * @param Description of the Standing category
 	 */
-	String desc;
+	private String desc;
 	/**
 	 * @param hotel associated to Standing
 	 * @author Karguel
@@ -68,16 +77,18 @@ public class Standing {
 	 * @param list of activities
 	 */
 	@JsonManagedReference
-	@ManyToMany (fetch = FetchType.EAGER)
-	private List <Activity> lactivity;
-	
-	
-	public Standing(int nbRoom, double priceChild, double priceAdult, String desc) {
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Activity> lactivity;
+
+	public Standing(int nbRoom, double priceChild, double priceAdult, String desc, Hotel hotel,
+			List<Activity> lactivity) {
 		super();
 		this.nbRoom = nbRoom;
 		this.priceChild = priceChild;
 		this.priceAdult = priceAdult;
 		this.desc = desc;
+		this.hotel = hotel;
+		this.lactivity = lactivity;
 	}
 
 }
