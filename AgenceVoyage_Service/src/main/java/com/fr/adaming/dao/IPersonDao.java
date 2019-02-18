@@ -8,5 +8,6 @@ import com.fr.adaming.entity.Person;
 public interface IPersonDao extends JpaRepository<Person, Long>{
 	
 	public Person findByMailAndPwd(String mail,String pwd);
+	public Person findByMail (String mail);
 
 }
