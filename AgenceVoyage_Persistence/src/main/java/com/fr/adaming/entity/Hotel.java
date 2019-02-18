@@ -48,6 +48,7 @@ public class Hotel {
 	/**
 	 * @param Hotel Description 
 	 */
+	@Column(name="descr")
 	private String desc;
 	/**
 	 * @param The travel's list associated to the hostel

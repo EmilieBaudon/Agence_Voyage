@@ -36,7 +36,7 @@ public class PersonServiceTest {
 
 	@Test
 	public void a_InsertExistingUser() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		service.create(person);
 		person = service.readAll().get(0);
 		Person test = service.create(person);
@@ -45,14 +45,14 @@ public class PersonServiceTest {
 
 	@Test
 	public void b_InsertUserWithNullId() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person.setId(null);
 		assertNotNull(service.create(person));
 	}
 
 	@Test
 	public void c_InsertUserWithIdEqualsZero() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person.setId(0L);
 		assertNotNull(service.create(person));
 	}
@@ -62,7 +62,7 @@ public class PersonServiceTest {
 	@Test
 	public void d_InsertNonExistingUser() {
 
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		service.create(person);
 		person = service.readAll().get(service.readAll().size() - 1);
 		person.setId(person.getId() + 1);
@@ -71,14 +71,14 @@ public class PersonServiceTest {
 
 	@Test
 	public void e_InsertNullId() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person.setId(null);
 		assertNull(service.update(person));
 	}
 
 	@Test
 	public void f_InsertIdEqualsZero() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person.setId(0L);
 		assertNull(service.update(person));
 	}
@@ -87,7 +87,7 @@ public class PersonServiceTest {
 
 	@Test
 	public void g_ReadUnexistingUser() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		service.create(person);
 		Person test = service.readByEmail("nonexisting@email.com");
 		assertNull(test);
@@ -97,7 +97,7 @@ public class PersonServiceTest {
 	
 	@Test
 	public void h_ReadUnexistingUser() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person = service.create(person);
 		person = service.readAll().get(service.readAll().size() - 1);
 		person.setId(person.getId() + 1);
@@ -118,7 +118,7 @@ public class PersonServiceTest {
 
 	@Test
 	public void j_UnexistingUser() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person = service.create(person);
 		person = service.readAll().get(service.readAll().size() - 1);
 		person.setId(person.getId() + 1);
@@ -129,7 +129,7 @@ public class PersonServiceTest {
 	
 	@Test
 	public void k_UnexistingUser() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		service.create(person);
 		assertTrue(service.deleteByEmail("nonexisting@email.com"));
 	}
@@ -138,7 +138,7 @@ public class PersonServiceTest {
 	
 	@Test
 	public void l_UnexistingUser() {
-		person = new Person("test", "test", new Date(), "test", "test@test.com", "test");
+		person = new Person("test", "test", null, "test", "test@test.com", "test");
 		person = service.create(person);
 		assertNull(service.Login("nonexisting@email.com", "notExistingPwd"));
 	}

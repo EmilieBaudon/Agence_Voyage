@@ -57,6 +57,7 @@ public class Customer extends Person {
 		this.card = card;
 		this.fidelityPoint = fidelityPoint;
 		this.lbooking = lbooking;
+
 	}
 
 	public Customer(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd) {
