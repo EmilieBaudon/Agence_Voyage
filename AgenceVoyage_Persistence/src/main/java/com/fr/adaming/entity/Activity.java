@@ -42,7 +42,7 @@ public class Activity {
 	/**
 	 * @param Activity description
 	 */
-
+	@Column(name="descr")
 	private String desc;
 
 	public Activity(String name, String desc) {
