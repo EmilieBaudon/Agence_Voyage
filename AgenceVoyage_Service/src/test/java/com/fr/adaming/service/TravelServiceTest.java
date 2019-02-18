@@ -31,7 +31,7 @@ import com.fr.adaming.entity.Travel;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TravelTest {
+public class TravelServiceTest {
 
 	@Autowired
 	private TravelService service;
