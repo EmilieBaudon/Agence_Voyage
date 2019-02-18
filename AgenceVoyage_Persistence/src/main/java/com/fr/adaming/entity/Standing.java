@@ -1,6 +1,10 @@
 package com.fr.adaming.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,23 +33,26 @@ public class Standing {
 	/**
 	 * @param Standing ID
 	 */
-	Long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	/**
 	 * @param Number of rooms 
 	 */
-	int nbRoom;
+	@Column(nullable = false)
+	private int nbRoom;
 	/**
 	 * @param Room cost for one child
 	 */
-	double priceChild;
+	private double priceChild;
 	/**
 	 * @param Room cost for one adult
 	 */
-	double priceAdult;
+	private double priceAdult;
 	/**
 	 * @param Description of the Standing category
 	 */
-	String desc;
+	private String desc;
 
 	public Standing(int nbRoom, double priceChild, double priceAdult, String desc) {
 		super();

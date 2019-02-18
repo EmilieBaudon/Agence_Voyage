@@ -1,5 +1,7 @@
 package com.fr.adaming.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -19,8 +21,13 @@ public class HotelServiceTest {
 
 	private Hotel testHotel;
 
+	
+	//Création d'un objet valide
 	public void a_createHotelTest() {
 		testHotel = new Hotel("Hilton", "hotel de riche");
+		service.create(testHotel);
+		assertNotNull(testHotel);
+		
 
 	}
 
