@@ -103,6 +103,7 @@ public class TravelServiceTest {
 		// Update non existing travel
 		createdTravel = new Travel(5, "Bora-Bora", LocalDate.of(2018, 06, 23), LocalDate.of(2018, 06, 28), null, null,
 				null);
+		createdTravel = service.create(createdTravel);
 		createdTravel.setId(99L);
 		createdTravel = service.update(createdTravel);
 		assertNull(createdTravel);
@@ -113,6 +114,8 @@ public class TravelServiceTest {
 		// Update travel with null id
 		createdTravel = new Travel(5, "Bora-Bora", LocalDate.of(2018, 06, 23), LocalDate.of(2018, 06, 28), null, null,
 				null);
+		createdTravel = service.create(createdTravel);
+		createdTravel.setId(null);
 		createdTravel = service.update(createdTravel);
 		assertNull(createdTravel);
 	}
@@ -122,6 +125,7 @@ public class TravelServiceTest {
 		// Update travel with id equals to zero
 		createdTravel = new Travel(5, "Bora-Bora", LocalDate.of(2018, 06, 23), LocalDate.of(2018, 06, 28), null, null,
 				null);
+		createdTravel = service.create(createdTravel);
 		createdTravel.setId(0L);
 		createdTravel = service.update(createdTravel);
 		assertNull(createdTravel);

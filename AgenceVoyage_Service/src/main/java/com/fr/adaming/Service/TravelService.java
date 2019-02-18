@@ -69,6 +69,8 @@ public class TravelService implements IService<Travel> {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.print("DEBUG NON DELETE");
+			e.printStackTrace();
 			return false;
 		}
 	}
