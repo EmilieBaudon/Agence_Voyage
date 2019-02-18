@@ -80,10 +80,10 @@ public class Travel {
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "hotel")
-	private Hotel lhotel;
+	private Hotel hotel;
 
 	public Travel(int nbrNight, String destination, LocalDate periodBegin, LocalDate periodEnd, List<Booking> lbooking,
-			List<Flight> lflight, Hotel lhotel) {
+			List<Flight> lflight, Hotel hotel) {
 		super();
 		this.nbrNight = nbrNight;
 		this.destination = destination;
@@ -91,7 +91,7 @@ public class Travel {
 		this.periodEnd = periodEnd;
 		this.lbooking = lbooking;
 		this.lflight = lflight;
-		this.lhotel = lhotel;
+		this.hotel = hotel;
 	}
 
 }
