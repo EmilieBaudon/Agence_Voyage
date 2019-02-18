@@ -9,6 +9,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** 
+ * 
+ * This class contains all the technicians in the database. 
+ * It attributes a job, and the date of the first day of job.
+ *  
+ * @author Nicolas
+ *
+ */
+
 @Entity
 @Getter
 @Setter
@@ -16,7 +25,14 @@ import lombok.ToString;
 @ToString
 public class Technician extends Person {
 
+	/**
+	 * @param Technician's job
+	 */
 	private String job;
+
+	/**
+	 * @param Technician's job start date
+	 */
 	private Date jobStartDate;
 
 	public Technician(String name, String firstName, Date birthDate, String adress, String mail, String pwd) {
