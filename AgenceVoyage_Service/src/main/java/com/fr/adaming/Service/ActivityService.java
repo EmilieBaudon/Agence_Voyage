@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fr.adaming.dao.IActivityDao;
 import com.fr.adaming.entity.Activity;
 
 @Service
@@ -33,7 +34,7 @@ public class ActivityService implements IService<Activity>{
 
 	@Override
 	public Activity readById(Long id) {
-		return dao.findByID(id);
+		return dao.findById(id);
 	}
 	
 	public void deleteById(Long id) {
