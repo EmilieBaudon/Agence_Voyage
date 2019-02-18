@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fr.adaming.dao.IHotelDao;
+import com.fr.adaming.entity.Hotel;
+
 @Service
 public class HotelService implements IService<Hotel>{
 
@@ -31,7 +34,7 @@ public class HotelService implements IService<Hotel>{
 
 	@Override
 	public Hotel readById(Long id) {
-		return dao.findByID(id);
+		return dao.findById(id);
 	}
 	
 	public void deleteById(Long id) {

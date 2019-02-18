@@ -2,6 +2,8 @@ package com.fr.adaming.Service;
 
 import java.util.List;
 
+import com.fr.adaming.entity.Booking;
+
 public interface IBookingService {
 
 	public Booking create (Booking booking);
