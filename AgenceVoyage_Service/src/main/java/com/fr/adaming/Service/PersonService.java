@@ -3,6 +3,7 @@ package com.fr.adaming.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IPersonDao;
 import com.fr.adaming.entity.Person;
@@ -12,6 +13,7 @@ import com.fr.adaming.entity.Person;
  * @author EmilieBaudon
  *
  */
+@Service
 public class PersonService implements IPersonService {
 	
 	/**
