@@ -1,24 +1,25 @@
 package com.fr.adaming.dto;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 /**
- *  This Class allows a Personn to register to a dataBase
+ *  This Class allows a Person to register to a dataBase
  */
 /**
  * 
  * @author victor
  *
  */
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class RegisterDto {
 	/**
 	 * @param Person name
@@ -50,6 +51,17 @@ public class RegisterDto {
 	 */
 	@NotNull
 	private String pwd;
-	
+	public RegisterDto(@NotNull String name, @NotNull String firstName, @NotNull LocalDate birthDate,
+			@NotNull String adress, @Email String mail, @NotNull String pwd) {
+		super();
+		this.name = name;
+		this.firstName = firstName;
+		this.birthDate = birthDate;
+		Adress = adress;
+		this.mail = mail;
+		this.pwd = pwd;
+	}
 
+	
+	
 }
