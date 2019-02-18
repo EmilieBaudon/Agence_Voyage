@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fr.adaming.entity.Booking;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.ToString;
 
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class CustomerDto {
 

@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +32,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 
 public class TravelDto {
 	
@@ -57,10 +59,17 @@ public class TravelDto {
 	private LocalDate periodEnd;
 	
 	/**
+	 * @param booking
+	 */	
+	private BookingDto booking;
+	
+	/**
+	 * @param flight
+	 */	
+	private FlightDto flight;
+	
+	/**
 	 * @param hotel
 	 */	
 	private HotelDto hotel;
-
-	
-
 }

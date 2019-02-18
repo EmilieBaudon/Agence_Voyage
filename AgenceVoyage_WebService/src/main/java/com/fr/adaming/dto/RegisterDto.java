@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
+@AllArgsConstructor
+
 public class RegisterDto {
 	/**
 	 * @param Person name
@@ -40,7 +44,7 @@ public class RegisterDto {
 	 * @param Person adress
 	 */
 	@NotNull
-	private String Adress;
+	private String adress;
 	/**
 	 * @param Person mail
 	 */
@@ -49,18 +53,7 @@ public class RegisterDto {
 	/**
 	 * @param Person password
 	 */
-	@NotNull
 	private String pwd;
-	public RegisterDto(@NotNull String name, @NotNull String firstName, @NotNull LocalDate birthDate,
-			@NotNull String adress, @Email String mail, @NotNull String pwd) {
-		super();
-		this.name = name;
-		this.firstName = firstName;
-		this.birthDate = birthDate;
-		Adress = adress;
-		this.mail = mail;
-		this.pwd = pwd;
-	}
 
 	
 	
