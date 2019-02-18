@@ -17,51 +17,50 @@ import com.fr.adaming.entity.Person;
 @Service
 @Qualifier("PersonService")
 public class PersonService implements IPersonService {
-	
+
 	/**
 	 * @param dao contain all the CRUD methods (Create, Read, Update and delete)
 	 */
 	@Autowired
 	IPersonDao dao;
 
-	
 	/**
-	 * @method Create the person given in the database
-	 * Return Null if the person already exist
+	 * @method Create the person given in the database Return Null if the person
+	 *         already exist
 	 */
 	@Override
 	public Person create(Person person) {
 		if ((person.getId() == null || !dao.existsById(person.getId())) && person.getMail() != null) {
-			if (dao.findByMail(person.getMail()) == null){			
+			if (dao.findByMail(person.getMail()) == null) {
 				return dao.save(person);
-			}else{
+			} else {
 				return null;
 			}
-		}else {
+		} else {
 			return null;
 		}
 	}
 
 	/**
-	 * @method Update the person given
-	 * if the person do not exit in the database, return Null
+	 * @method Update the person given if the person do not exit in the database,
+	 *         return Null
 	 */
 	@Override
 	public Person update(Person person) {
 		if (person.getId() != null && dao.existsById(person.getId())) {
-			if (dao.findByMail(person.getMail()) == null){			
+			if (dao.findByMail(person.getMail()) == null) {
 				return dao.save(person);
-			}else{
+			} else {
 				return null;
 			}
-		}else {
+		} else {
 			return null;
 		}
 	}
 
 	/**
-	 * @method Return a person with its Mail
-	 * Return Null if the Mail do not exist in the database
+	 * @method Return a person with its Mail Return Null if the Mail do not exist in
+	 *         the database
 	 */
 	@Override
 	public Person readByEmail(String email) {
@@ -75,25 +74,25 @@ public class PersonService implements IPersonService {
 		} else {
 			return null;
 		}
-		
+
 	}
 
 	/**
-	 * @method  Return a person with its Mail
-	 * Return Null if the Mail do not exist in the database	 
+	 * @method Return a person with its Mail Return Null if the Mail do not exist in
+	 *         the database
 	 */
 	@Override
 	public Person readById(Long id) {
 		if (id != null) {
 			return dao.findById(id).get();
-		}else {
+		} else {
 			return null;
 		}
 	}
 
 	/**
-	 * @method return all the people in the database
-	 * return null if the database is empty
+	 * @method return all the people in the database return null if the database is
+	 *         empty
 	 */
 	@Override
 	public List<Person> readAll() {
@@ -134,11 +133,12 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method Connect a person if its Mail and Pwd are correct
+	 * @method Connect a person if its Mail and Pwd are correct Return null if it
+	 *         does not exist
 	 */
 	@Override
 	public Person Login(String email, String pwd) {
-		Person login=null;
+		Person login = null;
 		try {
 			login = dao.findByMailAndPwd(email, pwd);
 			return login;

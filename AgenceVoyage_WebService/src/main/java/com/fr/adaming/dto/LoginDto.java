@@ -1,10 +1,13 @@
 package com.fr.adaming.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 /**
- *  This Class allows the conexion of a person to the application
+ *  This Class allows the connection of a person to the application
  */
 /**
  * 
@@ -14,12 +17,14 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class LoginDto {	
 	/**
-	 * @param Person mail 
+	 * @param Login mail
 	 */
+	@Email
 	private String mail;
 	/**
-	 * @param Person password 
+	 * @param Login pwd
 	 */
+	@NotNull
 	private String pwd;
 
 }

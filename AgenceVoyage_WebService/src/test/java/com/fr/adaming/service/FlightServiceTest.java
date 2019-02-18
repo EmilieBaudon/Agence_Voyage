@@ -26,7 +26,7 @@ public class FlightServiceTest {
 
 	@Autowired
 	private FlightService service;
-	
+
 	private Flight flight;
 
 	@Test

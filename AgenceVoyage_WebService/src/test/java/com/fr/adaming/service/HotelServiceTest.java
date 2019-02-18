@@ -20,7 +20,6 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fr.adaming.Service.HotelService;
@@ -41,7 +40,10 @@ public class HotelServiceTest {
 	public void after() {
 		System.out.println("********************DEBUG TESTING Method After******************");
 		if (testHotel != null && testHotel.getId() != null) {
+			System.out.println(testHotel);
 			service.deleteById(testHotel.getId());
+			testHotel = service.readAll().get(0);
+			System.out.println(testHotel);
 		}
 
 	}
@@ -59,7 +61,7 @@ public class HotelServiceTest {
 	@Test
 	public void b_createExistingHotelTest() {
 		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
-		Hotel testHotel2 = new Hotel("Hilton", "hotel de riche",null,null);
+		Hotel testHotel2 = testHotel;
 		testHotel = service.create(testHotel);
 		testHotel2 = service.create(testHotel2);
 		assertNull(testHotel2);
@@ -106,8 +108,8 @@ public class HotelServiceTest {
 	@Test
 	public void g_updateNonExistingHotel() {
 		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
-		service.update(testHotel);
 		testHotel.setId(999L);
+		testHotel = service.update(testHotel);
 		assertNull(testHotel);
 
 	}
@@ -128,8 +130,8 @@ public class HotelServiceTest {
 		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
 		testHotel.setId(null);
-		service.update(testHotel);
-		assertNull(testHotel);
+		testHotel = service.update(testHotel);
+		assertNotNull(testHotel);
 	}
 
 	// Update un objet avec un ID =0
@@ -138,8 +140,8 @@ public class HotelServiceTest {
 		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
 		testHotel.setId(0L);
-		service.update(testHotel);
-		assertNull(testHotel);
+		testHotel = service.update(testHotel);
+		assertNotNull(testHotel);
 	}
 
 	// Delete Objet non-existant
