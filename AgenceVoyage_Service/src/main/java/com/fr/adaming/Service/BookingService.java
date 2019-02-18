@@ -26,8 +26,8 @@ public class BookingService implements IService<Booking> {
 	private IBookingDao dao;
 
 	/**
-	 * @method create an booking in the database
-	 * the creation is done only if the id of the object us null or equal to 0
+	 * @method create an booking in the database the creation is done only if the id
+	 *         of the object us null or equal to 0
 	 */
 	@Override
 	public Booking create(Booking booking) {
@@ -39,8 +39,8 @@ public class BookingService implements IService<Booking> {
 	}
 
 	/**
-	 * @method update an booking in the database
-	 * the update is done only if the id of the booking is found in the DB
+	 * @method update an booking in the database the update is done only if the id
+	 *         of the booking is found in the DB
 	 */
 	@Override
 	public Booking update(Booking booking) {
@@ -60,10 +60,17 @@ public class BookingService implements IService<Booking> {
 	}
 
 	/**
-	 * @method delete an booking in the database thanks to the id put in the parameter
+	 * @method delete an booking in the database thanks to the id put in the
+	 *         parameter
 	 */
-	public void deleteById(Long id) {
-		dao.deleteById(id);
+	public Boolean deleteById(Long id) {
+		try {
+			dao.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
