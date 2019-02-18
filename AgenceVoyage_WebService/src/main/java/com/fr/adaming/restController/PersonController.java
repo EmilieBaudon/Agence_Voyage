@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.IPersonService;
@@ -29,7 +32,8 @@ public class PersonController implements IPersonController{
 	 * Use the Create method from person service
 	 */
 	@Override
-	public String create(RegisterDto dto) {
+	@RequestMapping(path="register", method=RequestMethod.POST)
+	public String create(@RequestBody RegisterDto dto) {
 		Person person = new Person(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd());
 		Person result = service.create(person);
 		if (result != null) {
@@ -44,7 +48,8 @@ public class PersonController implements IPersonController{
 	 * Use the Update method from person service
 	 */
 	@Override
-	public String update(RegisterDto dto) {
+	@RequestMapping(path="update", method=RequestMethod.POST)
+	public String update(@RequestBody RegisterDto dto) {
 		Person person = new Person(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd());
 		Person result = service.update(person);
 		if (result != null) {
@@ -59,6 +64,7 @@ public class PersonController implements IPersonController{
 	 * Use the read by email method from person service
 	 */
 	@Override
+	@RequestMapping(path="read/{email}", method=RequestMethod.GET)
 	public Person readByEmail(String email) {
 		return service.readByEmail(email);
 	}
@@ -68,6 +74,7 @@ public class PersonController implements IPersonController{
 	 * Use the read by id method from person service
 	 */
 	@Override
+	@RequestMapping(path="read/{id}", method=RequestMethod.GET)
 	public Person readById(Long id) {
 		return service.readById(id);
 	}
@@ -77,6 +84,7 @@ public class PersonController implements IPersonController{
 	 * Use the read all method from person service
 	 */
 	@Override
+	@RequestMapping(path="readAll", method=RequestMethod.GET)
 	public List<RegisterDto> readAll() {
 		List<Person> people = service.readAll();
 		List<RegisterDto> dtos = new ArrayList<>();
@@ -91,6 +99,7 @@ public class PersonController implements IPersonController{
 	 * Use the delete by id method from person service
 	 */
 	@Override
+	@RequestMapping(path="delete/{id}", method=RequestMethod.DELETE)
 	public String deleteById(Long id) {
 		if (service.deleteById(id)) {
 			service.deleteById(id);
@@ -105,6 +114,7 @@ public class PersonController implements IPersonController{
 	 * Use the delete by email method from person service
 	 */
 	@Override
+	@RequestMapping(path="delete/{email}", method=RequestMethod.DELETE)
 	public String deleteByEmail(String email) {
 		if (service.deleteByEmail(email)) {
 			service.deleteByEmail(email);
@@ -119,7 +129,8 @@ public class PersonController implements IPersonController{
 	 * Use the delete by email method from person service
 	 */
 	@Override
-	public String Login(LoginDto login) {
+	@RequestMapping(path="login", method=RequestMethod.POST)
+	public String Login(@RequestBody LoginDto login) {
 		Person result = service.Login(login.getMail(), login.getPwd());
 		if (result != null) {
 			return "Login done";
