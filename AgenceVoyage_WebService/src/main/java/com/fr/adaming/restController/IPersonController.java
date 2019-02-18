@@ -2,6 +2,8 @@ package com.fr.adaming.restController;
 
 import java.util.List;
 
+import com.fr.adaming.dto.LoginDto;
+import com.fr.adaming.dto.RegisterDto;
 import com.fr.adaming.entity.Person;
 /**
  * 
@@ -10,19 +12,19 @@ import com.fr.adaming.entity.Person;
  */
 public interface IPersonController {
 	
-	public String create(Person person);
+	public String create(RegisterDto dto);
 	
-	public String update(Person person);
+	public String update(RegisterDto dto);
 	
 	public Person readByEmail(String email);
 	
 	public Person readById(Long id);
 	
-	public List<Person> readAll();
+	public List<RegisterDto> readAll();
 	
 	public String deleteById(Long id);
 	
 	public String deleteByEmail(String Email);
 	
-	public String Login(String email, String pwd);
+	public String Login(LoginDto login);
 }
