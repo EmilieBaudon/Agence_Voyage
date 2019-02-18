@@ -11,5 +11,5 @@ public interface IService<T> {
 
 	public List<T> readAll();
 
-	public void deleteById(Long id);
+	public Boolean deleteById(Long id);
 }

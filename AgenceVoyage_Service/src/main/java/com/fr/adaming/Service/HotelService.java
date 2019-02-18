@@ -62,8 +62,14 @@ public class HotelService implements IService<Hotel> {
 	/**
 	 * @method delete an hotel in the database thanks to the id put in the parameter
 	 */
-	public void deleteById(Long id) {
-		dao.deleteById(id);
+	public Boolean deleteById(Long id) {
+		try {
+			dao.deleteById(id);
+			return true;
+		} catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**

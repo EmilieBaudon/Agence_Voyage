@@ -26,8 +26,8 @@ public class ActivityService implements IService<Activity> {
 	private IActivityDao dao;
 
 	/**
-	 * @method create an activity in the database
-	 * the creation is done only if the id of the object us null or equal to 0
+	 * @method create an activity in the database the creation is done only if the
+	 *         id of the object us null or equal to 0
 	 */
 	@Override
 	public Activity create(Activity activity) {
@@ -39,8 +39,8 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * @method update an activity in the database
-	 * the update is done only if the id of the activity is found in the DB
+	 * @method update an activity in the database the update is done only if the id
+	 *         of the activity is found in the DB
 	 */
 	@Override
 	public Activity update(Activity activity) {
@@ -52,7 +52,8 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * @method read an activity in the database thanks to the id put in the parameter
+	 * @method read an activity in the database thanks to the id put in the
+	 *         parameter
 	 */
 	@Override
 	public Activity readById(Long id) {
@@ -60,10 +61,17 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * @method delete an activity in the database thanks to the id put in the parameter
+	 * @method delete an activity in the database thanks to the id put in the
+	 *         parameter
 	 */
-	public void deleteById(Long id) {
-		dao.deleteById(id);
+	public Boolean deleteById(Long id) {
+		try {
+			dao.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
