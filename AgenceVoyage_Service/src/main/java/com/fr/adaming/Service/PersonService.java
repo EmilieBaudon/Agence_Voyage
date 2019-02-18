@@ -7,11 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fr.adaming.dao.IPersonDao;
 import com.fr.adaming.entity.Person;
 
+/**
+ * 
+ * @author EmilieBaudon
+ *
+ */
 public class PersonService implements IPersonService {
 	
+	/**
+	 * dao contain all the CRUD methods (Create, Read, Update and delete)
+	 */
 	@Autowired
 	IPersonDao dao;
 
+	
+	/**
+	 * Create the person given in the database
+	 * Return Null if the person already exist
+	 */
 	@Override
 	public Person create(Person person) {
 		if ((person.getId() == null || !dao.existsById(person.getId())) && person.getMail() != null) {
@@ -25,6 +38,10 @@ public class PersonService implements IPersonService {
 		}
 	}
 
+	/**
+	 * Update the person given
+	 * if the person do not exit in the database, return Null
+	 */
 	@Override
 	public Person update(Person person) {
 		if (person.getId() != null && dao.existsById(person.getId())) {
@@ -38,6 +55,10 @@ public class PersonService implements IPersonService {
 		}
 	}
 
+	/**
+	 * Return a person with its Mail
+	 * Return Null if the Mail do not exist in the database
+	 */
 	@Override
 	public Person readByEmail(String email) {
 		if (email != null) {
@@ -53,6 +74,10 @@ public class PersonService implements IPersonService {
 		
 	}
 
+	/**
+	 * Return a person with its Mail
+	 * Return Null if the Mail do not exist in the database	 
+	 */
 	@Override
 	public Person readById(Long id) {
 		if (id != null) {
@@ -62,6 +87,10 @@ public class PersonService implements IPersonService {
 		}
 	}
 
+	/**
+	 * return all the people in the database
+	 * return null if the database is empty
+	 */
 	@Override
 	public List<Person> readAll() {
 		if (!dao.findAll().isEmpty()) {
@@ -71,17 +100,34 @@ public class PersonService implements IPersonService {
 		}
 	}
 
+	/**
+	 * delete a person with its id if it exist in the database
+	 */
 	@Override
 	public void deleteById(Long id) {
-				dao.deleteById(id);
+		try {
+			dao.deleteById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
+	/**
+	 * delete a person with its Mail if it exist in the database
+	 */
 	@Override
 	public void deleteByEmail(String email) {
-		Person user = dao.findByMail(email);
-		dao.deleteById(user.getId());
+		try {
+			Person user = dao.findByMail(email);
+			dao.deleteById(user.getId());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
+	/**
+	 * Connect a person if its Mail and Pwd are correct
+	 */
 	@Override
 	public Person Login(String email, String pwd) {
 		Person login=null;
