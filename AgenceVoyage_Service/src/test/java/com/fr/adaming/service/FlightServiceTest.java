@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fr.adaming.Service.FlightService;
@@ -89,23 +88,18 @@ public class FlightServiceTest {
 		assertNull(flight);
 	}
 
-	@Test(expected = EmptyResultDataAccessException.class)
+	@Test
 	public void deleteNonExistingObject() {
-		service.deleteById(9999999L);
+		Boolean objDelete = service.deleteById(9999999L);
+		assertFalse(objDelete);
 	}
 
 	@Test
 	public void deleteExistingObject() {
 		c_insertValid();
 		flight = service.readAll().get(0);
-		try {
-			service.deleteById(flight.getId());
-			assertTrue(true);
-		} catch (Exception e) {
-			assertFalse(true);
-		} finally {
-			flight = new Flight();
-		}
+		Boolean objDelete = service.deleteById(flight.getId());
+		assertTrue(objDelete);
 	}
 
 	@Test(expected = NoSuchElementException.class)
