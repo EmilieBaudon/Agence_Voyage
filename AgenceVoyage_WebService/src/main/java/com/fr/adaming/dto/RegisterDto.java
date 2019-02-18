@@ -53,18 +53,7 @@ public class RegisterDto {
 	/**
 	 * @param Person password
 	 */
-	@NotNull
-	private String pwd;
-	public RegisterDto(@NotNull String name, @NotNull String firstName, @NotNull LocalDate birthDate,
-			@NotNull String adress, @Email String mail, @NotNull String pwd) {
-		super();
-		this.name = name;
-		this.firstName = firstName;
-		this.birthDate = birthDate;
-		Adress = adress;
-		this.mail = mail;
-		this.pwd = pwd;
-	}
+	
 
 	
 	
