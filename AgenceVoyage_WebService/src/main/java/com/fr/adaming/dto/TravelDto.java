@@ -59,10 +59,17 @@ public class TravelDto {
 	private LocalDate periodEnd;
 	
 	/**
+	 * @param booking
+	 */	
+	private BookingDto booking;
+	
+	/**
+	 * @param flight
+	 */	
+	private FlightDto flight;
+	
+	/**
 	 * @param hotel
 	 */	
 	private HotelDto hotel;
-
-	
-
 }
