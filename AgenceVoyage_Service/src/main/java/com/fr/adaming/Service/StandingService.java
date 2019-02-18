@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fr.adaming.dao.IStandingDao;
+import com.fr.adaming.entity.Standing;
+
 
 @Service
 public class StandingService implements IService<Standing>{
@@ -32,7 +35,7 @@ public class StandingService implements IService<Standing>{
 
 	@Override
 	public Standing readById(Long id) {
-		return dao.findByID(id);
+		return dao.findById(id);
 	}
 	
 	public void deleteById(Long id) {

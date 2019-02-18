@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fr.adaming.dao.IFlightDao;
+import com.fr.adaming.entity.Flight;
+
 @Service
 public class FlightService implements IService<Flight>{
 
@@ -31,7 +34,7 @@ public class FlightService implements IService<Flight>{
 
 	@Override
 	public Flight readById(Long id) {
-		return dao.findByID(id);
+		return dao.findById(id);
 	}
 	
 	public void deleteById(Long id) {
