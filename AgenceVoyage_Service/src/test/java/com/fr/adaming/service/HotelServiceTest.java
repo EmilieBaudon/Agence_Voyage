@@ -1,0 +1,27 @@
+package com.fr.adaming.service;
+
+import org.junit.FixMethodOrder;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.fr.adaming.Service.HotelService;
+import com.fr.adaming.entity.Hotel;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
+public class HotelServiceTest {
+
+	private HotelService service;
+
+	private Hotel testHotel;
+
+	public void a_createHotelTest() {
+		testHotel = new Hotel("Hilton", "hotel de riche");
+
+	}
+
+}
