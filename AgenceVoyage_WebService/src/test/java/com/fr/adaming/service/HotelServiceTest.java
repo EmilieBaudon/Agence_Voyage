@@ -1,7 +1,16 @@
 package com.fr.adaming.service;
 
+/**
+ * This class contains all the unitary tests for the Hotel class. It will test all the Service Layer methods
+ * as well as the Hibernate database constraints and conditions (Nullable, unique etc.). 
+ * 
+ * @author Quentin
+ */
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.FixMethodOrder;
@@ -40,7 +49,7 @@ public class HotelServiceTest {
 	// Création d'un objet valide
 	@Test
 	public void a_createHotelTest() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		service.create(testHotel);
 		assertNotNull(testHotel);
 
@@ -49,18 +58,18 @@ public class HotelServiceTest {
 	// Créer hotel deja existant
 	@Test
 	public void b_createExistingHotelTest() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
-		Hotel testHotel2 = new Hotel("Hilton", "hotel de riche");
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
+		Hotel testHotel2 = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
 		testHotel2 = service.create(testHotel2);
 		assertNull(testHotel2);
 
 	}
 
-	// Créer un hotel avec ID nulle
+	// Créer un hotel avec ID null
 	@Test
 	public void c_createNullIdHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel.setId(null);
 		testHotel = service.create(testHotel);
 		assertNotNull(testHotel);
@@ -69,7 +78,7 @@ public class HotelServiceTest {
 	// Créer un hotel avec ID = 0
 	@Test
 	public void d_createZeroIdHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel.setId(0L);
 		testHotel = service.create(testHotel);
 		assertNotNull(testHotel);
@@ -78,25 +87,25 @@ public class HotelServiceTest {
 	// Créer un hotel avec nom déjà existant
 	@Test(expected = DataIntegrityViolationException.class)
 	public void e_createExistingNameHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		service.create(testHotel);
-		Hotel testHotel2 = new Hotel("Hilton", "hotel de Trump");
+		Hotel testHotel2 = new Hotel("Hilton", "hotel de Trump",null,null);
 		testHotel2 = service.create(testHotel2);
 
 	}
 
 	// Créer un hotel avec nom null
-	@Test
+	@Test(expected = DataIntegrityViolationException.class)
 	public void f_createNullNameHotel() {
-		testHotel = new Hotel(null, "hotel de riche");
-		service.create(testHotel);
+		testHotel = new Hotel(null, "hotel de riche",null,null);
+		testHotel = service.create(testHotel);
 
 	}
 
 	// Modification d'un objet qui n'existe pas
 	@Test
-	public void f_updateNonExistingHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+	public void g_updateNonExistingHotel() {
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		service.update(testHotel);
 		testHotel.setId(999L);
 		assertNull(testHotel);
@@ -105,8 +114,8 @@ public class HotelServiceTest {
 
 	// Modification d'un objet qui existe dans la BD
 	@Test
-	public void g_updateExistingHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+	public void h_updateExistingHotel() {
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
 		testHotel = service.readAll().get(0);
 		testHotel = service.update(testHotel);
@@ -115,8 +124,8 @@ public class HotelServiceTest {
 
 	// Update un objet avec un ID null
 	@Test
-	public void h_updateNullIdHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+	public void i_updateNullIdHotel() {
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
 		testHotel.setId(null);
 		service.update(testHotel);
@@ -125,8 +134,8 @@ public class HotelServiceTest {
 
 	// Update un objet avec un ID =0
 	@Test
-	public void i_update0IdHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
+	public void j_update0IdHotel() {
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
 		testHotel.setId(0L);
 		service.update(testHotel);
@@ -134,10 +143,20 @@ public class HotelServiceTest {
 	}
 
 	// Delete Objet non-existant
-	@Test(expected = EmptyResultDataAccessException.class)
-	public void j_deleteNonExistingHotel() {
-		testHotel = new Hotel("Hilton", "hotel de riche");
-		testHotel.setId(999999999L);
+	@Test
+	public void k_deleteNonExistingHotel() {
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
+		Boolean boolTest = service.deleteById(testHotel.getId());
+		assertFalse(boolTest);
+	}
+	
+	//Delete objet existant
+	@Test
+	public void l_deleteExistingHotel() {
+		testHotel = new Hotel("Hilton", "hotel de riche",null,null);
+		testHotel = service.create(testHotel);
+		Boolean boolTest = service.deleteById(testHotel.getId());
+		assertTrue(boolTest);
 	}
 
 }
