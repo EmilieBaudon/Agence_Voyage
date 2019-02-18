@@ -21,10 +21,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-<<<<<<< HEAD
+
 @AllArgsConstructor
-=======
->>>>>>> 8fb42c23b02ca27155db1bee7b6a8f25c49c890d
+
 public class RegisterDto {
 	/**
 	 * @param Person name
