@@ -3,6 +3,7 @@ package com.fr.adaming.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * The entity Travel is about the choices of customers It's linked to customers
@@ -31,6 +33,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 
 public class Travel {
 	/**
@@ -42,19 +45,23 @@ public class Travel {
 	/**
 	 * @param number of nights
 	 */
+	@Column(nullable = false)
 	private int nbrNight;
 
 	/**
 	 * @param destiantion
 	 */
+	@Column(nullable = false)
 	private String destination;
 	/**
 	 * @param periodBegin
 	 */
+	@Column(nullable = false)
 	private Date periodBegin;
 	/**
 	 * @param periodEnd
 	 */
+	@Column(nullable = false)
 	private Date periodEnd;
 	/**
 	 * @param list of booking
