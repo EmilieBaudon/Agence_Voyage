@@ -11,7 +11,7 @@ public interface IPersonService {
 	public Person readByEmail(String email);
 	public Person readById(Long id);
 	public List<Person> readAll();
-	public void deleteById(Long id);
-	public void deleteByEmail(String Email);
+	public boolean deleteById(Long id);
+	public boolean deleteByEmail(String Email);
 	public Person Login(String email, String pwd);
 }

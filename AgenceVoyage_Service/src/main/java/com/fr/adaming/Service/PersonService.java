@@ -3,6 +3,7 @@ package com.fr.adaming.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IPersonDao;
@@ -14,6 +15,7 @@ import com.fr.adaming.entity.Person;
  *
  */
 @Service
+@Qualifier("PersonService")
 public class PersonService implements IPersonService {
 	
 	/**
@@ -106,11 +108,13 @@ public class PersonService implements IPersonService {
 	 * delete a person with its id if it exist in the database
 	 */
 	@Override
-	public void deleteById(Long id) {
+	public boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -118,12 +122,14 @@ public class PersonService implements IPersonService {
 	 * delete a person with its Mail if it exist in the database
 	 */
 	@Override
-	public void deleteByEmail(String email) {
+	public boolean deleteByEmail(String email) {
 		try {
 			Person user = dao.findByMail(email);
 			dao.deleteById(user.getId());
+			return true;
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return false;
 		}
 	}
 
