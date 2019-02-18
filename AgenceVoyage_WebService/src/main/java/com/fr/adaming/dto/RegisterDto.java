@@ -44,7 +44,7 @@ public class RegisterDto {
 	 * @param Person adress
 	 */
 	@NotNull
-	private String Adress;
+	private String adress;
 	/**
 	 * @param Person mail
 	 */
@@ -53,7 +53,7 @@ public class RegisterDto {
 	/**
 	 * @param Person password
 	 */
-	
+	private String pwd;
 
 	
 	
