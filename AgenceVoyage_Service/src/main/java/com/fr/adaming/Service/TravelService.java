@@ -1,5 +1,6 @@
 package com.fr.adaming.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class TravelService implements IService<Travel> {
 	 */
 	@Override
 	public Travel create(Travel travel) {
-		if (travel.getId() == null || travel.getId() == 0L) {
+		if ((travel.getId() == null || travel.getId() == 0L) && travel.getPeriodBegin().isAfter(LocalDate.now())) {
+			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1));
 			return dao.save(travel);
 		} else {
 			return null;

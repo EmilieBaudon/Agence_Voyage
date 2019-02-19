@@ -39,13 +39,8 @@ public class BookingController {
 		}
 	}
 
-	@RequestMapping(path = "update" , method = RequestMethod.POST)
+	@RequestMapping(path = "update", method = RequestMethod.POST)
 	public String update(@RequestBody BookingDtoWithId dto) {
-		
-		
-		
-		
-		
-		
+
 	}
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Future;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -52,6 +53,7 @@ public class Travel {
 	 */
 	@Column(nullable = false)
 	private String destination;
+	
 	/**
 	 * @param periodBegin
 	 */
@@ -60,7 +62,7 @@ public class Travel {
 	/**
 	 * @param periodEnd
 	 */
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate periodEnd;
 	/**
 	 * @param list of booking
