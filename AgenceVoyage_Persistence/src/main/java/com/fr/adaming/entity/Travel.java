@@ -78,7 +78,7 @@ public class Travel {
 	 * @param hotel
 	 */
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "hotel")
 	private Hotel hotel;
 
