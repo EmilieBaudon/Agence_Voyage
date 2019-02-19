@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,7 +19,6 @@ import lombok.Setter;
  * @author victor
  *
  */
-
 
 @Getter
 @Setter
@@ -41,7 +41,7 @@ public class TechnicianDto {
 	 * @param Person date of birth
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate birthDate;
 	/**
 	 * @param Person adress
@@ -54,8 +54,10 @@ public class TechnicianDto {
 	@Email
 	private String mail;
 	/**
-	 * @param Person password
+	 * @param Person password 
+	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 	 */
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
 	private String pwd;
 	/**
 	 * @param Technician's job
@@ -65,13 +67,12 @@ public class TechnicianDto {
 	/**
 	 * @param Technician's job start date
 	 */
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate jobStartDate;
-	
+
 	/**
 	 * @param list of travel associated to a technician
 	 */
 	private List<TravelDto> ltravelDto;
-	
 
 }

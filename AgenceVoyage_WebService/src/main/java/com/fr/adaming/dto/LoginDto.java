@@ -2,6 +2,7 @@ package com.fr.adaming.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,8 +28,10 @@ public class LoginDto {
 	private String mail;
 	/**
 	 * @param Login pwd
+	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 	 */
 	@NotNull
+	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
 	private String pwd;
 
 }
