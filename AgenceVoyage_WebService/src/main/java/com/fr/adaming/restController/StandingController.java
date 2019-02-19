@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fr.adaming.Service.StandingService;
 import com.fr.adaming.dto.StandingDto;
 import com.fr.adaming.dto.StandingDtoWithId;
+import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
 
 /**
@@ -25,7 +26,7 @@ import com.fr.adaming.entity.Standing;
 
 @RestController
 @RequestMapping(path = "standing/")
-public class StandingController implements IController<StandingDto, StandingDtoWithId> {
+public class StandingController  {
 
 	/**
 	 * @param StandingService is an object from the Service layer, used to interact
@@ -56,12 +57,17 @@ public class StandingController implements IController<StandingDto, StandingDtoW
 	/**
 	 * @Method createObject is a method which allows the user to create a Standing
 	 *         object in the database.
+	 *         
+	 *         The 'Hotel' object is first created, as a hotel is first required to exist  before a 'Standiing' object is created
+	 *         in the database. 
 	 */
-	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@RequestBody StandingDto dto) {
+	public String createObject(@RequestBody StandingDtoWithId dtoId) {
+		Hotel hotel = new Hotel();
+		hotel.setId(dtoId.getHotelDto().getId()); //On ne prend que l'ID car SQL n'a besoin que de l'ID pour reconnaitre l'Hotel. 
+		
 		Standing standing = service.create(
-				new Standing(dto.getNbRoom(), dto.getPriceChild(), dto.getPriceAdult(), dto.getDesc(), null, null));
+				new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(), hotel, null));
 
 		if (standing != null) {
 			return "Standing created";
@@ -74,11 +80,13 @@ public class StandingController implements IController<StandingDto, StandingDtoW
 	 * @Method updateObject is a method which allows the user to update an existing
 	 *         Standing object in the database.
 	 */
-	@Override
 	@RequestMapping(path = "update", method = RequestMethod.POST)
 	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
+		Hotel hotel = new Hotel();
+		hotel.setId(dtoId.getHotelDto().getId()); 
+		
 		Standing standing = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
-				dtoId.getDesc(), null, null);
+				dtoId.getDesc(), hotel, null);
 		standing.setId(dtoId.getId());
 		service.update(standing);
 		if (standing != null) {
@@ -92,7 +100,6 @@ public class StandingController implements IController<StandingDto, StandingDtoW
 	 * @Method read is a method which allows the user to get information about an
 	 *         existing Standing object in the database.
 	 */
-	@Override
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
 	public StandingDtoWithId readById(@PathVariable(value = "id") Long id) {
 		Standing result = service.readById(id);
@@ -106,7 +113,6 @@ public class StandingController implements IController<StandingDto, StandingDtoW
 	 * @Method readall is a method which allows the user to get information about
 	 *         all the Standing objects in the database.
 	 */
-	@Override
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
 	public List<StandingDtoWithId> readAll() {
 		List<Standing> result = service.readAll();
@@ -122,7 +128,6 @@ public class StandingController implements IController<StandingDto, StandingDtoW
 	 * @Method delete is a method which allows the user to delete an existing Standing
 	 *         object in the database.
 	 */
-	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
 		service.deleteById(id);
