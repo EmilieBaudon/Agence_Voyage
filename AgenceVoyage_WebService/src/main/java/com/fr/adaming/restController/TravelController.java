@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.dto.TravelDto;
+import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Travel;
 
 /**
@@ -24,7 +25,7 @@ import com.fr.adaming.entity.Travel;
 
 @RestController
 @RequestMapping(path = "travel/")
-public class TravelController implements IController<TravelDto> {
+public class TravelController implements IController<TravelDto, TravelDtoWithId> {
 
 	/**
 	 * @param TravelService is an object used to access the database
@@ -59,9 +60,10 @@ public class TravelController implements IController<TravelDto> {
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.POST)
-	public String updateObject(@RequestBody TravelDto obj) {
+	public String updateObject(@RequestBody TravelDtoWithId obj) {
 		Travel travel = service.update(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
 				dto.getPeriodEnd(), null, null, null));
+		travel.setId(dto.getId());
 		if (travel != null) {
 
 			return "Travel has been updated";
@@ -77,11 +79,11 @@ public class TravelController implements IController<TravelDto> {
 	 */
 	@Override
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
-	public TravelDto readById(@PathVariable(value = "id") Long id) {
+	public TravelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Travel result = service.readById(id);
-		TravelDto dto = new TravelDto(result.getNbrNight(), result.getDestination(), result.getPeriodBegin(),
-				result.getPeriodEnd(), null, null, null);
+		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
+				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null);
 		return dto;
 	}
 
@@ -90,15 +92,15 @@ public class TravelController implements IController<TravelDto> {
 	 */
 	@Override
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
-	public List<TravelDto> readAll() {
+	public List<TravelDtoWithId> readAll() {
 		List<Travel> result = service.readAll();
-		List<TravelDto> listDto = new ArrayList<TravelDto>();
+		List<TravelDtoWithId> listDto = new ArrayList<TravelDtoWithId>();
 		for (Travel temp : result) {
-			listDto.add(new TravelDto(temp.getNbrNight(), temp.getDestination(), temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
+			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
+					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
 		}
 		return listDto;
-		
-	
+
 	}
 
 	/**
