@@ -3,6 +3,9 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.dto.HotelDto;
 import com.fr.adaming.dto.HotelDtoWithId;
@@ -27,12 +31,14 @@ import com.fr.adaming.entity.Hotel;
 @RequestMapping(path = "hotel/")
 public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 
+	private Logger log = Logger.getLogger(ActivityService.class);
 	/**
 	 * @param HotelService is an object from the Service layer, used to interact
 	 *                     with the SQL database.
 	 */
 
 	@Autowired
+
 	private HotelService service;
 
 	/**
@@ -57,15 +63,16 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@RequestBody HotelDto dto) {
+	public String createObject(@Valid @RequestBody HotelDto dto) {
 		Hotel hotel = service.create(new Hotel(dto.getName(), dto.getDesc(), null, null));
 
 		if (hotel != null) {
+			log.info("Hotel created (controller)");
 			return "Hotel created";
 		} else {
+			log.error("There was a problem creating your hotel (controller)");
 			return "Hotel not created";
 		}
-
 	}
 
 	/**
@@ -74,14 +81,18 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.POST)
-	public String updateObject(@RequestBody HotelDtoWithId dto) {
+	public String updateObject(@Valid @RequestBody HotelDtoWithId dto) {
 		Hotel hotel = new Hotel(dto.getName(), dto.getDesc(), null, null);
 		hotel.setId(dto.getId());
 		service.update(hotel);
-		if (hotel != null) {
-			return "Hotel updated";
-		} else {
+		if (hotel.equals(null)) {
+
+			log.error("There was a problem updting your Hotel (controller)");
 			return "Hotel not updated";
+		} else {
+
+			log.info("Hotel updated (controller)");
+			return "Hotel updated";
 		}
 
 	}
@@ -97,7 +108,14 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 		Hotel result = service.readById(id);
 		HotelDtoWithId dto = new HotelDtoWithId(result.getId(), result.getName(), result.getDesc(), null, null);
 
-		return dto;
+		if (dto.equals(null)) {
+			log.error("There was an issue reading your Hotel (controller)");
+			return null;
+		} else {
+			log.info("Your Hotel : (controller)");
+			return dto;
+		}
+
 	}
 
 	/**
@@ -113,7 +131,14 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 			listDto.add(new HotelDtoWithId(temp.getId(), temp.getName(), temp.getDesc(), null, null));
 		}
 
-		return listDto;
+		if (listDto.equals(null)) {
+			log.error("There was an issue reading all your Hotel (controller)");
+			return null;
+		} else {
+			log.info("Your Hotel List: (controller)");
+			return listDto;
+		}
+
 	}
 
 	/**
@@ -125,7 +150,12 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	public String delete(Long id) {
 		service.deleteById(id);
 
-		return "Hotel deleted";
+		if (service.deleteById(id) == true) {
+			log.info("Your Hotel was deleted (controller)");
+			return "Hotel deleted";
+		} else {
+			log.error("There was an issue deleting your Hotel (controller)");
+			return "Hotel NOT deleted";
+		}
 	}
-
 }

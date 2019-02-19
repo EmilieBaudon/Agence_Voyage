@@ -2,6 +2,7 @@ package com.fr.adaming.Service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import com.fr.adaming.entity.Standing;
  */
 @Service
 public class StandingService implements IService<Standing> {
+	
+	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
 	 * @param Data access object of the standing
