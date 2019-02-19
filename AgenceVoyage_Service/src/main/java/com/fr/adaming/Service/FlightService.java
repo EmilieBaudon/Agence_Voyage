@@ -3,6 +3,7 @@ package com.fr.adaming.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IFlightDao;
@@ -17,6 +18,7 @@ import com.fr.adaming.entity.Flight;
  *
  */
 @Service
+@Qualifier("flightService")
 public class FlightService implements IService<Flight> {
 
 	/**
@@ -31,6 +33,18 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public Flight create(Flight flight) {
+		System.out.println("DEBUGG Departure: " + flight.getDateDeparture());
+		System.out.println("DEBUGG Arrival: " +flight.getDateArrival());
+
+		
+		if (flight.getDateDeparture().isBefore(flight.getDateArrival())) {
+			return null;
+		}
+//		} else if (flight.getDateDeparture().isAfter(flight.getTravel().getPeriodBegin())) {
+//			return null;
+//		} else if (flight.getDateArrival().isBefore(flight.getTravel().getPeriodEnd())) {
+//			return null;
+//		}
 		if (flight.getId() == null || flight.getId() == 0L) {
 			return dao.save(flight);
 		} else {
