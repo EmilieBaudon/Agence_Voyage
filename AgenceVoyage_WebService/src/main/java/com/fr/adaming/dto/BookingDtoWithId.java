@@ -50,12 +50,12 @@ public class BookingDtoWithId {
 	 * @param customerDto
 	 */
 
-	private CustomerDto customerDto;
+	private CustomerDtoWithId customerDto;
 
 	/**
 	 * @param travelDto
 	 */
 
-	private TravelDto travelDto;
+	private TravelDtoWithId travelDto;
 
 }
