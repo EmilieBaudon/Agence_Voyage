@@ -56,6 +56,6 @@ public class FlightDtoWithId {
 	/**
 	 * @param TravelDto
 	 */
-	private TravelDto travelDto;
+	private TravelDtoWithId travelDto;
 
 }

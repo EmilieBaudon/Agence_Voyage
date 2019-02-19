@@ -50,7 +50,7 @@ public class StandingDtoWithId {
 	/**
 	 * @param hotel associated to Standing	 
 	 */	
-	private HotelDto hotelDto;
+	private HotelDtoWithId hotelDto;
 	/**
 	 * 
 	 * @param list of activities
