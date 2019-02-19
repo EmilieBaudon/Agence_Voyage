@@ -2,8 +2,8 @@ package com.fr.adaming.Service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IFlightDao;
@@ -18,7 +18,6 @@ import com.fr.adaming.entity.Flight;
  *
  */
 @Service
-@Qualifier("flightService")
 public class FlightService implements IService<Flight> {
 
 	/**
@@ -27,40 +26,37 @@ public class FlightService implements IService<Flight> {
 	@Autowired
 	private IFlightDao dao;
 
+	private Logger log = Logger.getLogger(ActivityService.class);
+
 	/**
 	 * @method create an flight in the database the creation is done only if the id
 	 *         of the object us null or equal to 0
 	 */
 	@Override
 	public Flight create(Flight flight) {
-		System.out.println("DEBUGG Departure: " + flight.getDateDeparture());
-		System.out.println("DEBUGG Arrival: " +flight.getDateArrival());
-
-		
 		if (flight.getDateDeparture().isBefore(flight.getDateArrival())) {
 			return null;
 		}
-//		} else if (flight.getDateDeparture().isAfter(flight.getTravel().getPeriodBegin())) {
-//			return null;
-//		} else if (flight.getDateArrival().isBefore(flight.getTravel().getPeriodEnd())) {
-//			return null;
-//		}
 		if (flight.getId() == null || flight.getId() == 0L) {
+			log.info("flight created (service)");
 			return dao.save(flight);
 		} else {
+			log.warn("The flight you want to create has an id which already exist (service)");
 			return null;
 		}
 	}
 
 	/**
-	 * @method update an flight in the database the update is done only if the id
-	 *         of the flight is found in the DB
+	 * @method update an flight in the database the update is done only if the id of
+	 *         the flight is found in the DB
 	 */
 	@Override
 	public Flight update(Flight flight) {
 		if (flight.getId() != null && flight.getId() != 0L && dao.existsById(flight.getId())) {
+			log.info("flight updated (service)");
 			return dao.save(flight);
 		} else {
+			log.warn("The flight (service) you want to update has an id does not exist in the database(service)");
 			return null;
 		}
 	}
@@ -70,7 +66,9 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public Flight readById(Long id) {
-		return dao.findById(id).get();
+		Flight flight = dao.findById(id).get();
+		log.info("flight with ");
+		return flight;
 	}
 
 	/**
@@ -80,9 +78,10 @@ public class FlightService implements IService<Flight> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			log.info("flight with id=" + id + " delete (service)");
 			return true;
-		} catch (Exception e){
-			e.printStackTrace();
+		} catch (Exception e) {
+			log.error("flight (service) with id=" + id + " has not been delete: " + e.getMessage());
 			return false;
 		}
 	}
