@@ -30,7 +30,7 @@ public class PersonService implements IPersonService {
 	 */
 	@Override
 	public Person create(Person person) {
-		if ((person.getId() == null || !dao.existsById(person.getId())) && person.getMail() != null) {
+		if ((person.getId() == null || person.getId() == 0L || !dao.existsById(person.getId())) && person.getMail() != null) {
 			if (dao.findByMail(person.getMail()) == null) {
 				return dao.save(person);
 			} else {
@@ -83,9 +83,10 @@ public class PersonService implements IPersonService {
 	 */
 	@Override
 	public Person readById(Long id) {
-		if (id != null) {
-			return dao.findById(id).get();
-		} else {
+		try {
+			Person person = dao.findById(id).get();
+			return person;
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -112,7 +113,7 @@ public class PersonService implements IPersonService {
 			dao.deleteById(id);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -127,7 +128,7 @@ public class PersonService implements IPersonService {
 			dao.deleteById(user.getId());
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
