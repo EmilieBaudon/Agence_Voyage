@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fr.adaming.Service.FlightService;
 import com.fr.adaming.dto.FlightDto;
 import com.fr.adaming.dto.FlightDtoWithId;
-import com.fr.adaming.dto.TravelDto;
 import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Flight;
 import com.fr.adaming.entity.Travel;
@@ -54,7 +53,7 @@ public class FlightController implements IController<FlightDto,FlightDtoWithId> 
 	 * @method updateObject is here to update an object in the database with the
 	 *         parameter
 	 */
-	@RequestMapping(path = "update", method = RequestMethod.POST)
+	@RequestMapping(path = "update", method = RequestMethod.PUT)
 	public String updateObject(@RequestBody FlightDtoWithId obj) {
 		//Travel travel = new Travel(obj.getTravelDto().getNbrNight(),obj.getTravelDto().getDestination(), obj.getTravelDto().getPeriodBegin(),obj.getTravelDto().getPeriodEnd(), null, null, null);
 		Travel travel = new Travel();
