@@ -3,6 +3,7 @@ package com.fr.adaming.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class TravelService implements IService<Travel> {
 	@Autowired
 	private ITravelDao dao;
 
+	private Logger log = Logger.getLogger(TravelService.class);
+
 	/**
 	 * @method create an travel in the database the creation is done only if the id
 	 *         of the object us null or equal to 0
@@ -34,8 +37,10 @@ public class TravelService implements IService<Travel> {
 	public Travel create(Travel travel) {
 		if ((travel.getId() == null || travel.getId() == 0L) && travel.getPeriodBegin().isAfter(LocalDate.now())) {
 			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1));
+			log.info("activity created (service)");
 			return dao.save(travel);
 		} else {
+			log.warn("The activity you want to create has an id which already exist (service)");
 			return null;
 		}
 	}
@@ -47,8 +52,10 @@ public class TravelService implements IService<Travel> {
 	@Override
 	public Travel update(Travel travel) {
 		if (travel.getId() != null && travel.getId() != 0L && dao.existsById(travel.getId())) {
+			log.info("activity updated (service)");
 			return dao.save(travel);
 		} else {
+			log.warn("The activity you want to update has an id which already exist (service)");
 			return null;
 		}
 	}
@@ -58,6 +65,7 @@ public class TravelService implements IService<Travel> {
 	 */
 	@Override
 	public Travel readById(Long id) {
+		log.info("Activity print (service)");
 		return dao.findById(id).get();
 	}
 
@@ -68,11 +76,11 @@ public class TravelService implements IService<Travel> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			log.info("Activity deleted (service)");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.print("DEBUG NON DELETE");
-			e.printStackTrace();
+			log.error("Exception detected (service)");
 			return false;
 		}
 	}
@@ -82,6 +90,7 @@ public class TravelService implements IService<Travel> {
 	 */
 	@Override
 	public List<Travel> readAll() {
+		log.info("List of activities printed (service)");
 		return dao.findAll();
 	}
 }
