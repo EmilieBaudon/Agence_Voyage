@@ -126,9 +126,16 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "updateCustomerEmail", method = RequestMethod.PUT)
-	public String updateEmail(CustomerDtoWithId dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateEmail(@RequestBody CustomerDtoWithId dto) {
+		Customer person = (Customer) service.readById(dto.getId());
+		person.setId(dto.getId());
+		person.setMail(dto.getMail());
+		Person result = service.update(person);
+		if (result != null) {
+			return "person has been updated";
+		} else {
+			return "person could not be updated";
+		}
 	}
 
 	/**
@@ -137,7 +144,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "updateTechEmail", method = RequestMethod.PUT)
-	public String updateEmail(TechnicianDtoWithId dto) {
+	public String updateEmail(@RequestBody TechnicianDtoWithId dto) {
 		Technician person = (Technician) service.readById(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
