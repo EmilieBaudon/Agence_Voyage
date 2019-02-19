@@ -68,5 +68,5 @@ public class TravelDtoWithId {
 	/**
 	 * @param hotelDto
 	 */	
-	private HotelDto hotelDto;
+	private HotelDtoWithId hotelDto;
 }

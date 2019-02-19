@@ -42,13 +42,13 @@ public class HotelDtoWithId {
 	/**
 	 * @param ltravelDto
 	 */	
-	List <TravelDto> ltravelDto;
+	List <TravelDtoWithId> ltravelDto;
 	
 	/**
 	 *  @param lstandingDto 
 	 * 
 	 */	
-	List <StandingDto> lstandingDto;
+	List <StandingDtoWithId> lstandingDto;
 
 
 }

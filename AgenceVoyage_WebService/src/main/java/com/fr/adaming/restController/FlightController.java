@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.FlightService;
 import com.fr.adaming.dto.FlightDto;
+import com.fr.adaming.dto.FlightDtoWithId;
 import com.fr.adaming.dto.TravelDto;
+import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Flight;
 import com.fr.adaming.entity.Travel;
 
@@ -21,7 +23,7 @@ import com.fr.adaming.entity.Travel;
  */
 @RestController
 @RequestMapping(path = "flight/")
-public class FlightController implements IController<FlightDto> {
+public class FlightController implements IController<FlightDto,FlightDtoWithId> {
 
 	/**
 	 * @param FlightService is an object used to access the database
@@ -53,8 +55,9 @@ public class FlightController implements IController<FlightDto> {
 	 *         parameter
 	 */
 	@RequestMapping(path = "update", method = RequestMethod.POST)
-	public String updateObject(@RequestBody FlightDto obj) {
-		Travel travel = new Travel(obj.getTravelDto().getNbrNight(),obj.getTravelDto().getDestination(), obj.getTravelDto().getPeriodBegin(),obj.getTravelDto().getPeriodEnd(), null, null, null);
+	public String updateObject(@RequestBody FlightDtoWithId obj) {
+		//Travel travel = new Travel(obj.getTravelDto().getNbrNight(),obj.getTravelDto().getDestination(), obj.getTravelDto().getPeriodBegin(),obj.getTravelDto().getPeriodEnd(), null, null, null);
+		Travel travel = new Travel();
 		travel.setId(obj.getTravelDto().getId());
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), travel));
@@ -71,10 +74,10 @@ public class FlightController implements IController<FlightDto> {
 	 *         parameter id
 	 */
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
-	public FlightDto readById(Long id) {
+	public FlightDtoWithId readById(Long id) {
 		Flight result = service.readById(id);
-		TravelDto tdto = new TravelDto(result.getTravel().getNbrNight(), result.getTravel().getDestination(), result.getTravel().getPeriodBegin(), result.getTravel().getPeriodEnd(), null, null, null);
-		FlightDto dto = new FlightDto(result.getIdPlane(), result.getDateArrival(), result.getDateDeparture(), result.getAirportDeparture(), result.getAirportArrival(),tdto);
+		TravelDtoWithId tdto = new TravelDtoWithId(result.getTravel().getId(),result.getTravel().getNbrNight(), result.getTravel().getDestination(), result.getTravel().getPeriodBegin(), result.getTravel().getPeriodEnd(), null, null, null);
+		FlightDtoWithId dto = new FlightDtoWithId(result.getId(),result.getIdPlane(), result.getDateArrival(), result.getDateDeparture(), result.getAirportDeparture(), result.getAirportArrival(),tdto);
 		return dto;
 	}
 
@@ -82,13 +85,13 @@ public class FlightController implements IController<FlightDto> {
 	 * @method readAll recover every flights in a table
 	 */
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
-	public List<FlightDto> readAll() {
+	public List<FlightDtoWithId> readAll() {
 		List<Flight> result = service.readAll();
-		List<FlightDto> listDto = new ArrayList<FlightDto>();
+		List<FlightDtoWithId> listDto = new ArrayList<FlightDtoWithId>();
 		for (Flight temp : result) {
-			TravelDto tdto = new TravelDto(temp.getTravel().getNbrNight(), temp.getTravel().getDestination(), temp.getTravel().getPeriodBegin(), temp.getTravel().getPeriodEnd(), null, null, null);
-			FlightDto flightDto = new FlightDto(temp.getIdPlane(), temp.getDateArrival(), temp.getDateDeparture(), temp.getAirportDeparture(), temp.getAirportArrival(), tdto);
-			listDto.add(flightDto);
+			TravelDtoWithId tdto = new TravelDtoWithId(temp.getTravel().getId(),temp.getTravel().getNbrNight(), temp.getTravel().getDestination(), temp.getTravel().getPeriodBegin(), temp.getTravel().getPeriodEnd(), null, null, null);
+			FlightDtoWithId dto = new FlightDtoWithId(temp.getId(),temp.getIdPlane(), temp.getDateArrival(), temp.getDateDeparture(), temp.getAirportDeparture(), temp.getAirportArrival(),tdto);
+			listDto.add(dto);
 		}
 		return listDto;
 	}
