@@ -35,8 +35,17 @@ public class BookingController {
 		if (result != null) {
 			return "Booking created YEAH !";
 		} else {
-			return "Booking pas créé ...";
+			return "Booking not created ...";
 		}
 	}
 
+	@RequestMapping(path = "update" , method = RequestMethod.POST)
+	public String update(@RequestBody BookingDtoWithId dto) {
+		
+		
+		
+		
+		
+		
+	}
 }
