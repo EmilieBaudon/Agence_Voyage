@@ -10,7 +10,7 @@ import java.util.List;
  * @param <T> represent the classes service as Activity, Booking...
  * 
  */
-public interface IController<T> {
+public interface IController<T,U> {
 
 	/**
 	 * 
@@ -24,20 +24,20 @@ public interface IController<T> {
 	 * @param obj is an object representing the service
 	 * @return a string saying if the creation has been successfull
 	 */
-	public String updateObject(T obj);
+	public String updateObject(U obj);
 
 	/**
 	 * 
 	 * @param id is a Long representing the id  of the service
 	 * @return a string saying if the creation has been successfull
 	 */
-	public T readById(Long id);
+	public U readById(Long id);
 
 	/**
 	 * 
 	 * @return the list of all the object of a table of the DB
 	 */
-	public List<T> readAll();
+	public List<U> readAll();
 
 	/**
 	 * 
