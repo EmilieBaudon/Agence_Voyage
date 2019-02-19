@@ -23,11 +23,14 @@ import com.fr.adaming.entity.Flight;
  */
 @RestController
 @RequestMapping(path="activity/")
-public class ActivityController implements IController<ActivityDto> {
+public class ActivityController implements IController<ActivityDto,ActivityDto> {
 	
 	@Autowired	
 	private ActivityService serviceActivity;	
-	
+	/**
+	 * @method import data from activity to the service
+	 * Use the Update method from activity service
+	 */
 	@RequestMapping(path="create",method=RequestMethod.POST)
 	public String createObject(@RequestBody ActivityDto obj) {
 		Activity result=serviceActivity.create(new Activity(obj.getName(),obj.getDesc()));	
@@ -37,7 +40,10 @@ public class ActivityController implements IController<ActivityDto> {
 			return"problem";
 		}
 	}
-	
+	/**
+	 * @method import data from activity to the service
+	 * Use the Update method from activity service
+	 */
 	@RequestMapping(path="update",method=RequestMethod.POST)
 	public String updateObject(@RequestBody ActivityDto obj) {
 		Activity res = new Activity(obj.getName(), obj.getDesc());
@@ -49,14 +55,20 @@ public class ActivityController implements IController<ActivityDto> {
 			return"problem";
 		}
 	}
-	
+	/**
+	 * @method import data from activity to the service
+	 * Use the read by id method from activity service
+	 */
 	@RequestMapping(path="read/{id}",method=RequestMethod.GET)
 	public ActivityDto readById(@PathVariable(value="id") Long id) {
 		Activity result= serviceActivity.readById(id);	
 		ActivityDto obj = new ActivityDto(result.getId(),result.getName(),result.getDesc());
 		return obj;
 	}
-	
+	/**
+	 * @method import data from activity to the service
+	 * Use the read all method from activity service
+	 */
 	@RequestMapping(path="readall",method=RequestMethod.GET)
 	public List<ActivityDto> readAll() {
 		List<Activity> result= serviceActivity.readAll();
@@ -66,7 +78,10 @@ public class ActivityController implements IController<ActivityDto> {
 		}
 		return listDto;
 	}
-	
+	/**
+	 * @method import data from activity to the service
+	 * Use the delete by id method from activity service
+	 */
 	@RequestMapping(path="delete/{id}",method=RequestMethod.DELETE)
 	public String delete(@PathVariable(value="id") Long id) {		
 			if(serviceActivity.deleteById(id)==true) {
