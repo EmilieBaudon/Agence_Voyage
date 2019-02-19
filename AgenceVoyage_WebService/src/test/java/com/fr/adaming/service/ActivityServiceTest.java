@@ -1,5 +1,6 @@
 package com.fr.adaming.service;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
@@ -61,17 +62,14 @@ public class ActivityServiceTest {
 		activity = activityService.update(activity);
 		assertNotNull(activity);
 	}
-
-	@Test(expected = EmptyResultDataAccessException.class)
+	
+	@Test
 	public void deleteActivityTest() {
 		/** 
 		 * test the delete of an activity which doesn't exist
 		 */
-		
-		Activity activity = new Activity();
-		activity.setId(99999L);
-		activityService.deleteById(activity.getId());
-
+		Boolean objDelete = activityService.deleteById(9999999L);
+		assertFalse(objDelete);
 	}
 
 }

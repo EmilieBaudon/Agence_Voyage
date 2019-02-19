@@ -17,7 +17,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ActivityDto {
-
+	@UniqueElements
+	private Long id;
 	/**
 	 * @param Activity Name
 	 */
