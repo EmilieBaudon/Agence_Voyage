@@ -67,7 +67,7 @@ public class FlightService implements IService<Flight> {
 	@Override
 	public Flight readById(Long id) {
 		Flight flight = dao.findById(id).get();
-		log.info("flight with ");
+		log.info("flight (service) with id=" + id +" has been read from the DB");
 		return flight;
 	}
 
@@ -91,6 +91,8 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public List<Flight> readAll() {
+		List<Flight> list = dao.findAll();
+		log.info("all flights (service) have been read from the DB");
 		return dao.findAll();
 	}
 }
