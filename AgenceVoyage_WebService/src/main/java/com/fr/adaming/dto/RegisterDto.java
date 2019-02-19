@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *  This Class allows a Person to register to a dataBase
