@@ -1,5 +1,6 @@
 package com.fr.adaming.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -45,11 +46,11 @@ public class Flight {
 	/**
 	 * @param dateArrival
 	 */
-	private Date dateArrival;
+	private LocalDate dateArrival;
 	/**
 	 * @param dateDeaprture
 	 */
-	private Date dateDeparture;
+	private LocalDate dateDeparture;
 	/**
 	 * @param airportDeparture
 	 */
@@ -67,7 +68,7 @@ public class Flight {
 	@JoinColumn(name = "travel")
 	private Travel travel;
 
-	public Flight(String idPlane, Date dateArrival, Date dateDeparture, String airportDeparture, String airportArrival,
+	public Flight(String idPlane, LocalDate dateArrival, LocalDate dateDeparture, String airportDeparture, String airportArrival,
 			Travel travel) {
 		super();
 		this.idPlane = idPlane;
