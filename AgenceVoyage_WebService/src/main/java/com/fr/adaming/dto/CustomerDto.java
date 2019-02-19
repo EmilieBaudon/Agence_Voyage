@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -54,7 +55,10 @@ public class CustomerDto {
 	private String mail;
 	/**
 	 * @param Person password
+	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
 	 */
+
+	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
 	private String pwd;
 	/**
 	 * @param Customer's card
