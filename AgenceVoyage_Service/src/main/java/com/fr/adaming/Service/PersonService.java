@@ -48,11 +48,7 @@ public class PersonService implements IPersonService {
 	@Override
 	public Person update(Person person) {
 		if (person.getId() != null && dao.existsById(person.getId())) {
-			if (dao.findByMail(person.getMail()) == null) {
-				return dao.save(person);
-			} else {
-				return null;
-			}
+			return dao.save(person);
 		} else {
 			return null;
 		}

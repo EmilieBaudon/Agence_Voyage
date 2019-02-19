@@ -26,6 +26,10 @@ public interface IPersonController {
 	
 	public String update(TechnicianDtoWithId dto);
 	
+	public String updateEmail(CustomerDtoWithId dto);
+	
+	public String updateEmail(TechnicianDtoWithId dto);
+	
 	public Person readByEmail(String email);
 	
 	public Person readById(Long id);
