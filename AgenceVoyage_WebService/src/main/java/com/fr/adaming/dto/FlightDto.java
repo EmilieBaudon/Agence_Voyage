@@ -51,4 +51,8 @@ public class FlightDto {
 	 */	
 	private TravelDto travelDto;	
 
+	/**
+	 * @param price of the flight
+	 */
+	private Double price;
 }

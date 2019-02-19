@@ -58,6 +58,11 @@ public class Flight {
 	 * @param airportArrival
 	 */
 	private String airportArrival;
+	
+	/**
+	 * @param price of the flight
+	 */
+	private Double price;
 
 	/**
 	 * @param Travel
@@ -67,15 +72,15 @@ public class Flight {
 	@JoinColumn(name = "travel")
 	private Travel travel;
 
-	public Flight(String idPlane, LocalDate dateArrival, LocalDate dateDeparture, String airportDeparture, String airportArrival,
-			Travel travel) {
+	public Flight(String idPlane, LocalDate dateArrival, LocalDate dateDeparture, String airportDeparture,
+			String airportArrival, Double price, Travel travel) {
 		super();
 		this.idPlane = idPlane;
 		this.dateArrival = dateArrival;
 		this.dateDeparture = dateDeparture;
 		this.airportDeparture = airportDeparture;
 		this.airportArrival = airportArrival;
+		this.price = price;
 		this.travel = travel;
 	}
-
 }
