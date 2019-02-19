@@ -3,6 +3,7 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.IPersonService;
+import com.fr.adaming.Service.PersonService;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
@@ -32,6 +34,7 @@ public class PersonController implements IPersonController {
 	@Autowired
 	@Qualifier("PersonService")
 	IPersonService service;
+	private Logger log = Logger.getLogger(PersonController.class);	
 
 	/**
 	 * @method import data from user to the service Use the Create method to
@@ -44,8 +47,10 @@ public class PersonController implements IPersonController {
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
 		if (result != null) {
+			log.info("person register in controller");
 			return "person has been created";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be created";
 		}
 	}
@@ -61,15 +66,17 @@ public class PersonController implements IPersonController {
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
 		if (result != null) {
+			log.info("customer created in controller");
 			return "person has been created";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be created";
 		}
 	}
 
 	/**
 	 * @method import data from user to the service Use the Create method to create
-	 *         a customer (for the technicians)
+	 *         a technician (for the technicians)
 	 */
 	@Override
 	@RequestMapping(path = "createTech", method = RequestMethod.POST)
@@ -78,8 +85,10 @@ public class PersonController implements IPersonController {
 				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		Person result = service.create(person);
 		if (result != null) {
+			log.info("technician created in controller");
 			return "person has been created";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be created";
 		}
 	}
@@ -96,8 +105,10 @@ public class PersonController implements IPersonController {
 		person.setId(dto.getId());
 		Person result = service.update(person);
 		if (result != null) {
+			log.info("customer updated in controller");
 			return "person has been updated";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be updated";
 		}
 	}
@@ -114,8 +125,10 @@ public class PersonController implements IPersonController {
 		person.setId(dto.getId());
 		Person result = service.update(person);
 		if (result != null) {
+			log.info("technician updated in controller");
 			return "person has been updated";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be updated";
 		}
 	}
@@ -132,8 +145,10 @@ public class PersonController implements IPersonController {
 		person.setMail(dto.getMail());
 		Person result = service.update(person);
 		if (result != null) {
+			log.info("customer updated in controller");
 			return "person has been updated";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be updated";
 		}
 	}
@@ -152,6 +167,7 @@ public class PersonController implements IPersonController {
 		if (result != null) {
 			return "person has been updated";
 		} else {
+			log.warn("return from service is null");
 			return "person could not be updated";
 		}
 	}
@@ -190,6 +206,7 @@ public class PersonController implements IPersonController {
 					new RegisterDto(people.get(i).getName(), people.get(i).getFirstName(), people.get(i).getBirthDate(),
 							people.get(i).getAdress(), people.get(i).getMail(), people.get(i).getPwd()));
 		}
+		log.info("list complete for readAll in controller");
 		return dtos;
 	}
 
@@ -202,8 +219,10 @@ public class PersonController implements IPersonController {
 	public String deleteById(Long id) {
 		if (service.deleteById(id)) {
 			service.deleteById(id);
+			log.info("person has been deleted in controller");
 			return "Person has been deleted";
 		} else {
+			log.warn("person has not been deleted in controller");
 			return "Person could not be deleted";
 		}
 	}
@@ -217,8 +236,10 @@ public class PersonController implements IPersonController {
 	public String deleteByEmail(String email) {
 		if (service.deleteByEmail(email)) {
 			service.deleteByEmail(email);
+			log.info("person has been deleted in controller");
 			return "Person has been deleted";
 		} else {
+			log.warn("person has not been deleted in controller");
 			return "Person could not be deleted";
 		}
 	}
@@ -232,8 +253,10 @@ public class PersonController implements IPersonController {
 	public String Login(@RequestBody LoginDto login) {
 		Person result = service.Login(login.getMail(), login.getPwd());
 		if (result != null) {
+			log.info("connection done in controller");
 			return "Login done";
 		} else {
+			log.warn("connection can not be done in controller");
 			return "Email or password are incorrect";
 		}
 	}
