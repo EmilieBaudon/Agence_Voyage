@@ -1,6 +1,8 @@
 package com.fr.adaming.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,11 +30,13 @@ public class FlightDto {
 	/**
 	 * @param dateArrival
 	 */
-	private Date dateArrival;
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	private LocalDate dateArrival;
 	/**
 	 * @param dateDeaprture
 	 */
-	private Date dateDeparture;
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	private LocalDate dateDeparture;
 	/**
 	 * @param airportDeparture
 	 */

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,11 +57,13 @@ public class TravelDto {
 	 * @param periodBegin
 	 */
 	@NotNull
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate periodBegin;
 	/**
 	 * @param periodEnd
 	 */
 	@NotNull
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate periodEnd;
 	
 	/**
