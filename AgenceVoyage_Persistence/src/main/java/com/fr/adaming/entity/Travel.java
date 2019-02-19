@@ -52,6 +52,7 @@ public class Travel {
 	 */
 	@Column(nullable = false)
 	private String destination;
+
 	/**
 	 * @param periodBegin
 	 */
@@ -60,7 +61,7 @@ public class Travel {
 	/**
 	 * @param periodEnd
 	 */
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate periodEnd;
 	/**
 	 * @param list of booking

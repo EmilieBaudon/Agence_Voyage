@@ -2,7 +2,9 @@ package com.fr.adaming.Service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IActivityDao;
@@ -22,8 +24,10 @@ public class ActivityService implements IService<Activity> {
 	/**
 	 * @param Data access object of the activity
 	 */
-	@Autowired
+	@Autowired 
 	private IActivityDao dao;
+	
+	private Logger log = Logger.getLogger(ActivityService.class);	
 
 	/**
 	 * @method create an activity in the database the creation is done only if the
@@ -32,8 +36,10 @@ public class ActivityService implements IService<Activity> {
 	@Override
 	public Activity create(Activity activity) {
 		if (activity.getId() == null || activity.getId() == 0L) {
+			log.info("activity created (service)");
 			return dao.save(activity);
 		} else {
+			log.warn("The activity you want to create has an id which already exist (service)");
 			return null;
 		}
 	}
@@ -45,8 +51,10 @@ public class ActivityService implements IService<Activity> {
 	@Override
 	public Activity update(Activity activity) {
 		if (activity.getId() != null && activity.getId() != 0L && dao.existsById(activity.getId())) {
+			log.info("activity updated (service)");
 			return dao.save(activity);
 		} else {
+			log.warn("The activity you want to update has an id which already exist (service)");
 			return null;
 		}
 	}
@@ -57,6 +65,7 @@ public class ActivityService implements IService<Activity> {
 	 */
 	@Override
 	public Activity readById(Long id) {
+		log.info("Activity print (service)" );
 		return dao.findById(id).get();
 	}
 
@@ -67,9 +76,11 @@ public class ActivityService implements IService<Activity> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			log.info("Activity deleted (service)");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Exception detected (service)");
 			return false;
 		}
 	}
@@ -79,6 +90,7 @@ public class ActivityService implements IService<Activity> {
 	 */
 	@Override
 	public List<Activity> readAll() {
+		log.info("List of activities printed (service)");
 		return dao.findAll();
 	}
 }
