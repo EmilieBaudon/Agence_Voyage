@@ -59,11 +59,12 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @Method updateObject update an object in database
 	 */
 	@Override
-	@RequestMapping(path = "update", method = RequestMethod.POST)
-	public String updateObject(@RequestBody TravelDtoWithId obj) {
-		Travel travel = service.update(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
-				dto.getPeriodEnd(), null, null, null));
+	@RequestMapping(path = "update", method = RequestMethod.PUT)
+	public String updateObject(@RequestBody TravelDtoWithId dto) {
+		Travel travel = new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(), dto.getPeriodEnd(),
+				null, null, null);
 		travel.setId(dto.getId());
+		service.update(travel);
 		if (travel != null) {
 
 			return "Travel has been updated";

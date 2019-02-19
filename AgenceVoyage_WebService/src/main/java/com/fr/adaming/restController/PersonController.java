@@ -11,13 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.IPersonService;
+import com.fr.adaming.dto.CustomerDto;
+import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
 import com.fr.adaming.dto.RegisterDto;
+import com.fr.adaming.dto.TechnicianDto;
+import com.fr.adaming.dto.TechnicianDtoWithId;
+import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Person;
+import com.fr.adaming.entity.Technician;
 
 /**
  * 
  * @author EmilieBaudon
+ * Controller for Customers
  *
  */
 @RestController
@@ -29,12 +36,44 @@ public class PersonController implements IPersonController{
 	
 	/**
 	 * @method import data from user to the service
-	 * Use the Create method from person service
+	 * Use the Create method to register a customer
+	 */
+
+	@RequestMapping(path="register", method=RequestMethod.POST)
+	public String register(@RequestBody CustomerDto dto) {
+		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
+		Person result = service.create(person);
+		if (result != null) {
+			return "person has been created";
+		} else {
+			return "person could not be created";
+		}
+	}
+	
+	/**
+	 * @method import data from user to the service
+	 * Use the Create method to create a customer (for the technicians)
+	 */
+
+	@RequestMapping(path="createCustomer", method=RequestMethod.POST)
+	public String create(@RequestBody CustomerDto dto) {
+		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
+		Person result = service.create(person);
+		if (result != null) {
+			return "person has been created";
+		} else {
+			return "person could not be created";
+		}
+	}
+	
+	/**
+	 * @method import data from user to the service
+	 * Use the Create method to create a customer (for the technicians)
 	 */
 	@Override
-	@RequestMapping(path="register", method=RequestMethod.POST)
-	public String create(@RequestBody RegisterDto dto) {
-		Person person = new Person(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd());
+	@RequestMapping(path="createTech", method=RequestMethod.POST)
+	public String create(@RequestBody TechnicianDto dto) {
+		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		Person result = service.create(person);
 		if (result != null) {
 			return "person has been created";
@@ -48,9 +87,27 @@ public class PersonController implements IPersonController{
 	 * Use the Update method from person service
 	 */
 	@Override
-	@RequestMapping(path="update", method=RequestMethod.POST)
-	public String update(@RequestBody RegisterDto dto) {
+	@RequestMapping(path="updateTech", method=RequestMethod.POST)
+	public String update(@RequestBody CustomerDtoWithId dto) {
+		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
+		person.setId(dto.getId());
+		Person result = service.update(person);
+		if (result != null) {
+			return "person has been updated";
+		} else {
+			return "person could not be updated";
+		} 
+	}
+	
+	/**
+	 * @method import data from user to the service
+	 * Use the Update method from person service
+	 */
+	@Override
+	@RequestMapping(path="updateCustomer", method=RequestMethod.POST)
+	public String update(@RequestBody TechnicianDtoWithId dto) {
 		Person person = new Person(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(), dto.getMail(), dto.getPwd());
+		person.setId(dto.getId());
 		Person result = service.update(person);
 		if (result != null) {
 			return "person has been updated";

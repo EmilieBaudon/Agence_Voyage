@@ -1,13 +1,8 @@
 package com.fr.adaming.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,24 +35,16 @@ public class Technician extends Person {
 	 */
 	private LocalDate jobStartDate;
 
-	/**
-	 * @param list of travel associated to a technician
-	 * @author Karguel
-	 */
-	@JsonManagedReference
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Travel> ltravel;
-
 	public Technician(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd) {
 		super(name, firstName, birthDate, adress, mail, pwd);
+		// TODO Auto-generated constructor stub
 	}
 
 	public Technician(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd,
-			String job, LocalDate jobStartDate, List<Travel> ltravel) {
+			String job, LocalDate jobStartDate) {
 		super(name, firstName, birthDate, adress, mail, pwd);
 		this.job = job;
 		this.jobStartDate = jobStartDate;
-		this.ltravel = ltravel;
 	}
 
 }

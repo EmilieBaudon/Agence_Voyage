@@ -3,6 +3,7 @@ package com.fr.adaming.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IBookingDao;
@@ -17,6 +18,7 @@ import com.fr.adaming.entity.Booking;
  *
  */
 @Service
+@Qualifier("BookingService")
 public class BookingService implements IService<Booking> {
 
 	/**

@@ -1,7 +1,6 @@
 package com.fr.adaming.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -63,5 +63,4 @@ public class Customer extends Person {
 	public Customer(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd) {
 		super(name, firstName, birthDate, adress, mail, pwd);
 	}
-
 }
