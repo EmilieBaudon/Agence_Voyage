@@ -49,7 +49,6 @@ public class Standing {
 	/**
 	 * @param Number of rooms
 	 */
-	@Column(nullable = false)
 	private int nbRoom;
 	/**
 	 * @param Room cost for one child
