@@ -42,7 +42,7 @@ public class TravelController implements IController<TravelDto> {
 	public String createObject(@RequestBody TravelDto dto) {
 
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
-				dto.getPeriodEnd(), dto.getLbookingDto(), dto.getLflightDto(), dto.getHotelDto()));
+				dto.getPeriodEnd(), null, null, null));
 
 		if (travel != null) {
 
@@ -61,7 +61,7 @@ public class TravelController implements IController<TravelDto> {
 	@RequestMapping(path = "update", method = RequestMethod.POST)
 	public String updateObject(@RequestBody TravelDto obj) {
 		Travel travel = service.update(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
-				dto.getPeriodEnd(), dto.getLbookingDto(), dto.getLflightDto(), dto.getHotelDto()));
+				dto.getPeriodEnd(), null, null, null));
 		if (travel != null) {
 
 			return "Travel has been updated";
@@ -81,7 +81,7 @@ public class TravelController implements IController<TravelDto> {
 
 		Travel result = service.readById(id);
 		TravelDto dto = new TravelDto(result.getNbrNight(), result.getDestination(), result.getPeriodBegin(),
-				result.getPeriodEnd(), result.getLbooking(), result.getLflight(), result.getLflight());
+				result.getPeriodEnd(), null, null, null);
 		return dto;
 	}
 
@@ -94,7 +94,7 @@ public class TravelController implements IController<TravelDto> {
 		List<Travel> result = service.readAll();
 		List<TravelDto> listDto = new ArrayList<TravelDto>();
 		for (Travel temp : result) {
-			listDto.add(new TravelDto(temp.getNbrNight(), temp.getDestination(), temp.getPeriodBegin(), temp.getPeriodEnd(), temp.getLbooking(), temp.getLflight(), temp.getHotel());
+			listDto.add(new TravelDto(temp.getNbrNight(), temp.getDestination(), temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
 		}
 		return listDto;
 		
