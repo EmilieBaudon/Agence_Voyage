@@ -93,6 +93,6 @@ public class FlightService implements IService<Flight> {
 	public List<Flight> readAll() {
 		List<Flight> list = dao.findAll();
 		log.info("all flights (service) have been read from the DB");
-		return dao.findAll();
+		return list;
 	}
 }
