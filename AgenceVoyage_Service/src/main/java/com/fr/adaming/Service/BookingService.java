@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IBookingDao;
 import com.fr.adaming.entity.Booking;
+import com.fr.adaming.entity.Flight;
+import com.fr.adaming.entity.Standing;
 
 /**
  * This class is the service part of the application for the booking model It
@@ -81,5 +83,15 @@ public class BookingService implements IService<Booking> {
 	@Override
 	public List<Booking> readAll() {
 		return dao.findAll();
+	}
+
+	public Booking booking(Booking booking, Standing standing, Flight flight) {
+
+		booking.setTotalPrice((booking.getNbrAdult() * (standing.getPriceAdult() + flight.getPrice()))
+				+ (booking.getNbrChild() * (standing.getPriceChild() + flight.getPrice())));
+
+		dao.save(booking);
+		return booking;
+
 	}
 }
