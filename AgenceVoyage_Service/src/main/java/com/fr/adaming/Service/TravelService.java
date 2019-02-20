@@ -30,12 +30,16 @@ public class TravelService implements IService<Travel> {
 	private Logger log = Logger.getLogger(TravelService.class);
 
 	/**
-	 * @method create an travel in the database the creation is done only if the id
-	 *         of the object us null or equal to 0
+	 * create an travel in the database the creation is done only if the id of the
+	 * object us null or equal to 0
+	 * 
+	 * @param travel to create
+	 * @return the travel created
 	 */
 	@Override
 	public Travel create(Travel travel) {
-		if ((travel.getId() == null || travel.getId() == 0L) && (travel.getPeriodBegin() != null &&travel.getPeriodBegin().isAfter(LocalDate.now()))) {
+		if ((travel.getId() == null || travel.getId() == 0L)
+				&& (travel.getPeriodBegin() != null && travel.getPeriodBegin().isAfter(LocalDate.now()))) {
 			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1));
 			travel.setPeriodBegin(travel.getPeriodBegin().plusDays(1));
 			log.info("activity created (service)");
@@ -47,8 +51,11 @@ public class TravelService implements IService<Travel> {
 	}
 
 	/**
-	 * @method update an travel in the database the update is done only if the id of
-	 *         the travel is found in the DB
+	 * update an travel in the database the update is done only if the id of the
+	 * travel is found in the DB
+	 * 
+	 * @param travel to update
+	 * @return travel updated
 	 */
 	@Override
 	public Travel update(Travel travel) {
@@ -62,7 +69,10 @@ public class TravelService implements IService<Travel> {
 	}
 
 	/**
-	 * @method read an travel in the database thanks to the id put in the parameter
+	 * read an travel in the database thanks to the id put in the parameter
+	 * 
+	 * @param id of the travel
+	 * @return the travel
 	 */
 	@Override
 	public Travel readById(Long id) {
@@ -71,8 +81,10 @@ public class TravelService implements IService<Travel> {
 	}
 
 	/**
-	 * @method delete an travel in the database thanks to the id put in the
-	 *         parameter
+	 * delete an travel in the database thanks to the id put in the parameter
+	 * 
+	 * @param id of the travel
+	 * @return boolean true if the method has success and false if it has not
 	 */
 	public Boolean deleteById(Long id) {
 		try {
@@ -87,7 +99,9 @@ public class TravelService implements IService<Travel> {
 	}
 
 	/**
-	 * @method read all the travels in the DB
+	 * read all the travels in the DB
+	 * 
+	 * @return list of all the travels in the database
 	 */
 	@Override
 	public List<Travel> readAll() {
