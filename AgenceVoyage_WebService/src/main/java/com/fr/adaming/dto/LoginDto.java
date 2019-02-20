@@ -31,7 +31,7 @@ public class LoginDto {
 	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 	 */
 	@NotNull
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$")
 	private String pwd;
 
 }

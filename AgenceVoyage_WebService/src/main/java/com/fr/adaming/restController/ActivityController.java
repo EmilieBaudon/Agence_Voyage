@@ -2,6 +2,8 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +35,7 @@ public class ActivityController implements IController<ActivityDto,ActivityDto> 
 	 * Use the Update method from activity service
 	 */
 	@RequestMapping(path="create",method=RequestMethod.POST)
-	public String createObject(@RequestBody ActivityDto obj) {
+	public String createObject(@Valid @RequestBody ActivityDto obj) {
 		Activity result=serviceActivity.create(new Activity(obj.getName(),obj.getDesc()));	
 		if(result!=null) {
 			log.info("activity created (controller)");
@@ -48,7 +50,7 @@ public class ActivityController implements IController<ActivityDto,ActivityDto> 
 	 * Use the Update method from activity service
 	 */
 	@RequestMapping(path="update",method=RequestMethod.PUT)
-	public String updateObject(@RequestBody ActivityDto obj) {
+	public String updateObject(@Valid @RequestBody ActivityDto obj) {
 		Activity res = new Activity(obj.getName(), obj.getDesc());
 		res.setId(obj.getId());		
 		Activity result=serviceActivity.update(res);	
