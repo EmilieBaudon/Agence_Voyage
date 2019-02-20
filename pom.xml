@@ -18,9 +18,9 @@
 
 	<developers>
 		<developer>
-			<name>Emily</name>
-			<email>emily@inti.fr</email>
-			<organization>${team.organisation.name}</organization>
+			<name>Emilie</name>
+			<email>emilie@inti.fr</email>
+			<organization>INTI</organization>
 			<roles>
 				<role>Chef de projet</role>
 			</roles>
@@ -28,7 +28,7 @@
 		<developer>
 			<name>Alan</name>
 			<email>alan@inti.fr</email>
-			<organization>${team.organisation.name}</organization>
+			<organization>INTI</organization>
 			<roles>
 				<role>Referent technique</role>
 			</roles>
@@ -36,7 +36,7 @@
 		<developer>
 			<name>Nicolas</name>
 			<email>nicolas@inti.fr</email>
-			<organization>${team.organisation.name}</organization>
+			<organization>INTI</organization>
 			<roles>
 				<role>Developpeur</role>
 			</roles>
@@ -44,7 +44,7 @@
 		<developer>
 			<name>Quentin</name>
 			<email>quentin@inti.fr</email>
-			<organization>${team.organisation.name}</organization>
+			<organization>INTI</organization>
 			<roles>
 				<role>Developpeur</role>
 			</roles>
@@ -52,7 +52,7 @@
 		<developer>
 			<name>Victor</name>
 			<email>victor@inti.fr</email>
-			<organization>${team.organisation.name}</organization>
+			<organization>INTI</organization>
 			<roles>
 				<role>Developpeur</role>
 			</roles>
@@ -60,7 +60,7 @@
 		<developer>
 			<name>Mathieu</name>
 			<email>mathieu@inti.fr</email>
-			<organization>${team.organisation.name}</organization>
+			<organization>INTI</organization>
 			<roles>
 				<role>Developpeur</role>
 			</roles>
@@ -107,7 +107,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
 				<configuration>
 					<show>private</show>
 					<nohelp>true</nohelp>
@@ -116,7 +115,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.7.1</version>
 			</plugin>
 		</plugins>
 	</build>

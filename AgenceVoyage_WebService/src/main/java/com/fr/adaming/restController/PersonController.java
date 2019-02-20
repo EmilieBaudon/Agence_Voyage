@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.IPersonService;
-import com.fr.adaming.Service.PersonService;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
@@ -36,7 +35,7 @@ public class PersonController implements IPersonController {
 	@Autowired
 	@Qualifier("PersonService")
 	IPersonService service;
-	private Logger log = Logger.getLogger(PersonController.class);	
+	private Logger log = Logger.getLogger(PersonController.class);
 
 	/**
 	 * Create the person given in the database Return Null if the person already
@@ -148,7 +147,7 @@ public class PersonController implements IPersonController {
 			return "person could not be updated";
 		}
 	}
-	
+
 	/**
 	 * Update the mail of a person
 	 * 
