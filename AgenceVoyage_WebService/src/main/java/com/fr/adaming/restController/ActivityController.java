@@ -40,18 +40,11 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * @param the Activity that will be created
 	 * @return a String to signify if the method has worked
 	 */
-<<<<<<< HEAD
-	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@Valid @RequestBody ActivityDto obj) {
-		Activity result = serviceActivity.create(new Activity(obj.getName(), obj.getDesc()));
-		if (result != null) {
-=======
 	
 	@RequestMapping(path="create",method=RequestMethod.POST)
 	public String createObject(@RequestBody ActivityDto obj) {
 		Activity result=serviceActivity.create(new Activity(obj.getName(),obj.getDesc()));	
 		if(result!=null) {
->>>>>>> 3109246108deaa3983b83b0dc9b1c0744d924f25
 			log.info("activity created (controller)");
 			return "activity created";
 		} else {
@@ -67,13 +60,8 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * @param the activity to update
 	 * @return a String to signify if the method has worked
 	 */
-<<<<<<< HEAD
-	@RequestMapping(path = "update", method = RequestMethod.PUT)
-	public String updateObject(@Valid @RequestBody ActivityDto obj) {
-=======
 	@RequestMapping(path="update",method=RequestMethod.PUT)
 	public String updateObject(@RequestBody ActivityDto obj) {
->>>>>>> 3109246108deaa3983b83b0dc9b1c0744d924f25
 		Activity res = new Activity(obj.getName(), obj.getDesc());
 		res.setId(obj.getId());
 		Activity result = serviceActivity.update(res);
