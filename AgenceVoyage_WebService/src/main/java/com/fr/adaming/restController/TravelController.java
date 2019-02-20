@@ -3,6 +3,7 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.dto.TravelDto;
 import com.fr.adaming.dto.TravelDtoWithId;
@@ -35,6 +37,8 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 
 	private TravelDto dto;
 
+	private Logger log = Logger.getLogger(ActivityService.class);
+
 	/**
 	 * @Method createObject create an object in database with the parameter
 	 */
@@ -46,11 +50,12 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 				dto.getPeriodEnd(), null, null, null));
 
 		if (travel != null) {
-
+			log.info("activity created (controller)");
 			return "Travel has been created";
 		}
 
 		else {
+			log.warn("The activity you want to create has an id which already exist (controller)");
 			return "Travel has not been created";
 		}
 	}
@@ -66,11 +71,12 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 		travel.setId(dto.getId());
 		service.update(travel);
 		if (travel != null) {
-
+			log.info("activity updated (controller)");
 			return "Travel has been updated";
 		}
 
 		else {
+			log.warn("The activity you want to update has an id which already exist (controller)");
 			return "Travel has not been updated";
 		}
 	}
@@ -85,6 +91,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 		Travel result = service.readById(id);
 		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
 				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null);
+		log.info("Activity print (controller)");
 		return dto;
 	}
 
@@ -100,6 +107,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
 					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
 		}
+		log.info("List of activities printed (controller)");
 		return listDto;
 
 	}
@@ -110,8 +118,13 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
-		service.deleteById(id);
-		return "A flight has been delete";
+		if (service.deleteById(id) == true) {
+			log.info("Activity deleted (controller)");
+			return "A flight has been delete";
+		} else {
+			log.error("Exception detected (controller)");
+			return "Can't delete ! ";
+		}
 	}
 
 }

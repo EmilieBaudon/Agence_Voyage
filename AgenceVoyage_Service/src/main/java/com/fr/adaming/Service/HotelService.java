@@ -2,6 +2,7 @@ package com.fr.adaming.Service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import com.fr.adaming.entity.Hotel;
  */
 @Service
 public class HotelService implements IService<Hotel> {
+	
+	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
 	 * @param Data access object of the hotel
@@ -32,8 +35,10 @@ public class HotelService implements IService<Hotel> {
 	@Override
 	public Hotel create(Hotel hotel) {
 		if (hotel.getId() == null || hotel.getId() == 0L) {
+			log.info("Hotel created (service)");
 			return dao.save(hotel);
 		} else {
+			log.error("There was a problem creating your hotel (service)");
 			return null;
 		}
 	}
@@ -45,8 +50,11 @@ public class HotelService implements IService<Hotel> {
 	@Override
 	public Hotel update(Hotel hotel) {
 		if (hotel.getId() != null && hotel.getId() != 0L && dao.existsById(hotel.getId())) {
+			log.info("Hotel updated (service)");
 			return dao.save(hotel);
+			
 		} else {
+			log.error("There was a problem updting your Hotel (service)");
 			return null;
 		}
 	}
@@ -56,7 +64,17 @@ public class HotelService implements IService<Hotel> {
 	 */
 	@Override
 	public Hotel readById(Long id) {
-		return dao.findById(id).get();
+		
+		Hotel test = dao.findById(id).get();
+		
+		if (test.equals(null)) {
+			log.error("There was an issue reading your Hotel (service)");
+			return null;
+		} else {
+			log.info("Your Hotel : (service)");
+			return test;
+		}
+
 	}
 
 	/**
@@ -65,9 +83,11 @@ public class HotelService implements IService<Hotel> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			log.info("Your Hotel was deleted (service)");
 			return true;
 		} catch (Exception e){
 			e.printStackTrace();
+			log.error("There was an issue deleting your Hotel (service)");
 			return false;
 		}
 	}
@@ -77,6 +97,17 @@ public class HotelService implements IService<Hotel> {
 	 */
 	@Override
 	public List<Hotel> readAll() {
-		return dao.findAll();
+		
+		
+		List<Hotel> listH = dao.findAll();
+		
+		if (listH.equals(null)) {
+			log.error("There was an issue reading all your Hotels (service)");
+			return null;
+		} else {
+			log.info("Your Hotel List: (service)");
+			return listH;
+		}
+		
 	}
 }
