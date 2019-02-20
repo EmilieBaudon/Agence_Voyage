@@ -3,8 +3,6 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.ActivityService;
+import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.Service.StandingService;
 import com.fr.adaming.dto.StandingDto;
 import com.fr.adaming.dto.StandingDtoWithId;
@@ -40,6 +39,7 @@ public class StandingController {
 
 	@Autowired
 	private StandingService service;
+	private HotelService serviceH;
 
 	/**
 	 * @param StandingDto is an object used for Data transfer from the database to
@@ -67,8 +67,9 @@ public class StandingController {
 	 *         exist before a 'Standiing' object is created in the database.
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@Valid @RequestBody StandingDtoWithId dtoId) {
-		Hotel hotel = new Hotel();
+	public String createObject(@RequestBody StandingDtoWithId dtoId) {
+		Hotel hotel = serviceH.create(new Hotel("Name","Descri",null,null));
+		System.out.println(hotel.getId()+hotel.getName());
 		hotel.setId(dtoId.getHotelDto().getId()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
 													// reconnaitre l'Hotel.
 
@@ -89,7 +90,7 @@ public class StandingController {
 	 *         Standing object in the database.
 	 */
 	@RequestMapping(path = "update", method = RequestMethod.POST)
-	public String updateObject(@Valid @RequestBody StandingDtoWithId dtoId) {
+	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
 		Hotel hotel = new Hotel();
 		hotel.setId(dtoId.getHotelDto().getId());
 

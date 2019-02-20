@@ -3,8 +3,6 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,7 +61,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@Valid @RequestBody HotelDto dto) {
+	public String createObject(@RequestBody HotelDto dto) {
 		Hotel hotel = service.create(new Hotel(dto.getName(), dto.getDesc(), null, null));
 
 		if (hotel != null) {
@@ -81,7 +79,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.POST)
-	public String updateObject(@Valid @RequestBody HotelDtoWithId dto) {
+	public String updateObject(@RequestBody HotelDtoWithId dto) {
 		Hotel hotel = new Hotel(dto.getName(), dto.getDesc(), null, null);
 		hotel.setId(dto.getId());
 		service.update(hotel);

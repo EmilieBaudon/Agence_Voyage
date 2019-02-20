@@ -34,9 +34,6 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public Flight create(Flight flight) {
-		if (flight.getDateDeparture().isBefore(flight.getDateArrival())) {
-			return null;
-		}
 		if (flight.getId() == null || flight.getId() == 0L) {
 			log.info("flight created (service)");
 			return dao.save(flight);
@@ -67,7 +64,7 @@ public class FlightService implements IService<Flight> {
 	@Override
 	public Flight readById(Long id) {
 		Flight flight = dao.findById(id).get();
-		log.info("flight (service) with id=" + id +" has been read from the DB");
+		log.info("flight (service) with id=" + id + " has been read from the DB");
 		return flight;
 	}
 
