@@ -63,7 +63,7 @@ public class CustomerDtoWithId {
 	 * @param Person password
 	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
 	 */
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
 	private String pwd;
 
 	/**
