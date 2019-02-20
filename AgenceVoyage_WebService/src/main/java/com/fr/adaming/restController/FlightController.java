@@ -40,15 +40,14 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	/**
 	 * This method allows to create a flight with a the request method post
 	 * 
-	 * @param obj FlightDto an object Flight for the data transfert createObject is here
-	 *                  to create an object in the database with the parameter
+	 * @param obj FlightDto an object Flight for the data transfert createObject is
+	 *            here to create an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody FlightDto obj) {
-		Travel travel = new Travel(obj.getTravelDto().getNbrNight(), obj.getTravelDto().getDestination(),
-				obj.getTravelDto().getPeriodBegin(), obj.getTravelDto().getPeriodEnd(), null, null, null);
-		travel.setId(obj.getTravelDto().getId());
+		Travel travel = new Travel();
+		travel.setId(obj.getId_travelDto());
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
 		if (result != null) {
@@ -63,16 +62,14 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	/**
 	 * 
 	 * This method allows to update a flight with a the request method post
-	 * @param obj FlightDto an object Flight for the data transfert updateObject is here
-	 *                  to update an object in the database with the parameter
+	 * 
+	 * @param obj FlightDto an object Flight for the data transfert updateObject is
+	 *            here to update an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
 	public String updateObject(@RequestBody FlightDtoWithId obj) {
-		// Travel travel = new
-		// Travel(obj.getTravelDto().getNbrNight(),obj.getTravelDto().getDestination(),
-		// obj.getTravelDto().getPeriodBegin(),obj.getTravelDto().getPeriodEnd(), null,
-		// null, null);
+
 		Travel travel = new Travel(obj.getTravelDto().getNbrNight(), obj.getTravelDto().getDestination(),
 				obj.getTravelDto().getPeriodBegin(), obj.getTravelDto().getPeriodEnd(), null, null, null);
 		travel.setId(obj.getTravelDto().getId());
@@ -89,6 +86,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 
 	/**
 	 * This method allows to read a flight with his id
+	 * 
 	 * @param id is the id of the object we want to read readById is here to recover
 	 *           an object in the database thanks the parameter id
 	 * @return the flight with the id or null if it does not exist
@@ -130,12 +128,8 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 
 	/**
 	 * readAll recover every flights in a table
-<<<<<<< HEAD
 	 * 
-	 * @param the id of the flight
-=======
 	 * @param id of the flight
->>>>>>> 88062fbad15f5a7b7c7c6cd5066fd05c0f24565a
 	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
