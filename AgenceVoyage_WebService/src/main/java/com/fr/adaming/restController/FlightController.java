@@ -35,6 +35,8 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
+	 * This method allows to create a flight with a the request method post
+	 * 
 	 * @param FlightDto an object Flight for the data transfert createObject is here
 	 *                  to create an object in the database with the parameter
 	 * @return a String to signify if the method has worked
@@ -56,6 +58,8 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	}
 
 	/**
+	 * 
+	 * This method allows to update a flight with a the request method post
 	 * @param FlightDto an object Flight for the data transfert updateObject is here
 	 *                  to update an object in the database with the parameter
 	 * @return a String to signify if the method has worked
@@ -81,6 +85,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	}
 
 	/**
+	 * This method allows to read a flight with his id
 	 * @param id is the id of the object we want to read readById is here to recover
 	 *           an object in the database thanks the parameter id
 	 * @return the flight with the id or null if it does not exist
