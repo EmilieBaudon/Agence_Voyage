@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fr.adaming.dao.IHotelDao;
 import com.fr.adaming.dao.IStandingDao;
+import com.fr.adaming.entity.Person;
 import com.fr.adaming.entity.Standing;
 
 /**
@@ -81,15 +81,13 @@ public class StandingService implements IService<Standing> {
 	 */
 	@Override
 	public Standing readById(Long id) {
-
-		Standing test = dao.findById(id).get();
-
-		if (test.equals(null)) {
-			log.error("There was an issue reading your Service (service)");
+		try {
+			Standing standing = dao.findById(id).get();
+			log.info("read by id done in service");
+			return standing;
+		} catch (Exception e) {
+			log.error("This id does not exist");
 			return null;
-		} else {
-			log.info("Your Service : (service)");
-			return test;
 		}
 	}
 
@@ -119,13 +117,12 @@ public class StandingService implements IService<Standing> {
 	@Override
 	public List<Standing> readAll() {
 		List<Standing> listS = dao.findAll();
-
-		if (listS.equals(null)) {
-			log.error("There was an issue reading all your Services (service)");
-			return null;
+		if (!dao.findAll().isEmpty()) {
+			log.info("read all done in service");
+			return dao.findAll();
 		} else {
-			log.info("Your Service List: (service)");
-			return listS;
+			log.warn("database is empty");
+			return null;
 		}
 	}
 }

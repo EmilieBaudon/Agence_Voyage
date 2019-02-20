@@ -10,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
@@ -63,6 +65,8 @@ public class Standing {
 	/**
 	 * @param Hotel of the Standing 
 	 */
+	@JsonBackReference
+	@OneToOne
 	private Hotel hotel;
 	
 
