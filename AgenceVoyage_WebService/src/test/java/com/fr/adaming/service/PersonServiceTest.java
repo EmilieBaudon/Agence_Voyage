@@ -60,7 +60,7 @@ public class PersonServiceTest {
 	// Test update method
 
 	@Test
-	public void d_InsertNonExistingUser() {
+	public void d_UpdateNonExistingUser() {
 
 		person = new Person("test", "test", null, "test", "test3@test.com", "test");
 		service.create(person);
@@ -71,7 +71,7 @@ public class PersonServiceTest {
 	}
 
 	@Test
-	public void e_InsertNullId() {
+	public void e_UpdateNullId() {
 		person = new Person("test", "test", null, "test", "test4@test.com", "test");
 		person.setId(null);
 		person = service.update(person);
@@ -79,7 +79,7 @@ public class PersonServiceTest {
 	}
 
 	@Test
-	public void f_InsertIdEqualsZero() {
+	public void f_UpdateIdEqualsZero() {
 		person = new Person("test", "test", null, "test", "test5@test.com", "test");
 		person.setId(0L);
 		person = service.update(person);
