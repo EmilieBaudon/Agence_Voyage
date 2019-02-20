@@ -62,7 +62,6 @@ public class TravelDto {
 	/**
 	 * @param periodEnd
 	 */
-	@NotNull
 	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate periodEnd;
 	
