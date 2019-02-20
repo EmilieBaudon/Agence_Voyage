@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fr.adaming.dao.IHotelDao;
 import com.fr.adaming.dao.IStandingDao;
 import com.fr.adaming.entity.Standing;
 
@@ -27,6 +28,8 @@ public class StandingService implements IService<Standing> {
 	 */
 	@Autowired
 	private IStandingDao dao;
+	@Autowired
+	private HotelService service;
 
 	/**
 	 * create an standing in the database the creation is done only if the id of the
@@ -37,8 +40,15 @@ public class StandingService implements IService<Standing> {
 	 */
 	public Standing create(Standing standing) {
 		if (standing.getId() == null || standing.getId() == 0L) {
-			log.info("Service created (service)");
-			return dao.save(standing);
+			Long id = standing.getHotel().getId();
+			System.out.println(id);
+			if (service.readById(id)!= null) {//test si l'hotel rentré existe
+				log.info("Service created (service)");
+				return dao.save(standing);
+			}else {
+				log.error("There was a problem creating your Service (service)");
+				return null;
+			}	
 		} else {
 			log.error("There was a problem creating your Service (service)");
 			return null;
