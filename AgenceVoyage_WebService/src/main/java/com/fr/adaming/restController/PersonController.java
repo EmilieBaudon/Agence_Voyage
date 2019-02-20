@@ -3,6 +3,8 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,7 +44,7 @@ public class PersonController implements IPersonController {
 	 */
 
 	@RequestMapping(path = "register", method = RequestMethod.POST)
-	public String register(@RequestBody CustomerDto dto) {
+	public String register(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
@@ -61,7 +63,7 @@ public class PersonController implements IPersonController {
 	 */
 
 	@RequestMapping(path = "createCustomer", method = RequestMethod.POST)
-	public String create(@RequestBody CustomerDto dto) {
+	public String create(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
@@ -80,7 +82,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "createTech", method = RequestMethod.POST)
-	public String create(@RequestBody TechnicianDto dto) {
+	public String create(@Valid @RequestBody TechnicianDto dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		Person result = service.create(person);
@@ -99,7 +101,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "updateCustomer", method = RequestMethod.PUT)
-	public String update(@RequestBody CustomerDtoWithId dto) {
+	public String update(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getCard(), null, null);
 		person.setId(dto.getId());
@@ -119,7 +121,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "updateTech", method = RequestMethod.PUT)
-	public String update(@RequestBody TechnicianDtoWithId dto) {
+	public String update(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		person.setId(dto.getId());
@@ -139,7 +141,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "updateCustomerEmail", method = RequestMethod.PUT)
-	public String updateEmail(@RequestBody CustomerDtoWithId dto) {
+	public String updateEmail(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = (Customer) service.readById(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
@@ -159,7 +161,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@RequestMapping(path = "updateTechEmail", method = RequestMethod.PUT)
-	public String updateEmail(@RequestBody TechnicianDtoWithId dto) {
+	public String updateEmail(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = (Technician) service.readById(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
@@ -260,5 +262,4 @@ public class PersonController implements IPersonController {
 			return "Email or password are incorrect";
 		}
 	}
-
 }
