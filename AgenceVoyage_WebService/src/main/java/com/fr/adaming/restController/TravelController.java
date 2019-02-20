@@ -3,8 +3,6 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +35,6 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@Autowired
 	private TravelService service;
 
-	private TravelDto dto;
-
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
@@ -46,19 +42,24 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@Valid @RequestBody TravelDto dto) {
+	public String createObject(@RequestBody TravelDto dto) {
 
+		System.out.println("DEBUG PERIOD BEGIN BEFOR: " + dto.getPeriodBegin());
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
 				dto.getPeriodEnd(), null, null, null));
+		
+		System.out.println("DEBUG PERIOD BEGIN AFTER: " + travel.getPeriodBegin());
+
 
 		if (travel != null) {
-			log.info("activity created (controller)");
+			log.info("Travel created (controller)");
 			return "Travel has been created";
 		}
 
 		else {
-			log.warn("The activity you want to create has an id which already exist (controller)");
+			log.warn("The travel you want to create has an id which already exist (controller)");
 			return "Travel has not been created";
+			
 		}
 	}
 
@@ -67,19 +68,19 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
-	public String updateObject(@Valid @RequestBody TravelDtoWithId dto) {
+	public String updateObject(@RequestBody TravelDtoWithId dto) {
 		Travel travel = new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(), dto.getPeriodEnd(),
 				null, null, null);
 		travel.setId(dto.getId());
 		service.update(travel);
-		if (travel != null) {
-			log.info("activity updated (controller)");
-			return "Travel has been updated";
+		if (travel.equals(null)) {
+			log.warn("The travel you want to update has an id which already exist (controller)");
+			return "Travel has not been updated";
 		}
 
 		else {
-			log.warn("The activity you want to update has an id which already exist (controller)");
-			return "Travel has not been updated";
+			log.info("Travel updated (controller)");
+			return "Travel has been updated";
 		}
 	}
 
@@ -93,7 +94,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 		Travel result = service.readById(id);
 		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
 				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null);
-		log.info("Activity print (controller)");
+		log.info("Travel print (controller)");
 		return dto;
 	}
 
@@ -109,7 +110,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
 					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
 		}
-		log.info("List of activities printed (controller)");
+		log.info("List of travels printed (controller)");
 		return listDto;
 
 	}
@@ -121,8 +122,8 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
 		if (service.deleteById(id) == true) {
-			log.info("Activity deleted (controller)");
-			return "A flight has been delete";
+			log.info("Travel deleted (controller)");
+			return "Travel has been delete";
 		} else {
 			log.error("Exception detected (controller)");
 			return "Can't delete ! ";
