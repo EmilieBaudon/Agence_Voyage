@@ -39,15 +39,16 @@ public class BookingDto {
 	private Long pointAddFidelity;
 
 	/**
-	 * @param customerDto
+	 * @param id_customerDto
+	 * 
 	 */
 
-	private CustomerDto customerDto;
+	private Long id_customerDto;
 
 	/**
-	 * @param travelDto
+	 * @param id_travelDto
 	 */
 
-	private TravelDto travelDto;
+	private Long id_travelDto;
 
 }

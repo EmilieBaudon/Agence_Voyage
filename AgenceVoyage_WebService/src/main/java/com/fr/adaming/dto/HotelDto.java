@@ -32,16 +32,4 @@ public class HotelDto {
 	 * @param Hotel Description 
 	 */
 	private String desc;
-	/**
-	 * @param ltravelDto
-	 */	
-	List <TravelDto> ltravelDto;
-	
-	/**
-	 *  @param lstandingDto 
-	 * 
-	 */	
-	List <StandingDto> lstandingDto;
-
-
 }

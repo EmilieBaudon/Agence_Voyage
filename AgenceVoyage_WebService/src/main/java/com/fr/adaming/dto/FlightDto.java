@@ -47,9 +47,9 @@ public class FlightDto {
 	private String airportArrival;
 
 	/**
-	 * @param TravelDto
+	 * @param id_travelDto
 	 */	
-	private TravelDto travelDto;	
+	private Long id_travelDto;	
 
 	/**
 	 * @param price of the flight

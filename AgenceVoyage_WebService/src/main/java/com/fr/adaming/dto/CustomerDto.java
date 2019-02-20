@@ -69,9 +69,4 @@ public class CustomerDto {
 	 * @param Customer's fidelity points
 	 */
 	private Long fidelityPoint;
-	
-	/**
-	 * @param lbookingDto
-	 */
-	List<BookingDto> lbookingDto;
 }

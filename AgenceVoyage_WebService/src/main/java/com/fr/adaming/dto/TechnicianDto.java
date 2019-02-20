@@ -69,10 +69,4 @@ public class TechnicianDto {
 	 */
 	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate jobStartDate;
-
-	/**
-	 * @param list of travel associated to a technician
-	 */
-	private List<TravelDto> ltravelDto;
-
 }

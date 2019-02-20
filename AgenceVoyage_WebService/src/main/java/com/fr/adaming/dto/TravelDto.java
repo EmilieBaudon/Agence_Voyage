@@ -26,15 +26,13 @@ import lombok.Setter;
 public class TravelDto {
 	
 	public TravelDto(@NotNull int nbrNight, @NotNull String destination, @NotNull LocalDate periodBegin,
-			@NotNull LocalDate periodEnd, List<BookingDto> lbookingDto, List<FlightDto> lflightDto, HotelDto hotelDto) {
+			@NotNull LocalDate periodEnd, Long id_hotelDto) {
 		super();
 		this.nbrNight = nbrNight;
 		this.destination = destination;
 		this.periodBegin = periodBegin;
 		this.periodEnd = periodEnd;
-		this.lbookingDto = lbookingDto;
-		this.lflightDto = lflightDto;
-		this.hotelDto = hotelDto;
+		this.id_hotelDto = id_hotelDto;
 	}
 
 	/**
@@ -66,16 +64,7 @@ public class TravelDto {
 	private LocalDate periodEnd;
 	
 	/**
-	 * @param list of booking
+	 * @param id_hotelDto
 	 */	
-	private List<BookingDto> lbookingDto;
-	/**
-	 * @param list of flight
-	 */	
-	private List<FlightDto> lflightDto;
-	
-	/**
-	 * @param hotelDto
-	 */	
-	private HotelDto hotelDto;
+	private Long id_hotelDto;
 }
