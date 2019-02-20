@@ -21,6 +21,7 @@ import com.fr.adaming.entity.Activity;
  * The controller for all the flight objects. Allow to take in consideration requests from the web
  *
  */
+
 @RestController
 @RequestMapping(path="activity/")
 public class ActivityController implements IController<ActivityDto,ActivityDto> {
@@ -34,8 +35,9 @@ public class ActivityController implements IController<ActivityDto,ActivityDto> 
 	 * @method import data from activity to the service
 	 * Use the Update method from activity service
 	 */
+	
 	@RequestMapping(path="create",method=RequestMethod.POST)
-	public String createObject(@Valid @RequestBody ActivityDto obj) {
+	public String createObject(@RequestBody ActivityDto obj) {
 		Activity result=serviceActivity.create(new Activity(obj.getName(),obj.getDesc()));	
 		if(result!=null) {
 			log.info("activity created (controller)");
@@ -50,7 +52,7 @@ public class ActivityController implements IController<ActivityDto,ActivityDto> 
 	 * Use the Update method from activity service
 	 */
 	@RequestMapping(path="update",method=RequestMethod.PUT)
-	public String updateObject(@Valid @RequestBody ActivityDto obj) {
+	public String updateObject(@RequestBody ActivityDto obj) {
 		Activity res = new Activity(obj.getName(), obj.getDesc());
 		res.setId(obj.getId());		
 		Activity result=serviceActivity.update(res);	
@@ -103,3 +105,4 @@ public class ActivityController implements IController<ActivityDto,ActivityDto> 
 	}
 
 }
+
