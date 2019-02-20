@@ -15,13 +15,9 @@ import lombok.ToString;
 
 /**
  * 
- * <<<<<<< HEAD This class contains all the people in the database. The
- * customers and the technicians. They have as attributes an id, a name, a
- * premom, a date of birth, an address, an email, and a password. ======= This
- * class contains all the people in the database. The customers and the
+ * This class contains all the people in the database. The customers and the
  * technicians. They have as attributes an id, a name, a premom, a date of
- * birth, an address, an email, and a password. >>>>>>>
- * ddc23f6f7023aa199ffcc6350af138b33ca34d81
+ * birth, an address, an email, and a password.
  * 
  * @author Nicolas
  *
