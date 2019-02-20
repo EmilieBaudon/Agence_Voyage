@@ -30,6 +30,9 @@ import com.fr.adaming.entity.Standing;
 @RequestMapping(path = "standing/")
 public class StandingController {
 
+	/**
+	 * @param log is an object used to create logs
+	 */
 	private Logger log = Logger.getLogger(ActivityService.class);
 	/**
 	 * @param StandingService is an object from the Service layer, used to interact
@@ -64,7 +67,7 @@ public class StandingController {
 	 * The 'Hotel' object is first created, as a hotel is first required to exist
 	 * before a 'Standing' object is created in the database.
 	 * 
-	 * @param the parameter is a 'StandingDtoWithId' object
+	 * @param dtoId the parameter is a 'StandingDtoWithId' object
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
@@ -90,7 +93,7 @@ public class StandingController {
 	 * updateObject is a method which allows the user to update an existing Standing
 	 * object in the database.
 	 * 
-	 * @param the parameter is a 'StandingDtoWithId' object
+	 * @param dtoId the parameter is a 'StandingDtoWithId' object
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@RequestMapping(path = "update", method = RequestMethod.POST)
@@ -118,7 +121,7 @@ public class StandingController {
 	 * read is a method which allows the user to get information about an existing
 	 * Standing object in the database.
 	 * 
-	 * @param the parameter id is a Long attribute
+	 * @param id the parameter id is a Long attribute
 	 * @return the return is a 'StandingDtoWithId' object
 	 */
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
@@ -141,7 +144,6 @@ public class StandingController {
 	 * readall is a method which allows the user to get information about all the
 	 * Standing objects in the database.
 	 * 
-	 * @param the parameter is a list of 'StandingDtoWithId' objects
 	 * @return the return is a 'StandingDtoWithId' object.
 	 */
 	@RequestMapping(path = "readall", method = RequestMethod.GET)

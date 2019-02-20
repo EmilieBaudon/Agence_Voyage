@@ -32,12 +32,15 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	@Autowired
 	private FlightService service;
 
+	/**
+	 * @param log is an object used to create logs
+	 */
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
 	 * This method allows to create a flight with a the request method post
 	 * 
-	 * @param FlightDto an object Flight for the data transfert createObject is here
+	 * @param obj FlightDto an object Flight for the data transfert createObject is here
 	 *                  to create an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
@@ -60,7 +63,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	/**
 	 * 
 	 * This method allows to update a flight with a the request method post
-	 * @param FlightDto an object Flight for the data transfert updateObject is here
+	 * @param obj FlightDto an object Flight for the data transfert updateObject is here
 	 *                  to update an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
@@ -127,7 +130,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 
 	/**
 	 * readAll recover every flights in a table
-	 * @param the id of the flight
+	 * @param id of the flight
 	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
