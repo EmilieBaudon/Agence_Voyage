@@ -25,6 +25,10 @@ import com.fr.adaming.entity.Travel;
  *
  *
  * @author Nicolas
+ * 
+ * 
+ * @param <TravelDto> represent the Dto (Data transfer object) classes of Travel
+ * @param <TravelDtoWithId> have an id
  */
 
 @RestController
@@ -40,7 +44,9 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
-	 * @Method createObject create an object in database with the parameter
+	 * CreateObject create an object in database with the parameter
+	 * @param dto is a data transfer object representing the service
+	 * @return a string saying if the creation has been successful 
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
@@ -62,7 +68,10 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	}
 
 	/**
-	 * @Method updateObject update an object in database
+	 * UpdateObject update an object in database
+	 * 
+	 * @param dto is a data transfer object representing the service
+	 * @return a string saying if the updating has been successful
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
@@ -83,7 +92,10 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	}
 
 	/**
-	 * @Method readById read by id an object in database
+	 * ReadById read by id an object in database
+	 * 
+	 * @param id is the id of TravelDtoWithId
+	 * @return a dto object
 	 */
 	@Override
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
@@ -97,7 +109,10 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	}
 
 	/**
-	 * @Method readAll read all travels in database
+	 * ReadAll read all travels in database
+	 * 
+	 * @param is void
+	 * @return an array list of TravelDtoWithId
 	 */
 	@Override
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
@@ -114,7 +129,10 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	}
 
 	/**
-	 * @Method delete delete an object with the id
+	 * Delete delete an object with the id
+	 * 
+	 * @param id of the object that must be deleted
+	 * @return a string saying if the delete has been successful
 	 */
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
