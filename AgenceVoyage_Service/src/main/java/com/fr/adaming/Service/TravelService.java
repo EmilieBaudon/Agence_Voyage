@@ -76,8 +76,16 @@ public class TravelService implements IService<Travel> {
 	 */
 	@Override
 	public Travel readById(Long id) {
-		log.info("Activity print (service)");
-		return dao.findById(id).get();
+
+		try {
+			Travel travel = dao.findById(id).get();
+			log.info("read by id done in service");
+			return travel;
+		} catch (Exception e) {
+			log.error("This id does not exist");
+			return null;
+		}
+
 	}
 
 	/**

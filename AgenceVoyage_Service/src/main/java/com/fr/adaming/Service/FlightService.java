@@ -26,6 +26,9 @@ public class FlightService implements IService<Flight> {
 	@Autowired
 	private IFlightDao dao;
 
+	@Autowired
+	private TravelService service;
+
 	/**
 	 * @param object to generate log
 	 */
@@ -41,19 +44,27 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public Flight create(Flight flight) {
-		if ((flight.getId() == null || flight.getId() == 0L) && (flight.getTravel() != null)) {
-			log.info("flight created (service)");
-			return dao.save(flight);
+		if ((flight.getId() == null || flight.getId() == 0L)) {
+			Long id = flight.getTravel().getId();
+
+			if (service.readById(id) != null) {
+				log.info("Service created (service)");
+				return dao.save(flight);
+			} else {
+				log.error("There was a problem creating your Service (service)");
+				return null;
+			}
+
 		} else {
-			log.warn("The flight you want to create has an id which already exist (service)");
+			log.error("There was a problem creating your Service (service)");
 			return null;
 		}
 	}
 
 	/**
-	 * This method update an flight in the database the update is done only if the id of
-	 *         the flight is found in the DB
-	 *         
+	 * This method update an flight in the database the update is done only if the
+	 * id of the flight is found in the DB
+	 * 
 	 * @param flight an object flight to be updated
 	 * 
 	 * @return the object updated
@@ -70,26 +81,33 @@ public class FlightService implements IService<Flight> {
 	}
 
 	/**
-	 * This method read an flight in the database thanks to the id put in the parameter
+	 * This method read an flight in the database thanks to the id put in the
+	 * parameter
 	 * 
-	 * @param id a Long id representing the flight id 
+	 * @param id a Long id representing the flight id
 	 * 
 	 * @return the object read
 	 */
 	@Override
 	public Flight readById(Long id) {
-		Flight flight = dao.findById(id).get();
-		log.info("flight (service) with id=" + id + " has been read from the DB");
-		return flight;
+		try {
+			Flight flight = dao.findById(id).get();
+			log.info("read by id done in service");
+			return flight;
+		} catch (Exception e) {
+			log.error("This id does not exist");
+			return null;
+		}
 	}
 
 	/**
 	 * This method delete an flight in the database thanks to the id put in the
-	 *         parameter
-	 *         
-	 * @param id a Long id representing the flight id 
+	 * parameter
 	 * 
-	 * @return the boolean object, return True if the object has been delete, false otherwise
+	 * @param id a Long id representing the flight id
+	 * 
+	 * @return the boolean object, return True if the object has been delete, false
+	 *         otherwise
 	 */
 	public Boolean deleteById(Long id) {
 		try {
@@ -106,7 +124,7 @@ public class FlightService implements IService<Flight> {
 	/**
 	 * This method read all the flights in the DB
 	 * 
-	 * @return a list of flight return from the database 
+	 * @return a list of flight return from the database
 	 */
 	@Override
 	public List<Flight> readAll() {
