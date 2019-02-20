@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.Service.StandingService;
+import com.fr.adaming.dao.IHotelDao;
 import com.fr.adaming.dto.StandingDto;
 import com.fr.adaming.dto.StandingDtoWithId;
 import com.fr.adaming.entity.Hotel;
@@ -40,6 +41,7 @@ public class StandingController {
 	@Autowired
 	private StandingService service;
 	private HotelService serviceH;
+
 
 	/**
 	 * @param StandingDto is an object used for Data transfer from the database to
@@ -68,10 +70,10 @@ public class StandingController {
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody StandingDtoWithId dtoId) {
-		Hotel hotel = serviceH.create(new Hotel("Name","Descri",null,null));
-		System.out.println(hotel.getId()+hotel.getName());
+		
+		Hotel hotel = new Hotel();
 		hotel.setId(dtoId.getHotelDto().getId()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
-													// reconnaitre l'Hotel.
+												  // reconnaitre l'Hotel.
 
 		Standing standing = service.create(new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
 				dtoId.getDesc(), hotel, null));
