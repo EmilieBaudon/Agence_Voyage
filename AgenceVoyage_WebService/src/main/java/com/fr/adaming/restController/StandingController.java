@@ -3,8 +3,6 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.ActivityService;
-import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.Service.StandingService;
-import com.fr.adaming.dao.IHotelDao;
 import com.fr.adaming.dto.StandingDto;
 import com.fr.adaming.dto.StandingDtoWithId;
 import com.fr.adaming.entity.Hotel;
@@ -42,8 +38,6 @@ public class StandingController {
 
 	@Autowired
 	private StandingService service;
-	private HotelService serviceH;
-
 
 	/**
 	 * @param StandingDto is an object used for Data transfer from the database to
@@ -64,18 +58,21 @@ public class StandingController {
 	private StandingDtoWithId dtoId;
 
 	/**
-	 * @Method createObject is a method which allows the user to create a Standing
-	 *         object in the database.
+	 * createObject is a method which allows the user to create a Standing object in
+	 * the database.
 	 * 
-	 *         The 'Hotel' object is first created, as a hotel is first required to
-	 *         exist before a 'Standiing' object is created in the database.
+	 * The 'Hotel' object is first created, as a hotel is first required to exist
+	 * before a 'Standing' object is created in the database.
+	 * 
+	 * @param the parameter is a 'StandingDtoWithId' object
+	 * @return the return is a String describing the status of the method outcome
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody StandingDtoWithId dtoId) {
-		
+
 		Hotel hotel = new Hotel();
 		hotel.setId(dtoId.getHotelDto().getId()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
-												  // reconnaitre l'Hotel.
+													// reconnaitre l'Hotel.
 
 		Standing standing = service.create(new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
 				dtoId.getDesc(), hotel, null));
@@ -90,8 +87,11 @@ public class StandingController {
 	}
 
 	/**
-	 * @Method updateObject is a method which allows the user to update an existing
-	 *         Standing object in the database.
+	 * updateObject is a method which allows the user to update an existing Standing
+	 * object in the database.
+	 * 
+	 * @param the parameter is a 'StandingDtoWithId' object
+	 * @return the return is a String describing the status of the method outcome
 	 */
 	@RequestMapping(path = "update", method = RequestMethod.POST)
 	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
@@ -115,8 +115,11 @@ public class StandingController {
 	}
 
 	/**
-	 * @Method read is a method which allows the user to get information about an
-	 *         existing Standing object in the database.
+	 * read is a method which allows the user to get information about an existing
+	 * Standing object in the database.
+	 * 
+	 * @param the parameter id is a Long attribute
+	 * @return the return is a 'StandingDtoWithId' object
 	 */
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
 	public StandingDtoWithId readById(@PathVariable(value = "id") Long id) {
@@ -135,8 +138,11 @@ public class StandingController {
 	}
 
 	/**
-	 * @Method readall is a method which allows the user to get information about
-	 *         all the Standing objects in the database.
+	 * readall is a method which allows the user to get information about all the
+	 * Standing objects in the database.
+	 * 
+	 * @param the parameter is a list of 'StandingDtoWithId' objects
+	 * @return the return is a 'StandingDtoWithId' object.
 	 */
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
 	public List<StandingDtoWithId> readAll() {
@@ -157,8 +163,11 @@ public class StandingController {
 	}
 
 	/**
-	 * @Method delete is a method which allows the user to delete an existing
-	 *         Standing object in the database.
+	 * delete is a method which allows the user to delete an existing Standing
+	 * object in the database.
+	 * 
+	 * @param id is an Long attribute
+	 * @return the return is a String describing the status of the method outcome
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
