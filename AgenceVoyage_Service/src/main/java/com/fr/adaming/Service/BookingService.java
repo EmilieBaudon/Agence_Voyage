@@ -2,6 +2,7 @@ package com.fr.adaming.Service;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,22 @@ import com.fr.adaming.entity.Standing;
 @Qualifier("BookingService")
 public class BookingService implements IService<Booking> {
 
+	private Logger log = Logger.getLogger(ActivityService.class);
 	/**
 	 * @param Data access object of the booking
 	 */
 	@Autowired
 	private IBookingDao dao;
+	/**
+	 * @param service from person
+	 */
+	@Autowired
+	private PersonService serviceP;
+	/**
+	 * @param service from travel
+	 */
+	@Autowired
+	private TravelService serviceT;
 
 	/**
 	 * This method create an booking in the database the creation is done only if
@@ -40,7 +52,13 @@ public class BookingService implements IService<Booking> {
 	@Override
 	public Booking create(Booking booking) {
 		if (booking.getId() == null || booking.getId() == 0L) {
-			return dao.save(booking);
+			if (serviceP.readById(booking.getCustomer().getId())!= null && serviceT.readById(booking.getTravel().getId())!= null) {
+				log.info("Booking created (service)");
+				return dao.save(booking);
+			}else {
+				log.error("There was a problem creating your Standing (service)");
+				return null;
+			}	
 		} else {
 			return null;
 		}
@@ -73,7 +91,14 @@ public class BookingService implements IService<Booking> {
 	 */
 	@Override
 	public Booking readById(Long id) {
-		return dao.findById(id).get();
+		try {
+			Booking booking = dao.findById(id).get();
+			log.info("read by id done in service");
+			return booking;
+		} catch (Exception e) {
+			log.error("This id does not exist");
+			return null;
+		}
 	}
 
 	/**
@@ -102,7 +127,13 @@ public class BookingService implements IService<Booking> {
 	 */
 	@Override
 	public List<Booking> readAll() {
-		return dao.findAll();
+		if (!dao.findAll().isEmpty()) {
+			log.info("read all done in service");
+			return dao.findAll();
+		} else {
+			log.warn("database is empty");
+			return null;
+		}
 	}
 
 	
