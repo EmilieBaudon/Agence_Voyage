@@ -173,9 +173,10 @@ public class StandingController {
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
-		service.deleteById(id);
+		
 
-		if (service.readById(id).equals(null)) {
+		if (service.deleteById(id)) {
+			service.deleteById(id);
 			log.info("Your Standing was deleted (controller)");
 			return "Standing deleted";
 		} else {
