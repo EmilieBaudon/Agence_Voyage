@@ -46,7 +46,9 @@ public class FlightServiceTest {
 	public void a_insertFlightWithNullId() {
 		flight = new Flight();
 		flight.setId(null);
-		assertNotNull(service.create(flight));
+		System.out.println(flight);
+		flight = service.create(flight);
+		assertNotNull(flight);
 	}
 
 	@Test

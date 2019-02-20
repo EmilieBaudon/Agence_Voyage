@@ -47,8 +47,10 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
 		if (result != null) {
+			log.info("flight created (controller)");
 			return "A flight has been created";
 		} else {
+			log.warn("flight has not been created (controller)");
 			return "A problem has occurred ";
 		}
 	}
@@ -70,8 +72,10 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
 		if (result != null) {
+			log.info("flight updated (controller)");
 			return "A flight has been update";
 		} else {
+			log.warn("flight has not been updated (controller)");
 			return "A problem has occurred ";
 		}
 	}
@@ -90,6 +94,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		FlightDtoWithId dto = new FlightDtoWithId(result.getId(), result.getIdPlane(), result.getDateArrival(),
 				result.getDateDeparture(), result.getAirportDeparture(), result.getAirportArrival(), tdto,
 				result.getPrice());
+		log.info("flight with id="+ id +" has been created (controller)");
 		return dto;
 	}
 
@@ -109,6 +114,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 					temp.getPrice());
 			listDto.add(dto);
 		}
+		log.info("All flight have been created (controller)");
 		return listDto;
 	}
 
@@ -118,6 +124,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
 		service.deleteById(id);
+		log.info("flight with id"+ id +" has been delete (controller)");
 		return "A flight has been delete";
 	}
 
