@@ -43,8 +43,9 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 
 	/**
 	 * CreateObject create an object in database with the parameter
+	 * 
 	 * @param dto is a data transfer object representing the service
-	 * @return a string saying if the creation has been successful 
+	 * @return a string saying if the creation has been successful
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
@@ -136,11 +137,10 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	public String delete(Long id) {
 		if (service.deleteById(id) == true) {
 			log.info("Travel deleted (controller)");
-			return "Travel has been delete";
+			return "Travel has been deleted";
 		} else {
 			log.error("Exception detected (controller)");
 			return "Can't delete ! ";
 		}
 	}
-
 }

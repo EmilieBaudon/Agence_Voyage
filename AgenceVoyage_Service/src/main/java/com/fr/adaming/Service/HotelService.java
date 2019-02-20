@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IHotelDao;
 import com.fr.adaming.entity.Hotel;
+import com.fr.adaming.entity.Person;
 
 /**
  * This class is the service part of the application for the hotel model It
@@ -77,14 +78,13 @@ public class HotelService implements IService<Hotel> {
 	@Override
 	public Hotel readById(Long id) {
 
-		Hotel test = dao.findById(id).get();
-
-		if (test.equals(null)) {
-			log.error("There was an issue reading your Hotel (service)");
+		try {
+			Hotel hotel = dao.findById(id).get();
+			log.info("read by id done in service");
+			return hotel;
+		} catch (Exception e) {
+			log.error("This id does not exist");
 			return null;
-		} else {
-			log.info("Your Hotel : (service)");
-			return test;
 		}
 
 	}

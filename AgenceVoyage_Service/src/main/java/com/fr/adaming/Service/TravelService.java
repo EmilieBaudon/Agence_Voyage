@@ -89,7 +89,7 @@ public class TravelService implements IService<Travel> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
-			log.info("Activity deleted (service)");
+			log.info("Travel deleted (service)");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

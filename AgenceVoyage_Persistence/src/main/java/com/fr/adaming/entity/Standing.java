@@ -9,9 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -64,13 +63,12 @@ public class Standing {
 	@Column(name="descr")
 	private String desc;
 	/**
-	 * @param hotel associated to Standing
-	 * @author Karguel
+	 * @param Hotel of the Standing 
 	 */
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "hotel")
+	@OneToOne
 	private Hotel hotel;
+	
 
 	/**
 	 * 
@@ -87,7 +85,7 @@ public class Standing {
 		this.priceChild = priceChild;
 		this.priceAdult = priceAdult;
 		this.desc = desc;
-		this.hotel = hotel;
+		
 		this.lactivity = lactivity;
 	}
 
