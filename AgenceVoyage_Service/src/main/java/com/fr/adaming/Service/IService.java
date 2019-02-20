@@ -13,13 +13,13 @@ import java.util.List;
 public interface IService<T> {
 	/**
 	 * This method create an object T in the database
-	 * @param activity is an object representing the service
+	 * @param object is an object representing the service
 	 * @return returns an object T that is return from the database at the creation of the object
 	 */
 	public T create(T object);
 	/**
 	 * This method update an object T in the database
-	 * @param activity is an object representing the service
+	 * @param object is an object representing the service
 	 * @return returns an object T that is return from the database at the update of the object
 	 */
 	public T update(T object);

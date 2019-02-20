@@ -32,7 +32,7 @@ public class HotelService implements IService<Hotel> {
 	 * This method create an hotel in the database the creation is done only if the id
 	 *         of the object us null or equal to 0
 	 * 
-	 * @param an object flight to be created
+	 * @param hotel an object flight to be created
 	 * 
 	 * @return the object flight created
 	 */
@@ -51,7 +51,7 @@ public class HotelService implements IService<Hotel> {
 	 * This method update an hotel in the database the update is done only if the id of
 	 *         the hotel is found in the DB
 	 * 
-	 * @param an object flight to be updated
+	 * @param hotel an object flight to be updated
 	 * 
 	 * @return the object flight updated
 	 */
@@ -70,7 +70,7 @@ public class HotelService implements IService<Hotel> {
 	/**
 	 * This method read an hotel in the database thanks to the id put in the parameter
 	 * 
-	 * @param a Long id representing the hotel id
+	 * @param id a Long id representing the hotel id
 	 * 
 	 * @return the object read
 	 */
@@ -92,7 +92,7 @@ public class HotelService implements IService<Hotel> {
 	/**
 	 * This method delete an hotel in the database thanks to the id put in the parameter
 	 * 
-	 * @param a Long id representing the hotel id 
+	 * @param id a Long id representing the hotel id 
 	 * 
 	 * @return the boolean object, return True if the object has been delete, false otherwise
 	 */

@@ -49,7 +49,7 @@ public class StandingService implements IService<Standing> {
 	 * update an standing in the database the update is done only if the id of the
 	 * standing is found in the DB
 	 * 
-	 * @param stading to update
+	 * @param standing to update
 	 * @return the standing updated
 	 */
 	@Override

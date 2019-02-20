@@ -12,13 +12,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		final Logger log = Logger.getLogger(Main.class);
-		
-		try {		
-		SpringApplication.run(Main.class, args);}
-		
-		catch (Exception e){
-		log.fatal("the application failed");		
+
+		try {
+			SpringApplication.run(Main.class, args);
+		} catch (Exception e) {
+			log.fatal("the application failed");
 		}
 	}
-
 }

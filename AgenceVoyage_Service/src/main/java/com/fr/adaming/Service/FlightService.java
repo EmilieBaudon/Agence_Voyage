@@ -35,7 +35,7 @@ public class FlightService implements IService<Flight> {
 	 * This method create an flight in the database the creation is done only if the
 	 * id of the object us null or equal to 0
 	 * 
-	 * @param an object flight to be created
+	 * @param flight an object flight to be created
 	 * 
 	 * @return the object flight created
 	 */
@@ -54,7 +54,7 @@ public class FlightService implements IService<Flight> {
 	 * This method update an flight in the database the update is done only if the id of
 	 *         the flight is found in the DB
 	 *         
-	 * @param an object flight to be updated
+	 * @param flight an object flight to be updated
 	 * 
 	 * @return the object updated
 	 */
@@ -72,7 +72,7 @@ public class FlightService implements IService<Flight> {
 	/**
 	 * This method read an flight in the database thanks to the id put in the parameter
 	 * 
-	 * @param a Long id representing the flight id 
+	 * @param id a Long id representing the flight id 
 	 * 
 	 * @return the object read
 	 */
@@ -87,7 +87,7 @@ public class FlightService implements IService<Flight> {
 	 * This method delete an flight in the database thanks to the id put in the
 	 *         parameter
 	 *         
-	 * @param a Long id representing the flight id 
+	 * @param id a Long id representing the flight id 
 	 * 
 	 * @return the boolean object, return True if the object has been delete, false otherwise
 	 */

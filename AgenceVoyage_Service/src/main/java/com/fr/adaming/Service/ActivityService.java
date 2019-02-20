@@ -34,7 +34,7 @@ public class ActivityService implements IService<Activity> {
 	 * 
 	 * @return an object activity
 	 * 
-	 * @param an object activity
+	 * @param activity an object activity
 	 */
 	@Override
 	public Activity create(Activity activity) {
@@ -53,7 +53,7 @@ public class ActivityService implements IService<Activity> {
 	 *         
 	 * @return an object activity
 	 * 
-	 * @param an object activity      
+	 * @param activity an object activity      
 	 */
 	@Override
 	public Activity update(Activity activity) {
@@ -71,7 +71,7 @@ public class ActivityService implements IService<Activity> {
 	 *         parameter
 	 *@return an object activity
 	 * 
-	 * @param an id representing the activity id    
+	 * @param id an id representing the activity id    
 	 */
 	@Override
 	public Activity readById(Long id) {
@@ -85,7 +85,7 @@ public class ActivityService implements IService<Activity> {
 	 * 
 	 * @return a boolean, true if the delete happened and false otherwise
 	 * 
-	 * @param an id representing the activity id
+	 * @param id an id representing the activity id
 	 */
 	public Boolean deleteById(Long id) {
 		try {
