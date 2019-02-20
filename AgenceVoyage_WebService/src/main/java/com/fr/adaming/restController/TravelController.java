@@ -3,6 +3,8 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +46,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@RequestBody TravelDto dto) {
+	public String createObject(@Valid @RequestBody TravelDto dto) {
 
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
 				dto.getPeriodEnd(), null, null, null));
@@ -65,7 +67,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
-	public String updateObject(@RequestBody TravelDtoWithId dto) {
+	public String updateObject(@Valid @RequestBody TravelDtoWithId dto) {
 		Travel travel = new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(), dto.getPeriodEnd(),
 				null, null, null);
 		travel.setId(dto.getId());
