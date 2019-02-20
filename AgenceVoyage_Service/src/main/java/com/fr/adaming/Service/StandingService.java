@@ -34,8 +34,10 @@ public class StandingService implements IService<Standing> {
 	 */
 	public Standing create(Standing standing) {
 		if (standing.getId() == null || standing.getId() == 0L) {
+			log.info("Service created (service)");
 			return dao.save(standing);
 		} else {
+			log.error("There was a problem creating your Service (service)");
 			return null;
 		}
 	}
@@ -47,8 +49,10 @@ public class StandingService implements IService<Standing> {
 	@Override
 	public Standing update(Standing standing) {
 		if (standing.getId() != null && standing.getId() != 0L && dao.existsById(standing.getId())) {
+			log.info("Service updated (service)");
 			return dao.save(standing);
 		} else {
+			log.error("There was a problem updting your Service (service)");
 			return null;
 		}
 	}
@@ -59,7 +63,16 @@ public class StandingService implements IService<Standing> {
 	 */
 	@Override
 	public Standing readById(Long id) {
-		return dao.findById(id).get();
+		
+		Standing test = dao.findById(id).get();
+		
+		if (test.equals(null)) {
+			log.error("There was an issue reading your Service (service)");
+			return null;
+		} else {
+			log.info("Your Service : (service)");
+			return test;
+		}
 	}
 
 	/**
@@ -69,9 +82,11 @@ public class StandingService implements IService<Standing> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			log.info("Your Service was deleted (service)");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("There was an issue deleting your Service (service)");
 			return false;
 		}
 	}
@@ -81,6 +96,14 @@ public class StandingService implements IService<Standing> {
 	 */
 	@Override
 	public List<Standing> readAll() {
-		return dao.findAll();
+		List<Standing> listS = dao.findAll();
+		
+		if (listS.equals(null)) {
+			log.error("There was an issue reading all your Services (service)");
+			return null;
+		} else {
+			log.info("Your Service List: (service)");
+			return listS;
+		}
 	}
 }
