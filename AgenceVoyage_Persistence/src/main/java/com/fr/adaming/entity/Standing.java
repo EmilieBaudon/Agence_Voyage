@@ -60,6 +60,10 @@ public class Standing {
 	 */
 	@Column(name="descr")
 	private String desc;
+	/**
+	 * @param Hotel of the Standing 
+	 */
+	private Hotel hotel;
 	
 
 	/**
