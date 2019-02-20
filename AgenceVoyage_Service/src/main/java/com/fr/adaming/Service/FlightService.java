@@ -41,7 +41,7 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public Flight create(Flight flight) {
-		if (flight.getId() == null || flight.getId() == 0L) {
+		if ((flight.getId() == null || flight.getId() == 0L) && (flight.getTravel() != null)) {
 			log.info("flight created (service)");
 			return dao.save(flight);
 		} else {
@@ -94,10 +94,11 @@ public class FlightService implements IService<Flight> {
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
-			log.info("flight with id=" + id + " delete (service)");
+			log.info("Flight deleted (service)");
 			return true;
 		} catch (Exception e) {
-			log.error("flight (service) with id=" + id + " has not been delete: " + e.getMessage());
+			e.printStackTrace();
+			log.error("Exception detected (service)");
 			return false;
 		}
 	}

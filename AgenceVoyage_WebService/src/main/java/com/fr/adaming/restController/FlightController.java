@@ -122,14 +122,18 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 
 	/**
 	 * readAll recover every flights in a table
+	 * 
 	 * @param the id of the flight
 	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
-		service.deleteById(id);
-		log.info("flight with id" + id + " has been delete (controller)");
-		return "A flight has been delete";
+		if (service.deleteById(id) == true) {
+			log.info("Flight deleted (controller)");
+			return "Flight has been deleted";
+		} else {
+			log.error("Exception detected (controller)");
+			return "Can't delete ! ";
+		}
 	}
-
 }
