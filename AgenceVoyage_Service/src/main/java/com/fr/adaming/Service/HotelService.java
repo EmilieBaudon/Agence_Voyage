@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IHotelDao;
 import com.fr.adaming.entity.Hotel;
+import com.fr.adaming.entity.Person;
 
 /**
  * This class is the service part of the application for the hotel model It
@@ -32,7 +33,7 @@ public class HotelService implements IService<Hotel> {
 	 * This method create an hotel in the database the creation is done only if the id
 	 *         of the object us null or equal to 0
 	 * 
-	 * @param an object flight to be created
+	 * @param hotel an object flight to be created
 	 * 
 	 * @return the object flight created
 	 */
@@ -51,7 +52,7 @@ public class HotelService implements IService<Hotel> {
 	 * This method update an hotel in the database the update is done only if the id of
 	 *         the hotel is found in the DB
 	 * 
-	 * @param an object flight to be updated
+	 * @param hotel an object flight to be updated
 	 * 
 	 * @return the object flight updated
 	 */
@@ -70,21 +71,20 @@ public class HotelService implements IService<Hotel> {
 	/**
 	 * This method read an hotel in the database thanks to the id put in the parameter
 	 * 
-	 * @param a Long id representing the hotel id
+	 * @param id a Long id representing the hotel id
 	 * 
 	 * @return the object read
 	 */
 	@Override
 	public Hotel readById(Long id) {
 
-		Hotel test = dao.findById(id).get();
-
-		if (test.equals(null)) {
-			log.error("There was an issue reading your Hotel (service)");
+		try {
+			Hotel hotel = dao.findById(id).get();
+			log.info("read by id done in service");
+			return hotel;
+		} catch (Exception e) {
+			log.error("This id does not exist");
 			return null;
-		} else {
-			log.info("Your Hotel : (service)");
-			return test;
 		}
 
 	}
@@ -92,7 +92,7 @@ public class HotelService implements IService<Hotel> {
 	/**
 	 * This method delete an hotel in the database thanks to the id put in the parameter
 	 * 
-	 * @param a Long id representing the hotel id 
+	 * @param id a Long id representing the hotel id 
 	 * 
 	 * @return the boolean object, return True if the object has been delete, false otherwise
 	 */

@@ -102,7 +102,6 @@ public interface IPersonController {
 	 * Import data from user to the service Use the read all method from person
 	 * service
 	 * 
-	 * @param is void
 	 * @return is a list of RegisterDto
 	 */
 	public List<RegisterDto> readAll();

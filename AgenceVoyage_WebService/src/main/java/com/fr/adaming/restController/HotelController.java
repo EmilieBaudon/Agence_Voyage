@@ -29,6 +29,9 @@ import com.fr.adaming.entity.Hotel;
 @RequestMapping(path = "hotel/")
 public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 
+	/**
+	 * @param log is an object used to create logs
+	 */
 	private Logger log = Logger.getLogger(ActivityService.class);
 	/**
 	 * @param HotelService is an object from the Service layer, used to interact
@@ -40,16 +43,16 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	private HotelService service;
 
 	/**
-	 * @param HotelDto is an object used for Data transfer from the database to the
-	 *                 user, using the RestController.
+	 * @param dto HotelDto is an object used for Data transfer from the database to
+	 *            the user, using the RestController.
 	 */
 	private HotelDto dto;
 
 	/**
-	 * @param HotelDtoWithId is an object used for Data transfer from the database
-	 *                       to the user, using the RestController. It has an "Id"
-	 *                       attribute so that it can be used with the "Update",
-	 *                       "Delete" and "readById" methods.
+	 * @param dtoId HotelDtoWithId is an object used for Data transfer from the
+	 *              database to the user, using the RestController. It has an "Id"
+	 *              attribute so that it can be used with the "Update", "Delete" and
+	 *              "readById" methods.
 	 * 
 	 */
 
@@ -59,7 +62,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * createObject is a method which allows the user to create a Hotel object in
 	 * the database.
 	 * 
-	 * @param the parameter is a 'HotelDto' object
+	 * @param dto the parameter is a 'HotelDto' object
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@Override
@@ -80,7 +83,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * updateObject is a method which allows the user to update an existing Hotel
 	 * object in the database.
 	 * 
-	 * @param the parameter is a 'HotelDtoWithId' object
+	 * @param dto the parameter is a 'HotelDtoWithId' object
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@Override
@@ -105,7 +108,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * read is a method which allows the user to get information about an existing
 	 * Hotel object in the database.
 	 * 
-	 * @param the parameter id is a Long attribute
+	 * @param id the parameter id is a Long attribute
 	 * @return the return is a 'HotelDtoWithId' object
 	 */
 	@Override
@@ -129,7 +132,6 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * readall is a method which allows the user to get information about all the
 	 * Hotel objects in the database.
 	 * 
-	 * @param the parameter is a list of 'HotelDtoWithId' objects
 	 * @return the return is a list of 'HotelDtoWithId' representing the content of
 	 *         the 'Hotel' objects in the database
 	 */
@@ -162,9 +164,9 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
-		service.deleteById(id);
-
-		if (service.deleteById(id) == true) {
+		
+		if (service.deleteById(id)) {
+			service.deleteById(id);
 			log.info("Your Hotel was deleted (controller)");
 			return "Hotel deleted";
 		} else {

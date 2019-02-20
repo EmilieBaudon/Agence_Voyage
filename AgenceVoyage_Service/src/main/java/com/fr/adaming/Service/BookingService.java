@@ -105,13 +105,5 @@ public class BookingService implements IService<Booking> {
 		return dao.findAll();
 	}
 
-	public Booking booking(Booking booking, Standing standing, Flight flight) {
-
-		booking.setTotalPrice((booking.getNbrAdult() * (standing.getPriceAdult() + flight.getPrice()))
-				+ (booking.getNbrChild() * (standing.getPriceChild() + flight.getPrice())));
-
-		dao.save(booking);
-		return booking;
-
-	}
+	
 }

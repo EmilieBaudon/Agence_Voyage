@@ -27,8 +27,6 @@ import com.fr.adaming.entity.Travel;
  * @author Nicolas
  * 
  * 
- * @param <TravelDto> represent the Dto (Data transfer object) classes of Travel
- * @param <TravelDtoWithId> have an id
  */
 
 @RestController
@@ -36,7 +34,7 @@ import com.fr.adaming.entity.Travel;
 public class TravelController implements IController<TravelDto, TravelDtoWithId> {
 
 	/**
-	 * @param TravelService is an object used to access the database
+	 * @param service TravelService is an object used to access the database
 	 */
 	@Autowired
 	private TravelService service;
@@ -112,7 +110,6 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	/**
 	 * ReadAll read all travels in database
 	 * 
-	 * @param is void
 	 * @return an array list of TravelDtoWithId
 	 */
 	@Override

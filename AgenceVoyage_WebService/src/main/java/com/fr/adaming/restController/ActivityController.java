@@ -3,8 +3,6 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,14 +35,14 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * import data from activity to the service Use the Update method from activity
 	 * service
 	 * 
-	 * @param the Activity that will be created
+	 * @param obj the Activity that will be created
 	 * @return a String to signify if the method has worked
 	 */
-	
-	@RequestMapping(path="create",method=RequestMethod.POST)
+
+	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody ActivityDto obj) {
-		Activity result=serviceActivity.create(new Activity(obj.getName(),obj.getDesc()));	
-		if(result!=null) {
+		Activity result = serviceActivity.create(new Activity(obj.getName(), obj.getDesc()));
+		if (result != null) {
 			log.info("activity created (controller)");
 			return "activity created";
 		} else {
@@ -57,10 +55,10 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * import data from activity to the service Use the Update method from activity
 	 * service
 	 * 
-	 * @param the activity to update
+	 * @param obj the activity to update
 	 * @return a String to signify if the method has worked
 	 */
-	@RequestMapping(path="update",method=RequestMethod.PUT)
+	@RequestMapping(path = "update", method = RequestMethod.PUT)
 	public String updateObject(@RequestBody ActivityDto obj) {
 		Activity res = new Activity(obj.getName(), obj.getDesc());
 		res.setId(obj.getId());
@@ -110,7 +108,7 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * import data from activity to the service Use the delete by id method from
 	 * activity service
 	 * 
-	 * @param the id of the activity
+	 * @param id of the activity
 	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
@@ -125,4 +123,3 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	}
 
 }
-

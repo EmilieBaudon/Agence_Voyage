@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -63,15 +64,15 @@ public class Hotel {
 	 * 
 	 */
 	@JsonManagedReference
-	@OneToMany(mappedBy="hotel" , fetch = FetchType.LAZY)
-	List <Standing> lstanding;
+	@OneToOne
+	private Standing standing;
 
-	public Hotel(String name, String desc, List<Travel> ltravel, List<Standing> lstanding) {
+	public Hotel(String name, String desc, List<Travel> ltravel, Standing standing) {
 		super();
 		this.name = name;
 		this.desc = desc;
 		this.ltravel = ltravel;
-		this.lstanding = lstanding;
+		this.standing = standing;
 	}
 	
 	
