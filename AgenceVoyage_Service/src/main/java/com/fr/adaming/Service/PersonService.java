@@ -27,8 +27,11 @@ public class PersonService implements IPersonService {
 	private Logger log = Logger.getLogger(PersonService.class);	
 
 	/**
-	 * @method Create the person given in the database Return Null if the person
+	 * This method Create the person given in the database Return Null if the person
 	 *         already exist
+	 * @param person an object person to be created
+	 * 
+	 * @return the object person created
 	 */
 	@Override
 	public Person create(Person person) {
@@ -47,8 +50,11 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method Update the person given if the person do not exit in the database,
+	 * This method Update the person given if the person do not exit in the database,
 	 *         return Null
+	 * @param person an object person to be updated
+	 * 
+	 * @return the object person updated
 	 */
 	@Override
 	public Person update(Person person) {
@@ -62,8 +68,11 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method Return a person with its Mail Return Null if the Mail do not exist in
+	 * This method Return a person with its Mail Return Null if the Mail do not exist in
 	 *         the database
+	 * @param email a String representing the person email
+	 * 
+	 * @return the object read        
 	 */
 	@Override
 	public Person readByEmail(String email) {
@@ -80,12 +89,14 @@ public class PersonService implements IPersonService {
 			log.warn("email can not be null");
 			return null;
 		}
-
 	}
 
 	/**
-	 * @method Return a person with its Mail Return Null if the Mail do not exist in
+	 * This method Return a person with its Mail Return Null if the Mail do not exist in
 	 *         the database
+	 * @param id a Long representing the person id
+	 * 
+	 * @return the object read     
 	 */
 	@Override
 	public Person readById(Long id) {
@@ -100,8 +111,10 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method return all the people in the database return null if the database is
+	 * This method return all the people in the database return null if the database is
 	 *         empty
+	 * 
+	 * @return a list of Person from the DB
 	 */
 	@Override
 	public List<Person> readAll() {
@@ -115,7 +128,10 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method delete a person with its id if it exist in the database
+	 * This method delete a person with its id if it exist in the database
+	 * @param id a Long id representing the hotel id 
+	 * 
+	 * @return the boolean object, return True if the object has been delete, false otherwise
 	 */
 	@Override
 	public boolean deleteById(Long id) {
@@ -130,7 +146,9 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method delete a person with its Mail if it exist in the database
+	 * This method delete a person with its Mail if it exist in the database
+	 * @param email String representing  the email of the person
+	 * @return the boolean object, return True if the object has been delete, false otherwise
 	 */
 	@Override
 	public boolean deleteByEmail(String email) {
@@ -146,8 +164,11 @@ public class PersonService implements IPersonService {
 	}
 
 	/**
-	 * @method Connect a person if its Mail and Pwd are correct Return null if it
+	 * This method Connect a person if its Mail and Pwd are correct Return null if it
 	 *         does not exist
+	 * @param email a string with an email value of the person 
+	 * @param pwd a string with a password
+	 * @return the person read
 	 */
 	@Override
 	public Person Login(String email, String pwd) {

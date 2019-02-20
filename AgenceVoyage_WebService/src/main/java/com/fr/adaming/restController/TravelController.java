@@ -25,6 +25,8 @@ import com.fr.adaming.entity.Travel;
  *
  *
  * @author Nicolas
+ * 
+ * 
  */
 
 @RestController
@@ -32,17 +34,17 @@ import com.fr.adaming.entity.Travel;
 public class TravelController implements IController<TravelDto, TravelDtoWithId> {
 
 	/**
-	 * @param TravelService is an object used to access the database
+	 * @param service TravelService is an object used to access the database
 	 */
 	@Autowired
 	private TravelService service;
 
-	private TravelDto dto;
-
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
-	 * @Method createObject create an object in database with the parameter
+	 * CreateObject create an object in database with the parameter
+	 * @param dto is a data transfer object representing the service
+	 * @return a string saying if the creation has been successful 
 	 */
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
@@ -52,18 +54,22 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 				dto.getPeriodEnd(), null, null, null));
 
 		if (travel != null) {
-			log.info("activity created (controller)");
+			log.info("Travel created (controller)");
 			return "Travel has been created";
 		}
 
 		else {
-			log.warn("The activity you want to create has an id which already exist (controller)");
+			log.warn("The travel you want to create has an id which already exist (controller)");
 			return "Travel has not been created";
+
 		}
 	}
 
 	/**
-	 * @Method updateObject update an object in database
+	 * UpdateObject update an object in database
+	 * 
+	 * @param dto is a data transfer object representing the service
+	 * @return a string saying if the updating has been successful
 	 */
 	@Override
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
@@ -72,19 +78,22 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 				null, null, null);
 		travel.setId(dto.getId());
 		service.update(travel);
-		if (travel != null) {
-			log.info("activity updated (controller)");
-			return "Travel has been updated";
+		if (travel.equals(null)) {
+			log.warn("The travel you want to update has an id which already exist (controller)");
+			return "Travel has not been updated";
 		}
 
 		else {
-			log.warn("The activity you want to update has an id which already exist (controller)");
-			return "Travel has not been updated";
+			log.info("Travel updated (controller)");
+			return "Travel has been updated";
 		}
 	}
 
 	/**
-	 * @Method readById read by id an object in database
+	 * ReadById read by id an object in database
+	 * 
+	 * @param id is the id of TravelDtoWithId
+	 * @return a dto object
 	 */
 	@Override
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
@@ -93,12 +102,14 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 		Travel result = service.readById(id);
 		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
 				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null);
-		log.info("Activity print (controller)");
+		log.info("Travel print (controller)");
 		return dto;
 	}
 
 	/**
-	 * @Method readAll read all travels in database
+	 * ReadAll read all travels in database
+	 * 
+	 * @return an array list of TravelDtoWithId
 	 */
 	@Override
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
@@ -109,20 +120,23 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
 					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
 		}
-		log.info("List of activities printed (controller)");
+		log.info("List of travels printed (controller)");
 		return listDto;
 
 	}
 
 	/**
-	 * @Method delete delete an object with the id
+	 * Delete delete an object with the id
+	 * 
+	 * @param id of the object that must be deleted
+	 * @return a string saying if the delete has been successful
 	 */
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
 		if (service.deleteById(id) == true) {
-			log.info("Activity deleted (controller)");
-			return "A flight has been delete";
+			log.info("Travel deleted (controller)");
+			return "Travel has been delete";
 		} else {
 			log.error("Exception detected (controller)");
 			return "Can't delete ! ";

@@ -19,7 +19,7 @@ import com.fr.adaming.entity.Standing;
  */
 @Service
 public class StandingService implements IService<Standing> {
-	
+
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
@@ -29,58 +29,93 @@ public class StandingService implements IService<Standing> {
 	private IStandingDao dao;
 
 	/**
-	 * @method create an standing in the database the creation is done only if the
-	 *         id of the object us null or equal to 0
+	 * create an standing in the database the creation is done only if the id of the
+	 * object us null or equal to 0
+	 * 
+	 * @param standing to create
+	 * @return the standing created
 	 */
 	public Standing create(Standing standing) {
 		if (standing.getId() == null || standing.getId() == 0L) {
+			log.info("Service created (service)");
 			return dao.save(standing);
 		} else {
+			log.error("There was a problem creating your Service (service)");
 			return null;
 		}
 	}
 
 	/**
-	 * @method update an standing in the database the update is done only if the id
-	 *         of the standing is found in the DB
+	 * update an standing in the database the update is done only if the id of the
+	 * standing is found in the DB
+	 * 
+	 * @param standing to update
+	 * @return the standing updated
 	 */
 	@Override
 	public Standing update(Standing standing) {
 		if (standing.getId() != null && standing.getId() != 0L && dao.existsById(standing.getId())) {
+			log.info("Service updated (service)");
 			return dao.save(standing);
 		} else {
+			log.error("There was a problem updting your Service (service)");
 			return null;
 		}
 	}
 
 	/**
-	 * @method read an standing in the database thanks to the id put in the
-	 *         parameter
+	 * read an standing in the database thanks to the id put in the parameter
+	 * 
+	 * @param id of the standing
+	 * @return standing
 	 */
 	@Override
 	public Standing readById(Long id) {
-		return dao.findById(id).get();
+
+		Standing test = dao.findById(id).get();
+
+		if (test.equals(null)) {
+			log.error("There was an issue reading your Service (service)");
+			return null;
+		} else {
+			log.info("Your Service : (service)");
+			return test;
+		}
 	}
 
 	/**
-	 * @method delete an standing in the database thanks to the id put in the
-	 *         parameter
+	 * delete an standing in the database thanks to the id put in the parameter
+	 * 
+	 * @param id of the standing
+	 * @return boolean true if the method worked and false if not
 	 */
 	public Boolean deleteById(Long id) {
 		try {
 			dao.deleteById(id);
+			log.info("Your Service was deleted (service)");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("There was an issue deleting your Service (service)");
 			return false;
 		}
 	}
 
 	/**
-	 * @method read all the standings in the DB
+	 * read all the standings in the DB
+	 * 
+	 * @return list of all the standings in the database
 	 */
 	@Override
 	public List<Standing> readAll() {
-		return dao.findAll();
+		List<Standing> listS = dao.findAll();
+
+		if (listS.equals(null)) {
+			log.error("There was an issue reading all your Services (service)");
+			return null;
+		} else {
+			log.info("Your Service List: (service)");
+			return listS;
+		}
 	}
 }

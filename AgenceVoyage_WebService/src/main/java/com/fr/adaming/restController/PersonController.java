@@ -3,6 +3,8 @@ package com.fr.adaming.restController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,12 +39,14 @@ public class PersonController implements IPersonController {
 	private Logger log = Logger.getLogger(PersonController.class);	
 
 	/**
-	 * @method import data from user to the service Use the Create method to
-	 *         register a customer
+	 * Create the person given in the database Return Null if the person already
+	 * exist
+	 * 
+	 * @param dto the person to be registered
+	 * @return the string of response
 	 */
-
 	@RequestMapping(path = "register", method = RequestMethod.POST)
-	public String register(@RequestBody CustomerDto dto) {
+	public String register(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
@@ -56,12 +60,15 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the Create method to create
-	 *         a customer (for the technicians)
+	 * Create the person given in the database Return Null if the person already
+	 * exist
+	 * 
+	 * @param dto the person to be updated
+	 * @return the string of response
 	 */
 
 	@RequestMapping(path = "createCustomer", method = RequestMethod.POST)
-	public String create(@RequestBody CustomerDto dto) {
+	public String create(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
@@ -75,12 +82,15 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the Create method to create
-	 *         a technician (for the technicians)
+	 * Create the person given in the database Return Null if the person already
+	 * exist
+	 * 
+	 * @param dto the person to be created
+	 * @return the string of response
 	 */
 	@Override
 	@RequestMapping(path = "createTech", method = RequestMethod.POST)
-	public String create(@RequestBody TechnicianDto dto) {
+	public String create(@Valid @RequestBody TechnicianDto dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		Person result = service.create(person);
@@ -94,12 +104,15 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the Update method from
-	 *         person service exept email
+	 * Update the person given if the person do not exit in the database, return
+	 * Null
+	 * 
+	 * @param dto the person to be updated
+	 * @return the string of response
 	 */
 	@Override
 	@RequestMapping(path = "updateCustomer", method = RequestMethod.PUT)
-	public String update(@RequestBody CustomerDtoWithId dto) {
+	public String update(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getCard(), null, null);
 		person.setId(dto.getId());
@@ -114,12 +127,15 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the Update method from
-	 *         person service exept email
+	 * Update the person given if the person do not exit in the database, return
+	 * Null
+	 * 
+	 * @param dto the person to be updated
+	 * @return the string of response
 	 */
 	@Override
 	@RequestMapping(path = "updateTech", method = RequestMethod.PUT)
-	public String update(@RequestBody TechnicianDtoWithId dto) {
+	public String update(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		person.setId(dto.getId());
@@ -134,12 +150,14 @@ public class PersonController implements IPersonController {
 	}
 	
 	/**
-	 * @method import data from user to the service Use the Update method from
-	 *         person service to update only email email
+	 * Update the mail of a person
+	 * 
+	 * @param dto the person to be updated
+	 * @return the string of response
 	 */
 	@Override
 	@RequestMapping(path = "updateCustomerEmail", method = RequestMethod.PUT)
-	public String updateEmail(@RequestBody CustomerDtoWithId dto) {
+	public String updateEmail(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = (Customer) service.readById(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
@@ -154,12 +172,14 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the Update method from
-	 *         person service to update only email email
+	 * Update the mail of a technician
+	 * 
+	 * @param dto the person to be updated
+	 * @return the string of response
 	 */
 	@Override
 	@RequestMapping(path = "updateTechEmail", method = RequestMethod.PUT)
-	public String updateEmail(@RequestBody TechnicianDtoWithId dto) {
+	public String updateEmail(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = (Technician) service.readById(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
@@ -173,8 +193,10 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the read by email method
-	 *         from person service
+	 * Read an object person with his email
+	 * 
+	 * @param email of the person
+	 * @return the person to be read from DB with email
 	 */
 	@Override
 	@RequestMapping(path = "read/{email}", method = RequestMethod.GET)
@@ -183,8 +205,10 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the read by id method from
-	 *         person service
+	 * Read an object person with his id
+	 * 
+	 * @param id of the person
+	 * @return the person to be read from DB with email
 	 */
 	@Override
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
@@ -193,8 +217,9 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the read all method from
-	 *         person service
+	 * Read all persons in DB
+	 * 
+	 * @return the person to be read from DB with email
 	 */
 	@Override
 	@RequestMapping(path = "readAll", method = RequestMethod.GET)
@@ -211,8 +236,10 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the delete by id method from
-	 *         person service
+	 * Delete a person in the DB using his id
+	 * 
+	 * @param id of the person
+	 * @return return a string of validation
 	 */
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
@@ -228,8 +255,10 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the delete by email method
-	 *         from person service
+	 * Delete a person in the DB using his email
+	 * 
+	 * @param email of the person
+	 * @return return a string of validation
 	 */
 	@Override
 	@RequestMapping(path = "delete/{email}", method = RequestMethod.DELETE)
@@ -245,8 +274,10 @@ public class PersonController implements IPersonController {
 	}
 
 	/**
-	 * @method import data from user to the service Use the delete by email method
-	 *         from person service
+	 * method for a log
+	 * 
+	 * @param login of the person wich is a combination of a mail and a password
+	 * @return return a string of validation
 	 */
 	@Override
 	@RequestMapping(path = "login", method = RequestMethod.POST)
@@ -260,5 +291,4 @@ public class PersonController implements IPersonController {
 			return "Email or password are incorrect";
 		}
 	}
-
 }

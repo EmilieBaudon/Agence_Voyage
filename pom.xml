@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fr.adaming</groupId>
 	<artifactId>AgenceVoyage</artifactId>
@@ -14,6 +15,71 @@
 	<name>AgenceVoyage</name>
 	<packaging>pom</packaging>
 	<description>Webservice</description>
+
+	<developers>
+		<developer>
+			<name>Emily</name>
+			<email>emily@inti.fr</email>
+			<organization>${team.organisation.name}</organization>
+			<roles>
+				<role>Chef de projet</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Alan</name>
+			<email>alan@inti.fr</email>
+			<organization>${team.organisation.name}</organization>
+			<roles>
+				<role>Referent technique</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Nicolas</name>
+			<email>nicolas@inti.fr</email>
+			<organization>${team.organisation.name}</organization>
+			<roles>
+				<role>Developpeur</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Quentin</name>
+			<email>quentin@inti.fr</email>
+			<organization>${team.organisation.name}</organization>
+			<roles>
+				<role>Developpeur</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Victor</name>
+			<email>victor@inti.fr</email>
+			<organization>${team.organisation.name}</organization>
+			<roles>
+				<role>Developpeur</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Mathieu</name>
+			<email>mathieu@inti.fr</email>
+			<organization>${team.organisation.name}</organization>
+			<roles>
+				<role>Developpeur</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<mailingLists>
+		<mailingList>
+			<name>Developer team</name>
+			<post>emily@inti.fr</post>
+			<subscribe>nicolas@inti.fr</subscribe>
+			<unsubscribe>nicolas@inti.fr</unsubscribe>
+		</mailingList>
+	</mailingLists>
+
+	<organization>
+		<name>INTI</name>
+		<url>https://www.google.com</url>
+	</organization>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -38,8 +104,35 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<modules>
 		<module>AgenceVoyage_Persistence</module>

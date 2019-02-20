@@ -31,13 +31,18 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 */
 	@Autowired
 	private FlightService service;
-	
-	private Logger log = Logger.getLogger(ActivityService.class);	
 
 	/**
-	 * @param FlightDto an object Flight for the data transfert
-	 * @method createObject is here to create an object in the database with the
-	 *         parameter
+	 * @param log is an object used to create logs
+	 */
+	private Logger log = Logger.getLogger(ActivityService.class);
+
+	/**
+	 * This method allows to create a flight with a the request method post
+	 * 
+	 * @param obj FlightDto an object Flight for the data transfert createObject is here
+	 *                  to create an object in the database with the parameter
+	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody FlightDto obj) {
@@ -47,16 +52,20 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
 		if (result != null) {
+			log.info("flight created (controller)");
 			return "A flight has been created";
 		} else {
+			log.warn("flight has not been created (controller)");
 			return "A problem has occurred ";
 		}
 	}
 
 	/**
-	 * @param FlightDto an object Flight for the data transfert
-	 * @method updateObject is here to update an object in the database with the
-	 *         parameter
+	 * 
+	 * This method allows to update a flight with a the request method post
+	 * @param obj FlightDto an object Flight for the data transfert updateObject is here
+	 *                  to update an object in the database with the parameter
+	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
 	public String updateObject(@RequestBody FlightDtoWithId obj) {
@@ -70,16 +79,19 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
 		if (result != null) {
+			log.info("flight updated (controller)");
 			return "A flight has been update";
 		} else {
+			log.warn("flight has not been updated (controller)");
 			return "A problem has occurred ";
 		}
 	}
 
 	/**
-	 * @param id is the id of the object we want to read
-	 * @method readById is here to recover an object in the database thanks the
-	 *         parameter id
+	 * This method allows to read a flight with his id
+	 * @param id is the id of the object we want to read readById is here to recover
+	 *           an object in the database thanks the parameter id
+	 * @return the flight with the id or null if it does not exist
 	 */
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
 	public FlightDtoWithId readById(Long id) {
@@ -90,11 +102,14 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		FlightDtoWithId dto = new FlightDtoWithId(result.getId(), result.getIdPlane(), result.getDateArrival(),
 				result.getDateDeparture(), result.getAirportDeparture(), result.getAirportArrival(), tdto,
 				result.getPrice());
+		log.info("flight with id=" + id + " has been created (controller)");
 		return dto;
 	}
 
 	/**
-	 * @method readAll recover every flights in a table
+	 * readAll recover every flights in a table
+	 * 
+	 * @return a list with all the flight of the database
 	 */
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
 	public List<FlightDtoWithId> readAll() {
@@ -109,15 +124,19 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 					temp.getPrice());
 			listDto.add(dto);
 		}
+		log.info("All flight have been created (controller)");
 		return listDto;
 	}
 
 	/**
-	 * @method readAll recover every flights in a table
+	 * readAll recover every flights in a table
+	 * @param id of the flight
+	 * @return a String to signify if the method has worked
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
 		service.deleteById(id);
+		log.info("flight with id" + id + " has been delete (controller)");
 		return "A flight has been delete";
 	}
 

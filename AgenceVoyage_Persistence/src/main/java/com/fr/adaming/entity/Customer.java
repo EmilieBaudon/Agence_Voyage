@@ -16,11 +16,9 @@ import lombok.ToString;
 
 /**
  * 
- * <<<<<<< HEAD This class contains all the customers in the database. It has
+ * This class contains all the customers in the database. It has
  * attributes such as a bank card, and loyalty points, acquired during a travel
- * reservation. ======= This class contains all the customers in the database.
- * It has attributes such as a bank card, and loyalty points, acquired during a
- * travel reservation. >>>>>>> ddc23f6f7023aa199ffcc6350af138b33ca34d81
+ * reservation.
  *
  * @author Nicolas
  *

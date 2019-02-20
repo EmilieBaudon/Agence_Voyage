@@ -26,17 +26,21 @@ public class FlightService implements IService<Flight> {
 	@Autowired
 	private IFlightDao dao;
 
+	/**
+	 * @param object to generate log
+	 */
 	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
-	 * @method create an flight in the database the creation is done only if the id
-	 *         of the object us null or equal to 0
+	 * This method create an flight in the database the creation is done only if the
+	 * id of the object us null or equal to 0
+	 * 
+	 * @param flight an object flight to be created
+	 * 
+	 * @return the object flight created
 	 */
 	@Override
 	public Flight create(Flight flight) {
-		if (flight.getDateDeparture().isBefore(flight.getDateArrival())) {
-			return null;
-		}
 		if (flight.getId() == null || flight.getId() == 0L) {
 			log.info("flight created (service)");
 			return dao.save(flight);
@@ -47,8 +51,12 @@ public class FlightService implements IService<Flight> {
 	}
 
 	/**
-	 * @method update an flight in the database the update is done only if the id of
+	 * This method update an flight in the database the update is done only if the id of
 	 *         the flight is found in the DB
+	 *         
+	 * @param flight an object flight to be updated
+	 * 
+	 * @return the object updated
 	 */
 	@Override
 	public Flight update(Flight flight) {
@@ -62,18 +70,26 @@ public class FlightService implements IService<Flight> {
 	}
 
 	/**
-	 * @method read an flight in the database thanks to the id put in the parameter
+	 * This method read an flight in the database thanks to the id put in the parameter
+	 * 
+	 * @param id a Long id representing the flight id 
+	 * 
+	 * @return the object read
 	 */
 	@Override
 	public Flight readById(Long id) {
 		Flight flight = dao.findById(id).get();
-		log.info("flight (service) with id=" + id +" has been read from the DB");
+		log.info("flight (service) with id=" + id + " has been read from the DB");
 		return flight;
 	}
 
 	/**
-	 * @method delete an flight in the database thanks to the id put in the
+	 * This method delete an flight in the database thanks to the id put in the
 	 *         parameter
+	 *         
+	 * @param id a Long id representing the flight id 
+	 * 
+	 * @return the boolean object, return True if the object has been delete, false otherwise
 	 */
 	public Boolean deleteById(Long id) {
 		try {
@@ -87,7 +103,9 @@ public class FlightService implements IService<Flight> {
 	}
 
 	/**
-	 * @method read all the flights in the DB
+	 * This method read all the flights in the DB
+	 * 
+	 * @return a list of flight return from the database 
 	 */
 	@Override
 	public List<Flight> readAll() {

@@ -28,7 +28,6 @@ public class TravelDtoWithId {
 	/**
 	 * @param id of the travel
 	 */
-	@NotNull
 	private Long id;
 
 	
@@ -52,7 +51,6 @@ public class TravelDtoWithId {
 	/**
 	 * @param periodEnd
 	 */
-	@NotNull
 	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate periodEnd;
 	

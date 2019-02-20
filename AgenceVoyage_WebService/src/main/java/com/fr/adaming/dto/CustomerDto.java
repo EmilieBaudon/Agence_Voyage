@@ -55,10 +55,9 @@ public class CustomerDto {
 	private String mail;
 	/**
 	 * @param Person password
-	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
+	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
 	 */
-
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]*).{8,}$")
 	private String pwd;
 	/**
 	 * @param Customer's card

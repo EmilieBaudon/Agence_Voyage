@@ -30,8 +30,12 @@ public class BookingService implements IService<Booking> {
 	private IBookingDao dao;
 
 	/**
-	 * @method create an booking in the database the creation is done only if the id
-	 *         of the object us null or equal to 0
+	 * This method create an booking in the database the creation is done only if
+	 * the id of the object us null or equal to 0
+	 * 
+	 * @return an object booking
+	 * 
+	 * @param an object booking
 	 */
 	@Override
 	public Booking create(Booking booking) {
@@ -43,8 +47,12 @@ public class BookingService implements IService<Booking> {
 	}
 
 	/**
-	 * @method update an booking in the database the update is done only if the id
-	 *         of the booking is found in the DB
+	 * This method update an booking in the database the update is done only if the
+	 * id of the booking is found in the DB
+	 * 
+	 * @return an object booking
+	 * 
+	 * @param an object booking
 	 */
 	@Override
 	public Booking update(Booking booking) {
@@ -56,7 +64,12 @@ public class BookingService implements IService<Booking> {
 	}
 
 	/**
-	 * @method read an booking in the database thanks to the id put in the parameter
+	 * This method read an booking in the database thanks to the id put in the
+	 * parameter
+	 * 
+	 * @return an object booking
+	 * 
+	 * @param a Long id representing the activity id
 	 */
 	@Override
 	public Booking readById(Long id) {
@@ -64,8 +77,12 @@ public class BookingService implements IService<Booking> {
 	}
 
 	/**
-	 * @method delete an booking in the database thanks to the id put in the
-	 *         parameter
+	 * This method delete an booking in the database thanks to the id put in the
+	 * parameter
+	 * 
+	 * @param a Long id representing the flight id
+	 * @return a boolean, true if the delete happened and false otherwise
+	 * 
 	 */
 	public Boolean deleteById(Long id) {
 		try {
@@ -78,7 +95,10 @@ public class BookingService implements IService<Booking> {
 	}
 
 	/**
-	 * @method read all the bookings in the DB
+	 * This method read all the bookings in the DB
+	 * 
+	 * @return a list of booking from the database
+	 * 
 	 */
 	@Override
 	public List<Booking> readAll() {

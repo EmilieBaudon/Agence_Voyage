@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IActivityDao;
@@ -24,14 +23,18 @@ public class ActivityService implements IService<Activity> {
 	/**
 	 * @param Data access object of the activity
 	 */
-	@Autowired 
+	@Autowired
 	private IActivityDao dao;
-	
-	private Logger log = Logger.getLogger(ActivityService.class);	
+
+	private Logger log = Logger.getLogger(ActivityService.class);
 
 	/**
-	 * @method create an activity in the database the creation is done only if the
-	 *         id of the object us null or equal to 0
+	 * This method create an activity in the database the creation is done only if
+	 * the id of the object us null or equal to 0
+	 * 
+	 * @return an object activity
+	 * 
+	 * @param activity an object activity
 	 */
 	@Override
 	public Activity create(Activity activity) {
@@ -45,8 +48,12 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * @method update an activity in the database the update is done only if the id
+	 * This method update an activity in the database the update is done only if the id
 	 *         of the activity is found in the DB
+	 *         
+	 * @return an object activity
+	 * 
+	 * @param activity an object activity      
 	 */
 	@Override
 	public Activity update(Activity activity) {
@@ -60,18 +67,25 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * @method read an activity in the database thanks to the id put in the
+	 * This method read an activity in the database thanks to the id put in the
 	 *         parameter
+	 *@return an object activity
+	 * 
+	 * @param id an id representing the activity id    
 	 */
 	@Override
 	public Activity readById(Long id) {
-		log.info("Activity print (service)" );
+		log.info("Activity print (service)");
 		return dao.findById(id).get();
 	}
 
 	/**
-	 * @method delete an activity in the database thanks to the id put in the
-	 *         parameter
+	 * This method delete an activity in the database thanks to the id put in the
+	 * parameter
+	 * 
+	 * @return a boolean, true if the delete happened and false otherwise
+	 * 
+	 * @param id an id representing the activity id
 	 */
 	public Boolean deleteById(Long id) {
 		try {
@@ -86,7 +100,9 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * @method read all the activities in the DB
+	 * This method read all the activities in the DB
+	 * 
+	 *@return a list of activity from the database
 	 */
 	@Override
 	public List<Activity> readAll() {
