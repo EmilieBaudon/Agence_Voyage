@@ -85,7 +85,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 				null, null, null);
 		travel.setId(dto.getId());
 		service.update(travel);
-		if (travel.equals(null)) {
+		if (travel == new Travel()) {
 			log.warn("The travel you want to update has an id which already exist (controller)");
 			return "Travel has not been updated";
 		}
