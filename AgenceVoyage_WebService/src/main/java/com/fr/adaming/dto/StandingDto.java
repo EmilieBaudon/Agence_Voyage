@@ -45,7 +45,7 @@ public class StandingDto {
 	/**
 	 * @param id_hotelDto associated to Standing	 
 	 */	
-	private Long id_hotelDto;
+	private Long idhotelDto;
 	/**
 	 * 
 	 * @param list of activities

@@ -33,6 +33,6 @@ public class HotelDto {
 	/**
 	 * @param id_standing 
 	 */
-	private Long id_Standing;
+	private Long idStanding;
 	
 }
