@@ -1,4 +1,4 @@
-package com.fr.adaming.restController;
+package com.fr.adaming.restcontroller;
 
 import java.util.List;
 

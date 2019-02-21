@@ -1,4 +1,4 @@
-package com.fr.adaming.restController;
+package com.fr.adaming.restcontroller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +31,7 @@ import com.fr.adaming.entity.Travel;
  * 
  * @author Karguel(Mathieu)
  * 
- *         This class is the controller of Bookings which controlls the web
+ *         This class is the controller of Bookings which controls the web
  *         requests and the data flows
  *
  */
@@ -43,6 +47,8 @@ public class BookingController {
 
 	@Autowired
 	private TravelService trS;
+	
+	private static final String RETURNNULL = "return from service is null";
 
 	/**
 	 * 
@@ -52,7 +58,7 @@ public class BookingController {
 	 * @return an advice about success is returned
 	 */
 
-	@RequestMapping(path = "create", method = RequestMethod.POST)
+	@PostMapping(path = "create")
 	public String create(@Valid @RequestBody BookingDto dto) {
 		Customer cust = new Customer();
 		cust.setId(dto.getIdcustomerDto());
@@ -69,7 +75,7 @@ public class BookingController {
 			log.info("booking created in controller");
 			return "Booking created YEAH !";
 		} else {
-			log.warn("return from service is null");
+			log.warn(RETURNNULL);
 			return "Booking not created ...";
 		}
 	}
@@ -82,12 +88,11 @@ public class BookingController {
 	 *         calculated and set
 	 */
 
-	@RequestMapping(path = "createPlus", method = RequestMethod.POST)
+	@PostMapping(path = "createPlus")
 	public String createPlus(@Valid @RequestBody BookingDto dto) {
 		Customer cust = new Customer();
 		cust.setId(dto.getIdcustomerDto());
 
-		System.out.println("DEBUGG :: id for the travel is " + dto.getIdtravelDto());
 		Travel travel = trS.readById(dto.getIdtravelDto());
 
 		Double priceF1 = 0d;
@@ -125,7 +130,7 @@ public class BookingController {
 			log.info("booking created in controller");
 			return "Booking updated YEAH !";
 		} else {
-			log.warn("return from service is null");
+			log.warn(RETURNNULL);
 			return "Booking not updated ...";
 		}
 	}
@@ -137,7 +142,7 @@ public class BookingController {
 	 * @return a message which validate or not the updating
 	 * 
 	 */
-	@RequestMapping(path = "update", method = RequestMethod.PUT)
+	@PutMapping(path = "update")
 	public String update(@Valid @RequestBody BookingDtoWithId dto) {
 
 		Customer cust = new Customer();
@@ -152,7 +157,7 @@ public class BookingController {
 			log.info("booking updated in controller");
 			return "Booking updated YEAH !";
 		} else {
-			log.warn("return from service is null");
+			log.warn(RETURNNULL);
 			return "Booking not updated ...";
 		}
 
@@ -163,7 +168,7 @@ public class BookingController {
 	 * @param Use the parameter Long id to find and get a booking from the database
 	 * @return the booking asked
 	 */
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public BookingDtoWithId readById(Long id) {
 		Booking result = service.readById(id);
 		CustomerDtoWithId custDtoId = new CustomerDtoWithId();
@@ -173,7 +178,7 @@ public class BookingController {
 		BookingDtoWithId dto = new BookingDtoWithId(result.getId(), result.getNbrAdult(), result.getNbrChild(),
 				result.getTotalPrice(), result.getPointAddFidelity(), custDtoId, travelDtoId);
 
-		if (dto.equals(null)) {
+		if (dto == new BookingDtoWithId()) {
 			log.error("An error occurs getting the booking");
 			return null;
 		} else {
@@ -187,10 +192,10 @@ public class BookingController {
 	 * @param allows to get the list of the booking
 	 * @return a list of booking
 	 */
-	@RequestMapping(path = "readall", method = RequestMethod.GET)
+	@GetMapping(path = "readall")
 	public List<BookingDtoWithId> readAll() {
 		List<Booking> lresult = service.readAll();
-		List<BookingDtoWithId> lresultDto = new ArrayList<BookingDtoWithId>();
+		List<BookingDtoWithId> lresultDto = new ArrayList<>();
 		for (Booking j : lresult) {
 			CustomerDtoWithId custDtoId = new CustomerDtoWithId();
 			custDtoId.setId(j.getCustomer().getId());
@@ -201,9 +206,9 @@ public class BookingController {
 			lresultDto.add(dto);
 		}
 
-		if (lresultDto.equals(null)) {
+		if (lresultDto.isEmpty()) {
 			log.error("An error occurs getting the list of bookings");
-			return null;
+			return lresultDto;
 		} else {
 			log.info("The list of Bookings");
 			return lresultDto;
@@ -216,9 +221,9 @@ public class BookingController {
 	 * @param use the id to delete a booking from the database
 	 * @return VOID
 	 */
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
-		if (service.deleteById(id) == true) {
+		if (service.deleteById(id)) {
 			log.info("Booking deleted (controller)");
 			return "Booking deleted";
 		} else {
