@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.dto.StandingDto;
@@ -48,8 +51,6 @@ public class StandingController {
 	 *                    "Id" attribute.
 	 */
 
-	private StandingDto dto;
-
 	/**
 	 * @param StandingDtoWithId is an object used for Data transfer from the
 	 *                          database to the user, using the RestController. It
@@ -57,8 +58,6 @@ public class StandingController {
 	 *                          the "Update", "Delete" and "readById" methods.
 	 * 
 	 */
-
-	private StandingDtoWithId dtoId;
 
 	/**
 	 * createObject is a method which allows the user to create a Standing object in
@@ -70,17 +69,16 @@ public class StandingController {
 	 * @param dtoId the parameter is a 'StandingDtoWithId' object
 	 * @return the return is a String describing the status of the method outcome
 	 */
-	@RequestMapping(path = "create", method = RequestMethod.POST)
+	@PostMapping(path = "create")
 	public String createObject(@RequestBody StandingDto dtoId) {
 
 		Hotel hotel = new Hotel();
 		hotel.setId(dtoId.getId_hotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
-													// reconnaitre l'Hotel.
-		System.out.println(hotel.getId());
-		
-		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
-				dtoId.getDesc(), hotel, null);
-		
+												// reconnaitre l'Hotel.
+
+		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(),
+				hotel, null);
+
 		Standing standing = service.create(stand);
 
 		if (standing != null) {
@@ -99,7 +97,7 @@ public class StandingController {
 	 * @param dtoId the parameter is a 'StandingDtoWithId' object
 	 * @return the return is a String describing the status of the method outcome
 	 */
-	@RequestMapping(path = "update", method = RequestMethod.POST)
+	@PutMapping(path = "update")
 	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
 		Hotel hotel = new Hotel();
 		hotel.setId(dtoId.getHotelDto().getId());
@@ -109,7 +107,7 @@ public class StandingController {
 		standing.setId(dtoId.getId());
 		service.update(standing);
 
-		if (standing.equals(null)) {
+		if (standing == new Standing()) {
 
 			log.error("There was a problem updting your Standing (controller)");
 			return "Standing not updated";
@@ -127,13 +125,13 @@ public class StandingController {
 	 * @param id the parameter id is a Long attribute
 	 * @return the return is a 'StandingDtoWithId' object
 	 */
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public StandingDtoWithId readById(@PathVariable(value = "id") Long id) {
 		Standing result = service.readById(id);
 		StandingDtoWithId dtoId = new StandingDtoWithId(result.getId(), result.getNbRoom(), result.getPriceChild(),
 				result.getPriceAdult(), result.getDesc(), null, null);
 
-		if (dtoId.equals(null)) {
+		if (dtoId == new StandingDtoWithId()) {
 			log.error("There was an issue reading your Standing (controller)");
 			return null;
 		} else {
@@ -149,17 +147,17 @@ public class StandingController {
 	 * 
 	 * @return the return is a 'StandingDtoWithId' object.
 	 */
-	@RequestMapping(path = "readall", method = RequestMethod.GET)
+	@GetMapping(path = "readall")
 	public List<StandingDtoWithId> readAll() {
 		List<Standing> result = service.readAll();
-		List<StandingDtoWithId> listDto = new ArrayList<StandingDtoWithId>();
+		List<StandingDtoWithId> listDto = new ArrayList<>();
 		for (Standing temp : result) {
 			listDto.add(new StandingDtoWithId(temp.getId(), temp.getNbRoom(), temp.getPriceChild(),
 					temp.getPriceAdult(), temp.getDesc(), null, null));
 		}
-		if (listDto.equals(null)) {
+		if (listDto.isEmpty()) {
 			log.error("There was an issue reading all your Standings (controller)");
-			return null;
+			return listDto;
 		} else {
 			log.info("Your Standing List: (controller)");
 			return listDto;
@@ -174,9 +172,8 @@ public class StandingController {
 	 * @param id is an Long attribute
 	 * @return the return is a String describing the status of the method outcome
 	 */
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
-		
 
 		if (service.deleteById(id)) {
 			service.deleteById(id);

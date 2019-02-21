@@ -38,7 +38,7 @@ public class PersonController implements IPersonController {
 	@Qualifier("PersonService")
 	IPersonService service;
 	private Logger log = Logger.getLogger(PersonController.class);
-	private static final  String RESPONSE = "person has been created";
+	private static final String RESPONSE = "person has been created";
 	private static final String NULLRESPONSE = "return from service is null";
 	private static final String UPDATERESPONSE = "person has been updated";
 	private static final String NOTCREATED = "person could not be created";
