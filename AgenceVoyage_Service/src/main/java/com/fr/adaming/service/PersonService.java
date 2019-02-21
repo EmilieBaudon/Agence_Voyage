@@ -1,5 +1,6 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IPersonDao;
 import com.fr.adaming.entity.Person;
+import com.fr.adaming.entity.Standing;
 
 /**
  * 
@@ -118,12 +120,13 @@ public class PersonService implements IPersonService {
 	 */
 	@Override
 	public List<Person> readAll() {
+		List<Person> listEmpty = new ArrayList<>();
 		if (!dao.findAll().isEmpty()) {
 			log.info("read all done in service");
 			return dao.findAll();
 		} else {
 			log.warn("database is empty");
-			return null;
+			return listEmpty;
 		}
 	}
 

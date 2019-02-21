@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fr.adaming.Service.ActivityService;
-import com.fr.adaming.Service.FlightService;
 import com.fr.adaming.dto.FlightDto;
 import com.fr.adaming.dto.FlightDtoWithId;
 import com.fr.adaming.entity.Flight;
+import com.fr.adaming.service.ActivityService;
+import com.fr.adaming.service.FlightService;
 
 /**
  * @author Alan The controller for all the flight objects. Allow to take in

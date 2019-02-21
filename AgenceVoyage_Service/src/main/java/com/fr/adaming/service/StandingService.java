@@ -1,14 +1,14 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IStandingDao;
-import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
 
 /**
@@ -85,14 +85,19 @@ public class StandingService implements IService<Standing> {
 	 */
 	@Override
 	public Standing readById(Long id) {
+		Standing standing = null;
+		Optional<Standing> optValue = dao.findById(id);
 		try {
-			Standing standing = dao.findById(id).get();
+			if (optValue.isPresent()) {
+				standing = optValue.get();
+			}
 			log.info("read by id done in service");
 			return standing;
 		} catch (Exception e) {
-			log.error("This id does not exist");
+			log.error("This id does not exist", e);
 			return null;
 		}
+
 	}
 
 	/**
@@ -107,8 +112,8 @@ public class StandingService implements IService<Standing> {
 			log.info("Your Service was deleted (service)");
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("There was an issue deleting your Service (service)");
+
+			log.error("There was an issue deleting your Service (service)", e);
 			return false;
 		}
 	}

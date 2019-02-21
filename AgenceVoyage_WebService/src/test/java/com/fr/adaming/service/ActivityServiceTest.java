@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.entity.Activity;
+import com.fr.adaming.service.ActivityService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

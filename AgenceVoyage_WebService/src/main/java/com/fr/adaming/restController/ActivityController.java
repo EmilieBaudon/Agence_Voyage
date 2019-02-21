@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.dto.ActivityDto;
 import com.fr.adaming.entity.Activity;
+import com.fr.adaming.service.ActivityService;
 
 /**
  * 

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fr.adaming.Service.IService;
-import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.dto.BookingDto;
 import com.fr.adaming.dto.BookingDtoWithId;
 import com.fr.adaming.dto.CustomerDtoWithId;
@@ -22,6 +20,8 @@ import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Booking;
 import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Travel;
+import com.fr.adaming.service.IService;
+import com.fr.adaming.service.TravelService;
 
 /**
  * 

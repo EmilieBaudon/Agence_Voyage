@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fr.adaming.Service.IPersonService;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
@@ -25,6 +24,7 @@ import com.fr.adaming.dto.TechnicianDtoWithId;
 import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Person;
 import com.fr.adaming.entity.Technician;
+import com.fr.adaming.service.IPersonService;
 
 /**
  * 

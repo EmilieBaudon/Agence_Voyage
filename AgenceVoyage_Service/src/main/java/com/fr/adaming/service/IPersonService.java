@@ -1,4 +1,4 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
 import java.util.List;
 
