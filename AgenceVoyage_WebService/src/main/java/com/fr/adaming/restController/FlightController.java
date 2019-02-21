@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +44,8 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 *            here to create an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
-	@PostMapping(path = "create")
+	@Override
+	@PutMapping(path = "create")
 	public String createObject(@RequestBody FlightDto obj) {
 
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
@@ -125,7 +125,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 */
 	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
-		if (service.deleteById(id) == true) {
+		if (service.deleteById(id)) {
 			log.info("Flight deleted (controller)");
 			return "Flight has been deleted";
 		} else {

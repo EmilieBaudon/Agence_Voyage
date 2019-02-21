@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.dto.ActivityDto;
@@ -39,7 +42,7 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * @return a String to signify if the method has worked
 	 */
 
-	@RequestMapping(path = "create", method = RequestMethod.POST)
+	@PostMapping(path = "create")
 	public String createObject(@RequestBody ActivityDto obj) {
 		Activity result = serviceActivity.create(new Activity(obj.getName(), obj.getDesc()));
 		if (result != null) {
@@ -58,7 +61,7 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * @param obj the activity to update
 	 * @return a String to signify if the method has worked
 	 */
-	@RequestMapping(path = "update", method = RequestMethod.PUT)
+	@PutMapping(path = "update")
 	public String updateObject(@RequestBody ActivityDto obj) {
 		Activity res = new Activity(obj.getName(), obj.getDesc());
 		res.setId(obj.getId());
@@ -79,7 +82,7 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * @param id of the activity
 	 * @return the activity
 	 */
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public ActivityDto readById(@PathVariable(value = "id") Long id) {
 		Activity result = serviceActivity.readById(id);
 		ActivityDto obj = new ActivityDto(result.getId(), result.getName(), result.getDesc());
@@ -93,10 +96,10 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * 
 	 * @return a list with all the activities in the database
 	 */
-	@RequestMapping(path = "readall", method = RequestMethod.GET)
+	@GetMapping(path = "readall")
 	public List<ActivityDto> readAll() {
 		List<Activity> result = serviceActivity.readAll();
-		List<ActivityDto> listDto = new ArrayList<ActivityDto>();
+		List<ActivityDto> listDto = new ArrayList<>();
 		for (Activity temp : result) {
 			listDto.add(new ActivityDto(temp.getId(), temp.getName(), temp.getDesc()));
 		}
@@ -111,9 +114,9 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 * @param id of the activity
 	 * @return a String to signify if the method has worked
 	 */
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String delete(@PathVariable(value = "id") Long id) {
-		if (serviceActivity.deleteById(id) == true) {
+		if (serviceActivity.deleteById(id)) {
 			log.info("Activity deleted (controller)");
 			return "the activity has been corectly delete";
 		} else {
