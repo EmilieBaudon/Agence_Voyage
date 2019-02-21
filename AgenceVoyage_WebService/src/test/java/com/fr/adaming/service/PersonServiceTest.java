@@ -144,7 +144,7 @@ public class PersonServiceTest {
 	public void l_UnexistingUser() {
 		person = new Person("test", "test", null, "test", "test11@test.com", "test");
 		person = service.create(person);
-		Person test = service.Login("nonexisting@email.com", "notExistingPwd");
+		Person test = service.login("nonexisting@email.com", "notExistingPwd");
 		assertNull(test);
 	}
 

@@ -183,7 +183,7 @@ public class PersonService implements IPersonService {
 	 * @return the person read
 	 */
 	@Override
-	public Person Login(String email, String pwd) {
+	public Person login(String email, String pwd) {
 		Person login = null;
 		try {
 			login = dao.findByMailAndPwd(email, pwd);
