@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.ActivityService;
@@ -42,7 +45,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 *            here to create an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
-	@RequestMapping(path = "create", method = RequestMethod.POST)
+	@PostMapping(path = "create")
 	public String createObject(@RequestBody FlightDto obj) {
 
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
@@ -64,7 +67,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 *            here to update an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
-	@RequestMapping(path = "update", method = RequestMethod.PUT)
+	@PutMapping(path = "update")
 	public String updateObject(@RequestBody FlightDtoWithId obj) {
 
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
@@ -85,7 +88,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 *           an object in the database thanks the parameter id
 	 * @return the flight with the id or null if it does not exist
 	 */
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public FlightDtoWithId readById(Long id) {
 		Flight result = service.readById(id);
 
@@ -100,7 +103,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 * 
 	 * @return a list with all the flight of the database
 	 */
-	@RequestMapping(path = "readall", method = RequestMethod.GET)
+	@GetMapping(path = "readall")
 	public List<FlightDtoWithId> readAll() {
 		List<Flight> result = service.readAll();
 		List<FlightDtoWithId> listDto = new ArrayList<>();
@@ -120,7 +123,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 * @param id of the flight
 	 * @return a String to signify if the method has worked
 	 */
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
 		if (service.deleteById(id) == true) {
 			log.info("Flight deleted (controller)");

@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IBookingDao;
 import com.fr.adaming.entity.Booking;
-import com.fr.adaming.entity.Flight;
 import com.fr.adaming.entity.Person;
-import com.fr.adaming.entity.Standing;
 import com.fr.adaming.entity.Travel;
 
 /**
@@ -55,15 +53,13 @@ public class BookingService implements IService<Booking> {
 	public Booking create(Booking booking) {
 		if (booking.getId() == null || booking.getId() == 0L) {
 			System.out.println(booking.getCustomer().getId());
-			
 
 			System.out.println("DEBUGG :: travel is " + booking.getTravel());
-			
+
 			Person pers = serviceP.readById(booking.getCustomer().getId());
 			Travel trav = serviceT.readById(booking.getTravel().getId());
-			
-			
-			if (pers!= null && trav!= null) {
+
+			if (pers != null && trav != null) {
 				log.info("Booking created (service)");
 				return dao.save(booking);
 			} else {
@@ -73,10 +69,7 @@ public class BookingService implements IService<Booking> {
 		} else {
 			return null;
 		}
-		
-		
-	
-	
+
 	}
 
 	/**
@@ -142,9 +135,10 @@ public class BookingService implements IService<Booking> {
 	 */
 	@Override
 	public List<Booking> readAll() {
-		if (!dao.findAll().isEmpty()) {
+		List<Booking> list = dao.findAll();
+		if (list.isEmpty()) {
 			log.info("read all done in service");
-			return dao.findAll();
+			return list;
 		} else {
 			log.warn("database is empty");
 			return null;
