@@ -85,7 +85,7 @@ public class Standing {
 		this.priceChild = priceChild;
 		this.priceAdult = priceAdult;
 		this.desc = desc;
-		
+		this.hotel = hotel;
 		this.lactivity = lactivity;
 	}
 
