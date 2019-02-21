@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
-import java.util.NoSuchElementException;
 
 import org.junit.After;
 import org.junit.FixMethodOrder;
@@ -31,18 +30,16 @@ public class FlightServiceTest {
 	private FlightService service;
 
 	private Flight flight;
-	
+
 	@Autowired
 	private TravelService tService;
-	
+
 	private Travel createdTravel;
-	
 
 	public void a_createNewTravel() {
 		// Create a new Travel
-		
-		createdTravel = new Travel(1, "Bora-Bora", LocalDate.of(2020, 05, 10), null, null, null,
-				null);
+
+		createdTravel = new Travel(1, "Bora-Bora", LocalDate.of(2020, 05, 10), null, null, null, null);
 		createdTravel = tService.create(createdTravel);
 
 	}
