@@ -138,7 +138,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@Override
 	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
-		if (service.deleteById(id) == true) {
+		if (service.deleteById(id)) {
 			log.info("Travel deleted (controller)");
 			return "Travel has been deleted";
 		} else {
