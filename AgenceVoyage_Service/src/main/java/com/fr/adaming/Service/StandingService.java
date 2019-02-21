@@ -1,5 +1,6 @@
 package com.fr.adaming.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -120,12 +121,13 @@ public class StandingService implements IService<Standing> {
 	@Override
 	public List<Standing> readAll() {
 		List<Standing> list = dao.findAll();
-		if (list != null) {
+		List<Standing> listEmpty = new ArrayList<>();
+		if (!list.isEmpty()) {
 			log.info("read all done in service");
 			return list;
 		} else {
 			log.warn("database is empty");
-			return null;
+			return listEmpty;
 		}
 	}
 }
