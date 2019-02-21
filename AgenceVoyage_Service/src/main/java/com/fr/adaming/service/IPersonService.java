@@ -69,7 +69,7 @@ public interface IPersonService {
 	 * @param Email a string with an email value of the person
 	 * @return a boolean, true of the delete has happened and false otherwise
 	 */
-	public boolean deleteByEmail(String Email);
+	public boolean deleteByEmail(String email);
 
 	/**
 	 * This method Connect a person if its Mail and Pwd are correct Return null if
@@ -79,5 +79,5 @@ public interface IPersonService {
 	 * @param pwd a string with a password
 	 * @return the person read
 	 */
-	public Person Login(String email, String pwd);
+	public Person login(String email, String pwd);
 }
