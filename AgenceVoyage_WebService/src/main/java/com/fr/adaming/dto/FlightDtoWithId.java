@@ -53,10 +53,7 @@ public class FlightDtoWithId {
 	 */
 	private String airportArrival;
 
-	/**
-	 * @param TravelDto
-	 */
-	private TravelDtoWithId travelDto;
+
 	
 	/**
 	 * @param price of the flight
