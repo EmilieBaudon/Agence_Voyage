@@ -1,7 +1,6 @@
 package com.fr.adaming.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -41,7 +40,7 @@ public class CustomerDto {
 	 * @param Person date of birth
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate birthDate;
 	/**
 	 * @param Person adress
@@ -54,10 +53,11 @@ public class CustomerDto {
 	@Email
 	private String mail;
 	/**
-	 * @param Person password
-	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+	 * @param Person password Minimum eight characters, at least one uppercase
+	 *               letter, one lowercase letter, one number and one special
+	 *               character
 	 */
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]*).{8,}$")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]*).{8,}$")
 	private String pwd;
 	/**
 	 * @param Customer's card
