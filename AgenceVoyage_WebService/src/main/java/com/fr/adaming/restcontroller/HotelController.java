@@ -1,14 +1,16 @@
-package com.fr.adaming.restController;
+package com.fr.adaming.restcontroller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.dto.HotelDto;
@@ -47,7 +49,6 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * @param dto HotelDto is an object used for Data transfer from the database to
 	 *            the user, using the RestController.
 	 */
-	private HotelDto dto;
 
 	/**
 	 * @param dtoId HotelDtoWithId is an object used for Data transfer from the
@@ -57,8 +58,6 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * 
 	 */
 
-	private HotelDtoWithId dtoId;
-
 	/**
 	 * createObject is a method which allows the user to create a Hotel object in
 	 * the database.
@@ -67,11 +66,11 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@Override
-	@RequestMapping(path = "create", method = RequestMethod.POST)
+	@PostMapping(path = "create")
 	public String createObject(@RequestBody HotelDto dto) {
 		Standing standing = new Standing();
 		standing.setId(dto.getId_Standing());
-		
+
 		Hotel hotel = service.create(new Hotel(dto.getName(), dto.getDesc(), null, standing));
 
 		if (hotel != null) {
@@ -91,12 +90,12 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@Override
-	@RequestMapping(path = "update", method = RequestMethod.POST)
+	@PostMapping(path = "update")
 	public String updateObject(@RequestBody HotelDtoWithId dto) {
 		Hotel hotel = new Hotel(dto.getName(), dto.getDesc(), null, null);
 		hotel.setId(dto.getId());
 		service.update(hotel);
-		if (hotel.equals(null)) {
+		if (hotel == new Hotel()) {
 
 			log.error("There was a problem updting your Hotel (controller)");
 			return "Hotel not updated";
@@ -116,13 +115,13 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * @return the return is a 'HotelDtoWithId' object
 	 */
 	@Override
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public HotelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Hotel result = service.readById(id);
 		HotelDtoWithId dto = new HotelDtoWithId(result.getId(), result.getName(), result.getDesc(), null, null);
 
-		if (dto.equals(null)) {
+		if (dto == new HotelDtoWithId()) {
 			log.error("There was an issue reading your Hotel (controller)");
 			return null;
 		} else {
@@ -140,17 +139,18 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 *         the 'Hotel' objects in the database
 	 */
 	@Override
-	@RequestMapping(path = "readall", method = RequestMethod.GET)
+	@GetMapping(path = "readall")
 	public List<HotelDtoWithId> readAll() {
 		List<Hotel> result = service.readAll();
-		List<HotelDtoWithId> listDto = new ArrayList<HotelDtoWithId>();
+		List<HotelDtoWithId> listDto = new ArrayList<>();
+		List<HotelDtoWithId> listEmpty = new ArrayList<>();
 		for (Hotel temp : result) {
 			listDto.add(new HotelDtoWithId(temp.getId(), temp.getName(), temp.getDesc(), null, null));
 		}
 
-		if (listDto.equals(null)) {
+		if (listDto.isEmpty()) {
 			log.error("There was an issue reading all your Hotel (controller)");
-			return null;
+			return listEmpty;
 		} else {
 			log.info("Your Hotel List: (controller)");
 			return listDto;
@@ -166,7 +166,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@Override
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
 
 		if (service.deleteById(id)) {

@@ -43,12 +43,12 @@ public class BookingDto {
 	 * 
 	 */
 
-	private Long id_customerDto;
+	private Long idcustomerDto;
 
 	/**
 	 * @param id_travelDto
 	 */
 
-	private Long id_travelDto;
+	private Long idtravelDto;
 
 }
