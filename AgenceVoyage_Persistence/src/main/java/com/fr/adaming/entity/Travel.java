@@ -33,7 +33,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Travel {
 	/**
 	 * @param Travel Id
@@ -72,8 +71,7 @@ public class Travel {
 	/**
 	 * @param list of flight
 	 */
-	@JsonManagedReference
-	@OneToMany(mappedBy = "travel", fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Flight> lflight;
 	/**
 	 * @param hotel

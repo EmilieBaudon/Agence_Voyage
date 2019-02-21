@@ -2,6 +2,7 @@ package com.fr.adaming.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,7 @@ public class TravelService implements IService<Travel> {
 	public Travel create(Travel travel) {
 		if ((travel.getId() == null || travel.getId() == 0L)
 				&& (travel.getPeriodBegin() != null && travel.getPeriodBegin().isAfter(LocalDate.now()))) {
-			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1));
-			travel.setPeriodBegin(travel.getPeriodBegin().plusDays(1));
+			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1L));
 			log.info("activity created (service)");
 			return dao.save(travel);
 		} else {
@@ -76,13 +76,16 @@ public class TravelService implements IService<Travel> {
 	 */
 	@Override
 	public Travel readById(Long id) {
-
+		Travel travel = null;
+		Optional<Travel> optValue = dao.findById(id);
 		try {
-			Travel travel = dao.findById(id).get();
+			if (optValue.isPresent()) {
+				travel = optValue.get();
+			}
 			log.info("read by id done in service");
 			return travel;
 		} catch (Exception e) {
-			log.error("This id does not exist");
+			log.error("This id does not exist", e);
 			return null;
 		}
 
@@ -100,8 +103,7 @@ public class TravelService implements IService<Travel> {
 			log.info("Travel deleted (service)");
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Exception detected (service)");
+			log.error("Exception detected (service)", e);
 			return false;
 		}
 	}

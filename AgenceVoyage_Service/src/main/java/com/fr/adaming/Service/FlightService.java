@@ -45,21 +45,15 @@ public class FlightService implements IService<Flight> {
 	@Override
 	public Flight create(Flight flight) {
 		if ((flight.getId() == null || flight.getId() == 0L)) {
-			Long id = flight.getTravel().getId();
-
-			if (service.readById(id) != null) {
-				log.info("Service created (service)");
-				return dao.save(flight);
-			} else {
-				log.error("There was a problem creating your Service (service)");
-				return null;
-			}
-
+			log.info("Service created (service)");
+			return dao.save(flight);
 		} else {
 			log.error("There was a problem creating your Service (service)");
 			return null;
 		}
+
 	}
+
 
 	/**
 	 * This method update an flight in the database the update is done only if the

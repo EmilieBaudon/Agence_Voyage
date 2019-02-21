@@ -37,7 +37,6 @@ public class Technician extends Person {
 
 	public Technician(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd) {
 		super(name, firstName, birthDate, adress, mail, pwd);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Technician(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd,

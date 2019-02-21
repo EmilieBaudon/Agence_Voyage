@@ -35,7 +35,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Standing {
 
 	/**
@@ -85,7 +84,7 @@ public class Standing {
 		this.priceChild = priceChild;
 		this.priceAdult = priceAdult;
 		this.desc = desc;
-		
+		this.hotel = hotel;
 		this.lactivity = lactivity;
 	}
 

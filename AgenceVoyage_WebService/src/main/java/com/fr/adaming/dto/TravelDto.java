@@ -1,7 +1,6 @@
 package com.fr.adaming.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +23,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class TravelDto {
-	
+
 	public TravelDto(@NotNull int nbrNight, @NotNull String destination, @NotNull LocalDate periodBegin,
 			@NotNull LocalDate periodEnd, Long id_hotelDto) {
 		super();
@@ -39,7 +38,7 @@ public class TravelDto {
 	 * @param id of the travel
 	 */
 	private Long id;
-	
+
 	/**
 	 * @param number of nights
 	 */
@@ -55,16 +54,16 @@ public class TravelDto {
 	 * @param periodBegin
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate periodBegin;
 	/**
 	 * @param periodEnd
 	 */
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate periodEnd;
-	
+
 	/**
 	 * @param id_hotelDto
-	 */	
+	 */
 	private Long id_hotelDto;
 }

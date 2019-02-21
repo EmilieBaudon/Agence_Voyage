@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import springfox.documentation.annotations.ApiIgnore;
 
 /**
  *  This Class allows a Person to register to a dataBase
@@ -43,7 +42,7 @@ public class RegisterDto {
 	 * @param Person date of birth
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate birthDate;
 	/**
 	 * @param Person adress
@@ -56,13 +55,12 @@ public class RegisterDto {
 	@Email
 	private String mail;
 	/**
-	 * @param Person password
-	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character	 
+	 * @param Person password Minimum eight characters, at least one uppercase
+	 *               letter, one lowercase letter, one number and one special
+	 *               character
 	 */
 	@NotNull
-	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
 	private String pwd;
 
-	
-	
 }

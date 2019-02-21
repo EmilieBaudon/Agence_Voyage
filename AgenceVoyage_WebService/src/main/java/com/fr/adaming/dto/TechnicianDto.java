@@ -1,7 +1,6 @@
 package com.fr.adaming.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -54,8 +53,9 @@ public class TechnicianDto {
 	@Email
 	private String mail;
 	/**
-	 * @param Person password 
-	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+	 * @param Person password Minimum eight characters, at least one uppercase
+	 *               letter, one lowercase letter, one number and one special
+	 *               character
 	 */
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
 	private String pwd;

@@ -7,16 +7,20 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.dto.TravelDto;
 import com.fr.adaming.dto.TravelDtoWithId;
+import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Travel;
 
 /**
@@ -48,11 +52,13 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @return a string saying if the creation has been successful
 	 */
 	@Override
-	@RequestMapping(path = "create", method = RequestMethod.POST)
+	@PostMapping(path = "create")
 	public String createObject(@Valid @RequestBody TravelDto dto) {
+		Hotel hotel = new Hotel();
+		hotel.setId(dto.getId_hotelDto());
 
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
-				dto.getPeriodEnd(), null, null, null));
+				dto.getPeriodEnd(), null, null, hotel));
 
 		if (travel != null) {
 			log.info("Travel created (controller)");
@@ -73,7 +79,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @return a string saying if the updating has been successful
 	 */
 	@Override
-	@RequestMapping(path = "update", method = RequestMethod.PUT)
+	@PutMapping(path = "update")
 	public String updateObject(@Valid @RequestBody TravelDtoWithId dto) {
 		Travel travel = new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(), dto.getPeriodEnd(),
 				null, null, null);
@@ -97,7 +103,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @return a dto object
 	 */
 	@Override
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public TravelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Travel result = service.readById(id);
@@ -113,10 +119,10 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @return an array list of TravelDtoWithId
 	 */
 	@Override
-	@RequestMapping(path = "readall", method = RequestMethod.GET)
+	@GetMapping(path = "readall")
 	public List<TravelDtoWithId> readAll() {
 		List<Travel> result = service.readAll();
-		List<TravelDtoWithId> listDto = new ArrayList<TravelDtoWithId>();
+		List<TravelDtoWithId> listDto = new ArrayList<>();
 		for (Travel temp : result) {
 			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
 					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
@@ -133,9 +139,9 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @return a string saying if the delete has been successful
 	 */
 	@Override
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
-		if (service.deleteById(id) == true) {
+		if (service.deleteById(id)) {
 			log.info("Travel deleted (controller)");
 			return "Travel has been deleted";
 		} else {
