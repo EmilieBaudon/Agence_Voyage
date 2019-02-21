@@ -50,11 +50,9 @@ public class Customer extends Person {
 	List<Booking> lbooking;
 
 	public Customer(String name, String firstName, LocalDate birthDate, String adress, String mail, String pwd,
-			String card, Long fidelityPoint, List<Booking> lbooking) {
+			String card) {
 		super(name, firstName, birthDate, adress, mail, pwd);
 		this.card = card;
-		this.fidelityPoint = fidelityPoint;
-		this.lbooking = lbooking;
 
 	}
 

@@ -54,7 +54,7 @@ public class PersonController implements IPersonController {
 	@PostMapping(path = "register")
 	public String register(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
-				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
+				dto.getMail(), dto.getPwd(), dto.getCard());
 		Person result = service.create(person);
 		if (result != null) {
 			log.info("person register in controller");
@@ -76,7 +76,7 @@ public class PersonController implements IPersonController {
 	@PostMapping(path = "createCustomer")
 	public String create(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
-				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
+				dto.getMail(), dto.getPwd(), dto.getCard());
 		Person result = service.create(person);
 		if (result != null) {
 			log.info("customer created in controller");
@@ -120,7 +120,7 @@ public class PersonController implements IPersonController {
 	@PutMapping(path = "updateCustomer")
 	public String update(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
-				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getCard(), null, null);
+				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getCard());
 		person.setId(dto.getId());
 		Person result = service.update(person);
 		if (result != null) {
