@@ -64,13 +64,12 @@ public class BookingService implements IService<Booking> {
 			
 			
 			if (pers!= null && trav!= null) {
-				
 				log.info("Booking created (service)");
 				return dao.save(booking);
-			}else {
+			} else {
 				log.error("There was a problem creating your Standing (service)");
 				return null;
-			}	
+			}
 		} else {
 			return null;
 		}
@@ -152,5 +151,4 @@ public class BookingService implements IService<Booking> {
 		}
 	}
 
-	
 }

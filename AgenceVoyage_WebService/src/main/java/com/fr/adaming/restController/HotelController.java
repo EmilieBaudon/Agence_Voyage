@@ -164,7 +164,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	@Override
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
-		
+
 		if (service.deleteById(id)) {
 			service.deleteById(id);
 			log.info("Your Hotel was deleted (controller)");

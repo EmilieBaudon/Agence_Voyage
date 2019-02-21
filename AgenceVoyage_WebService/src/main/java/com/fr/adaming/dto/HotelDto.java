@@ -1,14 +1,13 @@
 
 package com.fr.adaming.dto;
 
-import java.util.List;
-
 import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 /**
  * 
  * @author victor
@@ -22,14 +21,13 @@ import lombok.Setter;
 
 public class HotelDto {
 
-	
 	/**
-	 * @param Hotel Name 
+	 * @param Hotel Name
 	 */
 	@UniqueElements
 	private String name;
 	/**
-	 * @param Hotel Description 
+	 * @param Hotel Description
 	 */
 	private String desc;
 }

@@ -19,7 +19,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fr.adaming.Service.StandingService;
@@ -35,17 +34,15 @@ public class StandingServiceTest {
 	private StandingService service;
 
 	private Standing testStanding;
-	
 
 	@After
 	public void after() {
 		System.out.println("********************DEBUG TESTING Method After******************");
-	
+
 		if (testStanding != null && testStanding.getId() != null) {
 			service.deleteById(testStanding.getId());
-					
+
 		}
-		
 
 	}
 
@@ -87,7 +84,6 @@ public class StandingServiceTest {
 		assertNotNull(testStanding);
 	}
 
-
 	// Modification d'un objet qui n'existe pas
 	@Test
 	public void g_updateNonExistingStanding() {
@@ -113,7 +109,7 @@ public class StandingServiceTest {
 	public void i_updateNullIdStanding() {
 		testStanding = new Standing(1, 1, 2, "Desc", null, null);
 		testStanding = service.create(testStanding);
-		
+
 		Standing testStanding2 = new Standing(1, 1, 2, "Desc", null, null);
 		testStanding2.setId(null);
 		System.out.println(testStanding.getId());
@@ -126,7 +122,7 @@ public class StandingServiceTest {
 	public void j_update0IdStanding() {
 		testStanding = new Standing(1, 1, 2, "Desc", null, null);
 		testStanding = service.create(testStanding);
-		
+
 		Standing testStanding2 = new Standing(1, 1, 2, "Desc", null, null);
 		testStanding2.setId(0L);
 		System.out.println(testStanding.getId());
@@ -141,13 +137,13 @@ public class StandingServiceTest {
 		Boolean boolTest = service.deleteById(testStanding.getId());
 		assertFalse(boolTest);
 	}
-	
-	//Delete objet existant
+
+	// Delete objet existant
 	@Test
 	public void l_deleteExistingStanding() {
 		testStanding = new Standing(1, 1, 2, "Desc", null, null);
 		testStanding = service.create(testStanding);
-		System.out.println("debug test delete"+testStanding.getId());
+		System.out.println("debug test delete" + testStanding.getId());
 		Boolean boolTest = service.deleteById(testStanding.getId());
 		assertTrue(boolTest);
 	}
