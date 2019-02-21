@@ -14,9 +14,7 @@ import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.Service.FlightService;
 import com.fr.adaming.dto.FlightDto;
 import com.fr.adaming.dto.FlightDtoWithId;
-import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Flight;
-import com.fr.adaming.entity.Travel;
 
 /**
  * @author Alan The controller for all the flight objects. Allow to take in
@@ -46,10 +44,9 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody FlightDto obj) {
-		Travel travel = new Travel();
-		travel.setId(obj.getId_travelDto());
+
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
-				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
+				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice()));
 		if (result != null) {
 			log.info("flight created (controller)");
 			return "A flight has been created";
@@ -70,11 +67,8 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	@RequestMapping(path = "update", method = RequestMethod.PUT)
 	public String updateObject(@RequestBody FlightDtoWithId obj) {
 
-		Travel travel = new Travel(obj.getTravelDto().getNbrNight(), obj.getTravelDto().getDestination(),
-				obj.getTravelDto().getPeriodBegin(), obj.getTravelDto().getPeriodEnd(), null, null, null);
-		travel.setId(obj.getTravelDto().getId());
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
-				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice(), travel));
+				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice()));
 		if (result != null) {
 			log.info("flight updated (controller)");
 			return "A flight has been update";
@@ -94,12 +88,9 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
 	public FlightDtoWithId readById(Long id) {
 		Flight result = service.readById(id);
-		TravelDtoWithId tdto = new TravelDtoWithId(result.getTravel().getId(), result.getTravel().getNbrNight(),
-				result.getTravel().getDestination(), result.getTravel().getPeriodBegin(),
-				result.getTravel().getPeriodEnd(), null, null, null);
+
 		FlightDtoWithId dto = new FlightDtoWithId(result.getId(), result.getIdPlane(), result.getDateArrival(),
-				result.getDateDeparture(), result.getAirportDeparture(), result.getAirportArrival(), tdto,
-				result.getPrice());
+				result.getDateDeparture(), result.getAirportDeparture(), result.getAirportArrival(), result.getPrice());
 		log.info("flight with id=" + id + " has been created (controller)");
 		return dto;
 	}
@@ -114,12 +105,9 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 		List<Flight> result = service.readAll();
 		List<FlightDtoWithId> listDto = new ArrayList<>();
 		for (Flight temp : result) {
-			TravelDtoWithId tdto = new TravelDtoWithId(temp.getTravel().getId(), temp.getTravel().getNbrNight(),
-					temp.getTravel().getDestination(), temp.getTravel().getPeriodBegin(),
-					temp.getTravel().getPeriodEnd(), null, null, null);
+
 			FlightDtoWithId dto = new FlightDtoWithId(temp.getId(), temp.getIdPlane(), temp.getDateArrival(),
-					temp.getDateDeparture(), temp.getAirportDeparture(), temp.getAirportArrival(), tdto,
-					temp.getPrice());
+					temp.getDateDeparture(), temp.getAirportDeparture(), temp.getAirportArrival(), temp.getPrice());
 			listDto.add(dto);
 		}
 		log.info("All flight have been created (controller)");

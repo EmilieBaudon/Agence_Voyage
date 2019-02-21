@@ -64,16 +64,14 @@ public class Flight {
 	 */
 	private Double price;
 
-	/**
-	 * @param Travel
-	 */
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "travel")
-	private Travel travel;
+//	/**
+//	 * @param Travel
+//	 */
+//	
+//	private Travel travel;
 
 	public Flight(String idPlane, LocalDate dateArrival, LocalDate dateDeparture, String airportDeparture,
-			String airportArrival, Double price, Travel travel) {
+			String airportArrival, Double price) {
 		super();
 		this.idPlane = idPlane;
 		this.dateArrival = dateArrival;
@@ -81,6 +79,5 @@ public class Flight {
 		this.airportDeparture = airportDeparture;
 		this.airportArrival = airportArrival;
 		this.price = price;
-		this.travel = travel;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,17 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.IService;
-import com.fr.adaming.Service.PersonService;
 import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.dto.BookingDto;
 import com.fr.adaming.dto.BookingDtoWithId;
 import com.fr.adaming.dto.CustomerDtoWithId;
-import com.fr.adaming.dto.FlightDtoWithId;
-import com.fr.adaming.dto.StandingDtoWithId;
 import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Booking;
 import com.fr.adaming.entity.Customer;
-import com.fr.adaming.entity.Flight;
 import com.fr.adaming.entity.Travel;
 
 /**
@@ -43,11 +40,9 @@ public class BookingController {
 	@Qualifier("BookingService")
 	IService<Booking> service;
 	private Logger log = Logger.getLogger(BookingController.class);
-	
+
 	@Autowired
 	private TravelService trS;
-	
-
 
 	/**
 	 * 
@@ -59,22 +54,15 @@ public class BookingController {
 
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String create(@Valid @RequestBody BookingDto dto) {
-//		Customer cust = new Customer(dto.getCustomerDto().getCard(),dto.getCustomerDto().getFidelityPoint(), dto.getCustomerDto().getLbookingDto());
 		Customer cust = new Customer();
 		cust.setId(dto.getId_customerDto());
 
-//		Travel travel = new Travel(obj.getTravelDto().getNbrNight(),obj.getTravelDto().getDestination(), obj.getTravelDto().getPeriodBegin(),obj.getTravelDto().getPeriodEnd(), null, null, null);
 		Travel travel = new Travel();
 		travel.setId(dto.getId_travelDto());
-//		System.out.println("DEBUG :: travel id set" + dto.getId_customerDto());
-//		System.out.println("DEBUG :: travel id get" + dto.getId_travelDto());
-//		
-//		System.out.println("DEBUGG travel is :: " + travel);
-//		
-		Booking result = new Booking(dto.getNbrAdult(), dto.getNbrChild(), dto.getTotalPrice(), dto.getPointAddFidelity(), cust, travel);
 
-//		System.out.println("DEBUGG :: travel from result is" + result.getTravel());
-//		
+		Booking result = new Booking(dto.getNbrAdult(), dto.getNbrChild(), dto.getTotalPrice(),
+				dto.getPointAddFidelity(), cust, travel);
+
 		result = service.create(result);
 
 		if (result != null) {
@@ -96,23 +84,17 @@ public class BookingController {
 
 	@RequestMapping(path = "createPlus", method = RequestMethod.POST)
 	public String createPlus(@Valid @RequestBody BookingDto dto) {
-//		Customer cust = new Customer(dto.getCustomerDto().getCard(),dto.getCustomerDto().getFidelityPoint(), dto.getCustomerDto().getLbookingDto());
 		Customer cust = new Customer();
 		cust.setId(dto.getId_customerDto());
 
-//		Travel travel = new Travel(obj.getTravelDto().getNbrNight(),obj.getTravelDto().getDestination(), obj.getTravelDto().getPeriodBegin(),obj.getTravelDto().getPeriodEnd(), null, null, null);
-//		Travel travel = new Travel();
-//		travel.setId(dto.getTravelDto().getId());
-
 		System.out.println("DEBUGG :: id for the travel is " + dto.getId_travelDto());
 		Travel travel = trS.readById(dto.getId_travelDto());
-		System.out.println("DEBUGG :: travel in controller is " + travel);
-		
+
 		Double priceF1 = 0d;
 		Double priceF2 = 0d;
 		Double priceA = 0d;
 		Double priceC = 0d;
-		
+
 		try {
 			if (travel.getLflight().size() >= 2) {
 				priceF1 = travel.getLflight().get(0).getPrice();
@@ -121,7 +103,6 @@ public class BookingController {
 				log.warn("It needs 2 flights in the LFlight list of the travel (BookingController)");
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			log.warn("It needs 2 flights in the LFlight list of the travel (BookingController)");
 		}
 		try {
@@ -135,7 +116,8 @@ public class BookingController {
 		Double totalPrice = (priceF1 + priceF2) * (dto.getNbrAdult() + dto.getNbrChild()) + (priceA * dto.getNbrAdult())
 				+ (priceC * dto.getNbrChild());
 
-		Booking result = new Booking(dto.getNbrAdult(), dto.getNbrChild(), totalPrice, dto.getPointAddFidelity(), cust, travel);
+		Booking result = new Booking(dto.getNbrAdult(), dto.getNbrChild(), totalPrice, dto.getPointAddFidelity(), cust,
+				travel);
 
 		result = service.create(result);
 
@@ -236,8 +218,6 @@ public class BookingController {
 	 */
 	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
 	public String delete(Long id) {
-		service.deleteById(id);
-
 		if (service.deleteById(id) == true) {
 			log.info("Booking deleted (controller)");
 			return "Booking deleted";

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fr.adaming.dao.IStandingDao;
+import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
 
 /**
@@ -43,13 +44,14 @@ public class StandingService implements IService<Standing> {
 	public Standing create(Standing standing) {
 		if (standing.getId() == null || standing.getId() == 0L) {
 
-			if (service.readById(standing.getHotel().getId()) != null) {//test si l'hotel rentré existe
+			if (service.readById(standing.getHotel().getId()) != null) {// test si l'hotel rentré existe
+
 				log.info("Standing created (service)");
 				return dao.save(standing);
-			}else {
+			} else {
 				log.error("There was a problem creating your Standing (service)");
 				return null;
-			}	
+			}
 		} else {
 			log.error("There was a problem creating your Service (service)");
 			return null;
