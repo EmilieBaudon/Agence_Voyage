@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.UniqueElements;
 
+import com.fr.adaming.entity.Standing;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class HotelDtoWithId {
 
 	/**
@@ -33,7 +34,6 @@ public class HotelDtoWithId {
 	/**
 	 * @param Hotel Name 
 	 */
-	@UniqueElements
 	private String name;
 	/**
 	 * @param Hotel Description 
@@ -45,10 +45,10 @@ public class HotelDtoWithId {
 	List <TravelDtoWithId> ltravelDto;
 	
 	/**
-	 *  @param lstandingDto 
+	 *  @param lstandingDto  the standing of the hotel
 	 * 
 	 */	
-	List <StandingDtoWithId> lstandingDto;
+	private Standing lstandingDto;
 
 
 }

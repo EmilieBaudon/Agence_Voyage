@@ -57,7 +57,7 @@ public class BookingService implements IService<Booking> {
 			System.out.println(booking.getCustomer().getId());
 			
 
-			System.out.println("DEBUGG :: " + booking.getTravel());
+			System.out.println("DEBUGG :: travel is " + booking.getTravel());
 			
 			Person pers = serviceP.readById(booking.getCustomer().getId());
 			Travel trav = serviceT.readById(booking.getTravel().getId());

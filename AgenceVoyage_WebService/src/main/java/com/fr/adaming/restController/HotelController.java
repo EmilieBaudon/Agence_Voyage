@@ -16,6 +16,7 @@ import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.dto.HotelDto;
 import com.fr.adaming.dto.HotelDtoWithId;
 import com.fr.adaming.entity.Hotel;
+import com.fr.adaming.entity.Standing;
 
 /**
  * 
@@ -68,7 +69,10 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	@Override
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String createObject(@RequestBody HotelDto dto) {
-		Hotel hotel = service.create(new Hotel(dto.getName(), dto.getDesc(), null, null));
+		Standing standing = new Standing();
+		standing.setId(dto.getId_Standing());
+		
+		Hotel hotel = service.create(new Hotel(dto.getName(), dto.getDesc(), null, standing));
 
 		if (hotel != null) {
 			log.info("Hotel created (controller)");

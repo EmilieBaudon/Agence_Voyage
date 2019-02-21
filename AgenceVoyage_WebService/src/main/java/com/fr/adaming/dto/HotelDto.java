@@ -30,4 +30,9 @@ public class HotelDto {
 	 * @param Hotel Description
 	 */
 	private String desc;
+	/**
+	 * @param id_standing 
+	 */
+	private Long id_Standing;
+	
 }

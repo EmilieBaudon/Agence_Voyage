@@ -20,6 +20,7 @@ import com.fr.adaming.Service.ActivityService;
 import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.dto.TravelDto;
 import com.fr.adaming.dto.TravelDtoWithId;
+import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Travel;
 
 /**
@@ -53,9 +54,11 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@Override
 	@PostMapping(path = "create")
 	public String createObject(@Valid @RequestBody TravelDto dto) {
+		Hotel hotel = new Hotel();
+		hotel.setId(dto.getId_hotelDto());
 
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
-				dto.getPeriodEnd(), null, null, null));
+				dto.getPeriodEnd(), null, null, hotel));
 
 		if (travel != null) {
 			log.info("Travel created (controller)");
