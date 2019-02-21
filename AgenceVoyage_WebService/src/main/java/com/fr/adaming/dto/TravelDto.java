@@ -25,13 +25,13 @@ import lombok.Setter;
 public class TravelDto {
 
 	public TravelDto(@NotNull int nbrNight, @NotNull String destination, @NotNull LocalDate periodBegin,
-			@NotNull LocalDate periodEnd, Long id_hotelDto) {
+			@NotNull LocalDate periodEnd, Long idhotelDto) {
 		super();
 		this.nbrNight = nbrNight;
 		this.destination = destination;
 		this.periodBegin = periodBegin;
 		this.periodEnd = periodEnd;
-		this.id_hotelDto = id_hotelDto;
+		this.id_hotelDto = idhotelDto;
 	}
 
 	/**

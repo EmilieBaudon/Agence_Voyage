@@ -69,7 +69,7 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	@PostMapping(path = "create")
 	public String createObject(@RequestBody HotelDto dto) {
 		Standing standing = new Standing();
-		standing.setId(dto.getId_Standing());
+		standing.setId(dto.getIdStanding());
 
 		Hotel hotel = service.create(new Hotel(dto.getName(), dto.getDesc(), null, standing));
 

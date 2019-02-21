@@ -73,7 +73,7 @@ public class StandingController {
 	public String createObject(@RequestBody StandingDto dtoId) {
 
 		Hotel hotel = new Hotel();
-		hotel.setId(dtoId.getId_hotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
+		hotel.setId(dtoId.getIdhotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
 												// reconnaitre l'Hotel.
 
 		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(),

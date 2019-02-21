@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import com.fr.adaming.entity.Standing;
 
 import lombok.AllArgsConstructor;
