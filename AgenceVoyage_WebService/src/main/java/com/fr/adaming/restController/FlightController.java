@@ -112,7 +112,7 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	@RequestMapping(path = "readall", method = RequestMethod.GET)
 	public List<FlightDtoWithId> readAll() {
 		List<Flight> result = service.readAll();
-		List<FlightDtoWithId> listDto = new ArrayList<FlightDtoWithId>();
+		List<FlightDtoWithId> listDto = new ArrayList<>();
 		for (Flight temp : result) {
 			TravelDtoWithId tdto = new TravelDtoWithId(temp.getTravel().getId(), temp.getTravel().getNbrNight(),
 					temp.getTravel().getDestination(), temp.getTravel().getPeriodBegin(),
