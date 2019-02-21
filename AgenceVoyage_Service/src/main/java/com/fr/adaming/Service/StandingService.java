@@ -118,9 +118,10 @@ public class StandingService implements IService<Standing> {
 	 */
 	@Override
 	public List<Standing> readAll() {
-		if (!dao.findAll().isEmpty()) {
+		List<Standing> list = dao.findAll();
+		if (list != null) {
 			log.info("read all done in service");
-			return dao.findAll();
+			return list;
 		} else {
 			log.warn("database is empty");
 			return null;
