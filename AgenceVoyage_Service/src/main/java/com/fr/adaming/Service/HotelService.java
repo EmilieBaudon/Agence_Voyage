@@ -119,10 +119,11 @@ public class HotelService implements IService<Hotel> {
 	public List<Hotel> readAll() {
 
 		List<Hotel> listH = dao.findAll();
+		List<Hotel> listNull = null;
 
-		if (listH.equals(null)) {
+		if (listH.equals(listNull)) {
 			log.error("There was an issue reading all your Hotels (service)");
-			return null;
+			return listNull;
 		} else {
 			log.info("Your Hotel List: (service)");
 			return listH;
