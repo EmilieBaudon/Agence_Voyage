@@ -55,10 +55,10 @@ public class BookingController {
 	@RequestMapping(path = "create", method = RequestMethod.POST)
 	public String create(@Valid @RequestBody BookingDto dto) {
 		Customer cust = new Customer();
-		cust.setId(dto.getId_customerDto());
+		cust.setId(dto.getIdcustomerDto());
 
 		Travel travel = new Travel();
-		travel.setId(dto.getId_travelDto());
+		travel.setId(dto.getIdtravelDto());
 
 		Booking result = new Booking(dto.getNbrAdult(), dto.getNbrChild(), dto.getTotalPrice(),
 				dto.getPointAddFidelity(), cust, travel);
@@ -85,10 +85,10 @@ public class BookingController {
 	@RequestMapping(path = "createPlus", method = RequestMethod.POST)
 	public String createPlus(@Valid @RequestBody BookingDto dto) {
 		Customer cust = new Customer();
-		cust.setId(dto.getId_customerDto());
+		cust.setId(dto.getIdcustomerDto());
 
-		System.out.println("DEBUGG :: id for the travel is " + dto.getId_travelDto());
-		Travel travel = trS.readById(dto.getId_travelDto());
+		System.out.println("DEBUGG :: id for the travel is " + dto.getIdtravelDto());
+		Travel travel = trS.readById(dto.getIdtravelDto());
 
 		Double priceF1 = 0d;
 		Double priceF2 = 0d;
