@@ -59,11 +59,6 @@ public class Flight {
 	 */
 	private Double price;
 
-//	/**
-//	 * @param Travel
-//	 */
-//	
-//	private Travel travel;
 
 	public Flight(String idPlane, LocalDate dateArrival, LocalDate dateDeparture, String airportDeparture,
 			String airportArrival, Double price) {
