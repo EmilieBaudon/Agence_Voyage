@@ -42,9 +42,8 @@ public class StandingService implements IService<Standing> {
 	 */
 	public Standing create(Standing standing) {
 		if (standing.getId() == null || standing.getId() == 0L) {
-			Long id = standing.getHotel().getId();
-			System.out.println(id);
-			if (service.readById(id)!= null) {//test si l'hotel rentré existe
+
+			if (service.readById(standing.getHotel().getId()) != null) {//test si l'hotel rentré existe
 				log.info("Standing created (service)");
 				return dao.save(standing);
 			}else {
