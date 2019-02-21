@@ -8,9 +8,11 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.Service.IPersonService;
@@ -36,6 +38,11 @@ public class PersonController implements IPersonController {
 	@Qualifier("PersonService")
 	IPersonService service;
 	private Logger log = Logger.getLogger(PersonController.class);
+	private static final  String RESPONSE = "person has been created";
+	private static final String NULLRESPONSE = "return from service is null";
+	private static final String UPDATERESPONSE = "person has been updated";
+	private static final String NOTCREATED = "person could not be created";
+	private static final String NOTUPDATED = "person could not be updated";
 
 	/**
 	 * Create the person given in the database Return Null if the person already
@@ -44,17 +51,17 @@ public class PersonController implements IPersonController {
 	 * @param dto the person to be registered
 	 * @return the string of response
 	 */
-	@RequestMapping(path = "register", method = RequestMethod.POST)
+	@PostMapping(path = "register")
 	public String register(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
 		if (result != null) {
 			log.info("person register in controller");
-			return "person has been created";
+			return RESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be created";
+			log.warn(NULLRESPONSE);
+			return NOTCREATED;
 		}
 	}
 
@@ -66,17 +73,17 @@ public class PersonController implements IPersonController {
 	 * @return the string of response
 	 */
 
-	@RequestMapping(path = "createCustomer", method = RequestMethod.POST)
+	@PostMapping(path = "createCustomer")
 	public String create(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard(), null, null);
 		Person result = service.create(person);
 		if (result != null) {
 			log.info("customer created in controller");
-			return "person has been created";
+			return RESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be created";
+			log.warn(NULLRESPONSE);
+			return NOTCREATED;
 		}
 	}
 
@@ -88,17 +95,17 @@ public class PersonController implements IPersonController {
 	 * @return the string of response
 	 */
 	@Override
-	@RequestMapping(path = "createTech", method = RequestMethod.POST)
+	@PostMapping(path = "createTech")
 	public String create(@Valid @RequestBody TechnicianDto dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		Person result = service.create(person);
 		if (result != null) {
 			log.info("technician created in controller");
-			return "person has been created";
+			return RESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be created";
+			log.warn(NULLRESPONSE);
+			return NOTCREATED;
 		}
 	}
 
@@ -110,7 +117,7 @@ public class PersonController implements IPersonController {
 	 * @return the string of response
 	 */
 	@Override
-	@RequestMapping(path = "updateCustomer", method = RequestMethod.PUT)
+	@PutMapping(path = "updateCustomer")
 	public String update(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getCard(), null, null);
@@ -118,10 +125,10 @@ public class PersonController implements IPersonController {
 		Person result = service.update(person);
 		if (result != null) {
 			log.info("customer updated in controller");
-			return "person has been updated";
+			return UPDATERESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be updated";
+			log.warn(NULLRESPONSE);
+			return NOTUPDATED;
 		}
 	}
 
@@ -133,7 +140,7 @@ public class PersonController implements IPersonController {
 	 * @return the string of response
 	 */
 	@Override
-	@RequestMapping(path = "updateTech", method = RequestMethod.PUT)
+	@PutMapping(path = "updateTech")
 	public String update(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
@@ -141,10 +148,10 @@ public class PersonController implements IPersonController {
 		Person result = service.update(person);
 		if (result != null) {
 			log.info("technician updated in controller");
-			return "person has been updated";
+			return UPDATERESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be updated";
+			log.warn(NULLRESPONSE);
+			return NOTUPDATED;
 		}
 	}
 
@@ -155,7 +162,7 @@ public class PersonController implements IPersonController {
 	 * @return the string of response
 	 */
 	@Override
-	@RequestMapping(path = "updateCustomerEmail", method = RequestMethod.PUT)
+	@PutMapping(path = "updateCustomerEmail")
 	public String updateEmail(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = (Customer) service.readById(dto.getId());
 		person.setId(dto.getId());
@@ -163,10 +170,10 @@ public class PersonController implements IPersonController {
 		Person result = service.update(person);
 		if (result != null) {
 			log.info("customer updated in controller");
-			return "person has been updated";
+			return UPDATERESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be updated";
+			log.warn(NULLRESPONSE);
+			return NOTUPDATED;
 		}
 	}
 
@@ -177,17 +184,17 @@ public class PersonController implements IPersonController {
 	 * @return the string of response
 	 */
 	@Override
-	@RequestMapping(path = "updateTechEmail", method = RequestMethod.PUT)
+	@PutMapping(path = "updateTechEmail")
 	public String updateEmail(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = (Technician) service.readById(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
 		Person result = service.update(person);
 		if (result != null) {
-			return "person has been updated";
+			return UPDATERESPONSE;
 		} else {
-			log.warn("return from service is null");
-			return "person could not be updated";
+			log.warn(NULLRESPONSE);
+			return NOTUPDATED;
 		}
 	}
 
@@ -198,7 +205,7 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@RequestMapping(path = "read/{email}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{email}")
 	public Person readByEmail(String email) {
 		return service.readByEmail(email);
 	}
@@ -210,7 +217,7 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@RequestMapping(path = "read/{id}", method = RequestMethod.GET)
+	@GetMapping(path = "read/{id}")
 	public Person readById(Long id) {
 		return service.readById(id);
 	}
@@ -221,7 +228,7 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@RequestMapping(path = "readAll", method = RequestMethod.GET)
+	@GetMapping(path = "readAll")
 	public List<RegisterDto> readAll() {
 		List<Person> people = service.readAll();
 		List<RegisterDto> dtos = new ArrayList<>();
@@ -241,7 +248,7 @@ public class PersonController implements IPersonController {
 	 * @return return a string of validation
 	 */
 	@Override
-	@RequestMapping(path = "delete/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{id}")
 	public String deleteById(Long id) {
 		if (service.deleteById(id)) {
 			service.deleteById(id);
@@ -260,7 +267,7 @@ public class PersonController implements IPersonController {
 	 * @return return a string of validation
 	 */
 	@Override
-	@RequestMapping(path = "delete/{email}", method = RequestMethod.DELETE)
+	@DeleteMapping(path = "delete/{email}")
 	public String deleteByEmail(String email) {
 		if (service.deleteByEmail(email)) {
 			service.deleteByEmail(email);
@@ -279,7 +286,7 @@ public class PersonController implements IPersonController {
 	 * @return return a string of validation
 	 */
 	@Override
-	@RequestMapping(path = "login", method = RequestMethod.POST)
+	@PostMapping(path = "login")
 	public String Login(@RequestBody LoginDto login) {
 		Person result = service.Login(login.getMail(), login.getPwd());
 		if (result != null) {
