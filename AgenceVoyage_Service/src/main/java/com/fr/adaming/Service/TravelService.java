@@ -41,7 +41,6 @@ public class TravelService implements IService<Travel> {
 		if ((travel.getId() == null || travel.getId() == 0L)
 				&& (travel.getPeriodBegin() != null && travel.getPeriodBegin().isAfter(LocalDate.now()))) {
 			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1));
-			travel.setPeriodBegin(travel.getPeriodBegin().plusDays(1));
 			log.info("activity created (service)");
 			return dao.save(travel);
 		} else {

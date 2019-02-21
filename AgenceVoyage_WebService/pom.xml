@@ -8,6 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>AgenceVoyage_WebService</artifactId>
+	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
