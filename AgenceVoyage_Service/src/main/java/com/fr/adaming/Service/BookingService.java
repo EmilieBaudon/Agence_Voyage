@@ -1,5 +1,6 @@
 package com.fr.adaming.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -136,12 +137,14 @@ public class BookingService implements IService<Booking> {
 	@Override
 	public List<Booking> readAll() {
 		List<Booking> list = dao.findAll();
-		if (list.isEmpty()) {
+		List<Booking> listEmpty = new ArrayList<>();
+
+		if (!list.isEmpty()) {
 			log.info("read all done in service");
 			return list;
 		} else {
 			log.warn("database is empty");
-			return null;
+			return listEmpty;
 		}
 	}
 
