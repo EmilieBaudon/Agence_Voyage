@@ -287,7 +287,7 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@PostMapping(path = "login")
-	public String Login(@RequestBody LoginDto login) {
+	public String login(@RequestBody LoginDto login) {
 		Person result = service.Login(login.getMail(), login.getPwd());
 		if (result != null) {
 			log.info("connection done in controller");

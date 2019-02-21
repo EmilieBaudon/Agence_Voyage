@@ -122,7 +122,7 @@ public interface IPersonController {
 	 * @param Email is a class attribute of Person
 	 * @return a string saying if the delete by email has been successful
 	 */
-	public String deleteByEmail(String Email);
+	public String deleteByEmail(String email);
 
 	/**
 	 * Import data from user to the service Use the delete by email method from
@@ -131,5 +131,5 @@ public interface IPersonController {
 	 * @param login contain the mail and the password
 	 * @return a string saying if the login has been successful
 	 */
-	public String Login(LoginDto login);
+	public String login(LoginDto login);
 }

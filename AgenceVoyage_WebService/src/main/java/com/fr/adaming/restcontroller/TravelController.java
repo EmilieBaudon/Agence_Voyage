@@ -55,7 +55,7 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@PostMapping(path = "create")
 	public String createObject(@Valid @RequestBody TravelDto dto) {
 		Hotel hotel = new Hotel();
-		hotel.setId(dto.getId_hotelDto());
+		hotel.setId(dto.getIdhotelDto());
 
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
 				dto.getPeriodEnd(), null, null, hotel));

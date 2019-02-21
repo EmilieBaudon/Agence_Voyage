@@ -31,7 +31,7 @@ public class TravelDto {
 		this.destination = destination;
 		this.periodBegin = periodBegin;
 		this.periodEnd = periodEnd;
-		this.id_hotelDto = idhotelDto;
+		this.idhotelDto = idhotelDto;
 	}
 
 	/**
@@ -65,5 +65,5 @@ public class TravelDto {
 	/**
 	 * @param id_hotelDto
 	 */
-	private Long id_hotelDto;
+	private Long idhotelDto;
 }

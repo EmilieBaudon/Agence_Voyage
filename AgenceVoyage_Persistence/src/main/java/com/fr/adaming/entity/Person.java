@@ -58,7 +58,7 @@ public class Person {
 	/**
 	 * @param Person adress
 	 */
-	private String Adress;
+	private String adress;
 
 	/**
 	 * @param Person mail
@@ -77,7 +77,7 @@ public class Person {
 		this.name = name;
 		this.firstName = firstName;
 		this.birthDate = birthDate;
-		Adress = adress;
+		this.adress = adress;
 		this.mail = mail;
 		this.pwd = pwd;
 	}
