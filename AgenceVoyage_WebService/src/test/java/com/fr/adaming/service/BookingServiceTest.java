@@ -16,12 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fr.adaming.Service.BookingService;
-import com.fr.adaming.Service.PersonService;
-import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.entity.Booking;
 import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Travel;
+import com.fr.adaming.service.BookingService;
+import com.fr.adaming.service.PersonService;
+import com.fr.adaming.service.TravelService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

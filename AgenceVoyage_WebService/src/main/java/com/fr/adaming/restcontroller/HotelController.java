@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fr.adaming.Service.ActivityService;
-import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.dto.HotelDto;
 import com.fr.adaming.dto.HotelDtoWithId;
 import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
+import com.fr.adaming.service.ActivityService;
+import com.fr.adaming.service.HotelService;
 
 /**
  * 

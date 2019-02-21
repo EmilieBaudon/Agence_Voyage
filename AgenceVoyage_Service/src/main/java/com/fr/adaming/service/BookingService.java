@@ -1,7 +1,8 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,6 @@ public class BookingService implements IService<Booking> {
 	@Override
 	public Booking create(Booking booking) {
 		if (booking.getId() == null || booking.getId() == 0L) {
-			System.out.println(booking.getCustomer().getId());
-
-			System.out.println("DEBUGG :: travel is " + booking.getTravel());
 
 			Person pers = serviceP.readById(booking.getCustomer().getId());
 			Travel trav = serviceT.readById(booking.getTravel().getId());
@@ -100,14 +98,19 @@ public class BookingService implements IService<Booking> {
 	 */
 	@Override
 	public Booking readById(Long id) {
+		Booking booking = null;
+		Optional<Booking> optValue = dao.findById(id);
 		try {
-			Booking booking = dao.findById(id).get();
+			if (optValue.isPresent()) {
+				booking = optValue.get();
+			}
 			log.info("read by id done in service");
 			return booking;
 		} catch (Exception e) {
-			log.error("This id does not exist");
+			log.error("This id does not exist", e);
 			return null;
 		}
+
 	}
 
 	/**
@@ -123,7 +126,7 @@ public class BookingService implements IService<Booking> {
 			dao.deleteById(id);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("The was an issue deleting this object", e);
 			return false;
 		}
 	}

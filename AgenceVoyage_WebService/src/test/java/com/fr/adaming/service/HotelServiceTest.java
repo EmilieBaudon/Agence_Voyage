@@ -22,8 +22,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fr.adaming.Service.HotelService;
 import com.fr.adaming.entity.Hotel;
+import com.fr.adaming.service.HotelService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

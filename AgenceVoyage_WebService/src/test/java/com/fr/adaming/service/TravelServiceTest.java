@@ -17,8 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fr.adaming.Service.TravelService;
 import com.fr.adaming.entity.Travel;
+import com.fr.adaming.service.TravelService;
 
 /**
  * 

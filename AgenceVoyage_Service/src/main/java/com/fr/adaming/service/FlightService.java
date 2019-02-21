@@ -1,6 +1,7 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,7 @@ public class FlightService implements IService<Flight> {
 	@Autowired
 	private IFlightDao dao;
 
-	@Autowired
-	private TravelService service;
+
 
 	/**
 	 * @param object to generate log
@@ -53,7 +53,6 @@ public class FlightService implements IService<Flight> {
 		}
 
 	}
-
 
 	/**
 	 * This method update an flight in the database the update is done only if the
@@ -84,14 +83,19 @@ public class FlightService implements IService<Flight> {
 	 */
 	@Override
 	public Flight readById(Long id) {
+		Flight flight = null;
+		Optional<Flight> optValue = dao.findById(id);
 		try {
-			Flight flight = dao.findById(id).get();
+			if (optValue.isPresent()) {
+				flight = optValue.get();
+			}
 			log.info("read by id done in service");
 			return flight;
 		} catch (Exception e) {
-			log.error("This id does not exist");
+			log.error("This id does not exist", e);
 			return null;
 		}
+
 	}
 
 	/**
@@ -109,8 +113,8 @@ public class FlightService implements IService<Flight> {
 			log.info("Flight deleted (service)");
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Exception detected (service)");
+
+			log.error("Exception detected (service)", e);
 			return false;
 		}
 	}

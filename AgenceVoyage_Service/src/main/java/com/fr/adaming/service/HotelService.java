@@ -1,6 +1,7 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,13 +78,16 @@ public class HotelService implements IService<Hotel> {
 	 */
 	@Override
 	public Hotel readById(Long id) {
-
+		Hotel hotel = null;
+		Optional<Hotel> optValue = dao.findById(id);
 		try {
-			Hotel hotel = dao.findById(id).get();
+			if (optValue.isPresent()) {
+				hotel = optValue.get();
+			}
 			log.info("read by id done in service");
 			return hotel;
 		} catch (Exception e) {
-			log.error("This id does not exist");
+			log.error("This id does not exist", e);
 			return null;
 		}
 
@@ -104,8 +108,8 @@ public class HotelService implements IService<Hotel> {
 			log.info("Your Hotel was deleted (service)");
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("There was an issue deleting your Hotel (service)");
+
+			log.error("There was an issue deleting your Hotel (service)", e);
 			return false;
 		}
 	}
@@ -121,7 +125,7 @@ public class HotelService implements IService<Hotel> {
 		List<Hotel> listH = dao.findAll();
 		List<Hotel> listNull = null;
 
-		if (listH.equals(listNull)) {
+		if (!listH.isEmpty()) {
 			log.error("There was an issue reading all your Hotels (service)");
 			return listNull;
 		} else {

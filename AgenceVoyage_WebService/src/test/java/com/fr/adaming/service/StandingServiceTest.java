@@ -21,10 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fr.adaming.Service.HotelService;
-import com.fr.adaming.Service.StandingService;
 import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
+import com.fr.adaming.service.HotelService;
+import com.fr.adaming.service.StandingService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

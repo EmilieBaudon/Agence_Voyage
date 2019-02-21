@@ -1,6 +1,7 @@
-package com.fr.adaming.Service;
+package com.fr.adaming.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +49,12 @@ public class ActivityService implements IService<Activity> {
 	}
 
 	/**
-	 * This method update an activity in the database the update is done only if the id
-	 *         of the activity is found in the DB
-	 *         
+	 * This method update an activity in the database the update is done only if the
+	 * id of the activity is found in the DB
+	 * 
 	 * @return an object activity
 	 * 
-	 * @param activity an object activity      
+	 * @param activity an object activity
 	 */
 	@Override
 	public Activity update(Activity activity) {
@@ -68,15 +69,27 @@ public class ActivityService implements IService<Activity> {
 
 	/**
 	 * This method read an activity in the database thanks to the id put in the
-	 *         parameter
-	 *@return an object activity
+	 * parameter
 	 * 
-	 * @param id an id representing the activity id    
+	 * @return an object activity
+	 * 
+	 * @param id an id representing the activity id
 	 */
 	@Override
 	public Activity readById(Long id) {
-		log.info("Activity print (service)");
-		return dao.findById(id).get();
+		Activity activity = null;
+		Optional<Activity> optValue = dao.findById(id);
+		try {
+			if (optValue.isPresent()) {
+				activity = optValue.get();
+			}
+			log.info("read by id done in service");
+			return activity;
+		} catch (Exception e) {
+			log.error("This id does not exist", e);
+			return null;
+		}
+
 	}
 
 	/**
@@ -93,8 +106,8 @@ public class ActivityService implements IService<Activity> {
 			log.info("Activity deleted (service)");
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.error("Exception detected (service)");
+
+			log.error("Exception detected (service)", e);
 			return false;
 		}
 	}
@@ -102,7 +115,7 @@ public class ActivityService implements IService<Activity> {
 	/**
 	 * This method read all the activities in the DB
 	 * 
-	 *@return a list of activity from the database
+	 * @return a list of activity from the database
 	 */
 	@Override
 	public List<Activity> readAll() {
