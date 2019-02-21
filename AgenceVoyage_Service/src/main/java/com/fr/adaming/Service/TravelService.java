@@ -2,6 +2,7 @@ package com.fr.adaming.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +76,12 @@ public class TravelService implements IService<Travel> {
 	 */
 	@Override
 	public Travel readById(Long id) {
-
+		Travel travel = null;
+		Optional<Travel> optValue = dao.findById(id);
 		try {
-			Travel travel = dao.findById(id).get();
+			if (optValue.isPresent()) {
+				travel = optValue.get();
+			}
 			log.info("read by id done in service");
 			return travel;
 		} catch (Exception e) {
