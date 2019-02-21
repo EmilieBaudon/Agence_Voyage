@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.fr.adaming.dao.IBookingDao;
 import com.fr.adaming.entity.Booking;
 import com.fr.adaming.entity.Flight;
+import com.fr.adaming.entity.Person;
 import com.fr.adaming.entity.Standing;
+import com.fr.adaming.entity.Travel;
 
 /**
  * This class is the service part of the application for the booking model It
@@ -52,7 +54,17 @@ public class BookingService implements IService<Booking> {
 	@Override
 	public Booking create(Booking booking) {
 		if (booking.getId() == null || booking.getId() == 0L) {
-			if (serviceP.readById(booking.getCustomer().getId())!= null && serviceT.readById(booking.getTravel().getId())!= null) {
+			System.out.println(booking.getCustomer().getId());
+			
+
+			System.out.println("DEBUGG :: " + booking.getTravel());
+			
+			Person pers = serviceP.readById(booking.getCustomer().getId());
+			Travel trav = serviceT.readById(booking.getTravel().getId());
+			
+			
+			if (pers!= null && trav!= null) {
+				
 				log.info("Booking created (service)");
 				return dao.save(booking);
 			}else {
@@ -62,6 +74,10 @@ public class BookingService implements IService<Booking> {
 		} else {
 			return null;
 		}
+		
+		
+	
+	
 	}
 
 	/**
