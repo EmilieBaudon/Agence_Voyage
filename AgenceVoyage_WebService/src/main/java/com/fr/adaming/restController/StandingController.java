@@ -71,14 +71,17 @@ public class StandingController {
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@RequestMapping(path = "create", method = RequestMethod.POST)
-	public String createObject(@RequestBody StandingDtoWithId dtoId) {
+	public String createObject(@RequestBody StandingDto dtoId) {
 
 		Hotel hotel = new Hotel();
-		hotel.setId(dtoId.getHotelDto().getId()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
+		hotel.setId(dtoId.getId_hotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
 													// reconnaitre l'Hotel.
-
-		Standing standing = service.create(new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
-				dtoId.getDesc(), hotel, null));
+		System.out.println(hotel.getId());
+		
+		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
+				dtoId.getDesc(), hotel, null);
+		
+		Standing standing = service.create(stand);
 
 		if (standing != null) {
 			log.info("Standing created (controller)");

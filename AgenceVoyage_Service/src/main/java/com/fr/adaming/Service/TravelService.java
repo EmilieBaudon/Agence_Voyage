@@ -82,6 +82,7 @@ public class TravelService implements IService<Travel> {
 			return travel;
 		} catch (Exception e) {
 			log.error("This id does not exist");
+			e.printStackTrace();
 			return null;
 		}
 
