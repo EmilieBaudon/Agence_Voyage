@@ -115,7 +115,7 @@ public class PersonServiceTest {
 	@Test
 	public void i_ReadEmptyDB() {
 		
-		assertNull(service.readAll());
+		assertTrue(service.readAll().isEmpty());
 		
 	}
 

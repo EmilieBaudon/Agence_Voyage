@@ -120,7 +120,7 @@ public class HotelServiceTest {
 	public void h_updateExistingHotel() {
 		testHotel = new Hotel("Hilton8", "hotel de riche",null,null);
 		testHotel = service.create(testHotel);
-		testHotel = service.readAll().get(0);
+		//testHotel = service.readAll().get(0);
 		testHotel = service.update(testHotel);
 		assertNotNull(testHotel);
 	}
