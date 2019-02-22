@@ -33,27 +33,25 @@ public class RegisterDto {
 	 */
 	@NotNull
 	private String name;
-	/**
-	 * @param Person first name
-	 */
-	@NotNull
-	private String firstName;
+	
 	/**
 	 * @param Person date of birth
 	 */
 	@NotNull
 	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate birthDate;
-	/**
-	 * @param Person adress
-	 */
-	@NotNull
-	private String adress;
+	
 	/**
 	 * @param Person mail
 	 */
 	@Email
 	private String mail;
+	
+	/**
+	 * @param Person first name
+	 */
+	@NotNull
+	private String firstName;
 	/**
 	 * @param Person password Minimum eight characters, at least one uppercase
 	 *               letter, one lowercase letter, one number and one special
@@ -62,5 +60,11 @@ public class RegisterDto {
 	@NotNull
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
 	private String pwd;
+	
+	/**
+	 * @param Person adress
+	 */
+	@NotNull
+	private String adress;
 
 }
