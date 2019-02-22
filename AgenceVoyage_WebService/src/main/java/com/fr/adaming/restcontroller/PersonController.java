@@ -87,27 +87,6 @@ public class PersonController implements IPersonController {
 		}
 	}
 
-	/**
-	 * Create the person given in the database Return Null if the person already
-	 * exist
-	 * 
-	 * @param dto the person to be created
-	 * @return the string of response
-	 */
-	@Override
-	@PostMapping(path = "createTech")
-	public String create(@Valid @RequestBody TechnicianDto dto) {
-		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
-				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
-		Person result = service.create(person);
-		if (result != null) {
-			log.info("technician created in controller");
-			return RESPONSE;
-		} else {
-			log.warn(NULLRESPONSE);
-			return NOTCREATED;
-		}
-	}
 
 	/**
 	 * Update the person given if the person do not exit in the database, return
@@ -152,6 +131,29 @@ public class PersonController implements IPersonController {
 		} else {
 			log.warn(NULLRESPONSE);
 			return NOTUPDATED;
+		}
+	}
+	
+
+	/**
+	 * Create the person given in the database Return Null if the person already
+	 * exist
+	 * 
+	 * @param dto the person to be created
+	 * @return the string of response
+	 */
+	@Override
+	@PostMapping(path = "createTech")
+	public String create(@Valid @RequestBody TechnicianDto dto) {
+		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
+				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
+		Person result = service.create(person);
+		if (result != null) {
+			log.info("technician created in controller");
+			return RESPONSE;
+		} else {
+			log.warn(NULLRESPONSE);
+			return NOTCREATED;
 		}
 	}
 
@@ -234,7 +236,7 @@ public class PersonController implements IPersonController {
 		List<RegisterDto> dtos = new ArrayList<>();
 		for (int i = 0; i < people.size(); i++) {
 			dtos.add(
-					new RegisterDto(people.get(i).getName(), people.get(i).getFirstName(), people.get(i).getBirthDate(),
+					new RegisterDto(people.get(i).getName(), people.get(i).getBirthDate(), people.get(i).getFirstName(),
 							people.get(i).getAdress(), people.get(i).getMail(), people.get(i).getPwd()));
 		}
 		log.info("list complete for readAll in controller");

@@ -39,11 +39,7 @@ public class TravelDto {
 	 */
 	private Long id;
 
-	/**
-	 * @param number of nights
-	 */
-	@NotNull
-	private int nbrNight;
+	
 
 	/**
 	 * @param destiantion
@@ -66,4 +62,9 @@ public class TravelDto {
 	 * @param id_hotelDto
 	 */
 	private Long idhotelDto;
+	/**
+	 * @param number of nights
+	 */
+	@NotNull
+	private int nbrNight;
 }

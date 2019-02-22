@@ -29,24 +29,7 @@ public class ActivityService implements IService<Activity> {
 
 	private Logger log = Logger.getLogger(ActivityService.class);
 
-	/**
-	 * This method create an activity in the database the creation is done only if
-	 * the id of the object us null or equal to 0
-	 * 
-	 * @return an object activity
-	 * 
-	 * @param activity an object activity
-	 */
-	@Override
-	public Activity create(Activity activity) {
-		if (activity.getId() == null || activity.getId() == 0L) {
-			log.info("activity created (service)");
-			return dao.save(activity);
-		} else {
-			log.warn("The activity you want to create has an id which already exist (service)");
-			return null;
-		}
-	}
+	
 
 	/**
 	 * This method update an activity in the database the update is done only if the
@@ -90,6 +73,24 @@ public class ActivityService implements IService<Activity> {
 			return null;
 		}
 
+	}
+	/**
+	 * This method create an activity in the database the creation is done only if
+	 * the id of the object us null or equal to 0
+	 * 
+	 * @return an object activity
+	 * 
+	 * @param activity an object activity
+	 */
+	@Override
+	public Activity create(Activity activity) {
+		if (activity.getId() == null || activity.getId() == 0L) {
+			log.info("activity created (service)");
+			return dao.save(activity);
+		} else {
+			log.warn("The activity you want to create has an id which already exist (service)");
+			return null;
+		}
 	}
 
 	/**

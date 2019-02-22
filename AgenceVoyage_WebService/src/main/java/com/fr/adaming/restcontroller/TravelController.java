@@ -107,8 +107,8 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	public TravelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Travel result = service.readById(id);
-		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
-				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null);
+		TravelDtoWithId dto = new TravelDtoWithId(result.getId(),  result.getDestination(),
+				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null,result.getNbrNight());
 		log.info("Travel print (controller)");
 		return dto;
 	}
@@ -124,8 +124,8 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 		List<Travel> result = service.readAll();
 		List<TravelDtoWithId> listDto = new ArrayList<>();
 		for (Travel temp : result) {
-			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
-					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
+			listDto.add(new TravelDtoWithId(temp.getId(), temp.getDestination(),
+					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null, temp.getNbrNight()));
 		}
 		log.info("List of travels printed (controller)");
 		return listDto;
