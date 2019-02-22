@@ -26,27 +26,14 @@ import lombok.Setter;
 
 public class CustomerDto {
 
-	/**
-	 * @param Person name
-	 */
-	@NotNull
-	private String name;
-	/**
-	 * @param Person first name
-	 */
-	@NotNull
-	private String firstName;
+	
+	
 	/**
 	 * @param Person date of birth
 	 */
 	@NotNull
 	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
 	private LocalDate birthDate;
-	/**
-	 * @param Person adress
-	 */
-	@NotNull
-	private String adress;
 	/**
 	 * @param Person mail
 	 */
@@ -60,13 +47,26 @@ public class CustomerDto {
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]*).{8,}$")
 	private String pwd;
 	/**
+	 * @param Person name
+	 */
+	@NotNull
+	private String name;
+	/**
 	 * @param Customer's card
 	 */
-
 	private String card;
-
+	/**
+	 * @param Person adress
+	 */
+	@NotNull
+	private String adress;
 	/**
 	 * @param Customer's fidelity points
 	 */
 	private Long fidelityPoint;
+	/**
+	 * @param Person first name
+	 */
+	@NotNull
+	private String firstName;
 }
