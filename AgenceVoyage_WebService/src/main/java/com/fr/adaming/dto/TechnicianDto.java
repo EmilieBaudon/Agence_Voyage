@@ -45,11 +45,7 @@ public class TechnicianDto {
 	/**
 	 * @param Person adress
 	 */
-	@NotNull
-	private String adress;
-	/**
-	 * @param Person mail
-	 */
+
 	@Email
 	private String mail;
 	/**
@@ -57,6 +53,19 @@ public class TechnicianDto {
 	 *               letter, one lowercase letter, one number and one special
 	 *               character
 	 */
+
+	@NotNull
+	private String adress;
+	/**
+	 * @param Person mail
+	 */
+
+	/**
+	 * @param Technician's job start date
+	 */
+	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
+	private LocalDate jobStartDate;
+
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
 	private String pwd;
 	/**
@@ -64,9 +73,4 @@ public class TechnicianDto {
 	 */
 	private String job;
 
-	/**
-	 * @param Technician's job start date
-	 */
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
-	private LocalDate jobStartDate;
 }
