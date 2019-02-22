@@ -101,24 +101,6 @@ public class StandingService implements IService<Standing> {
 	}
 
 	/**
-	 * delete an standing in the database thanks to the id put in the parameter
-	 * 
-	 * @param id of the standing
-	 * @return boolean true if the method worked and false if not
-	 */
-	public Boolean deleteById(Long id) {
-		try {
-			dao.deleteById(id);
-			log.info("Your Service was deleted (service)");
-			return true;
-		} catch (Exception e) {
-
-			log.error("There was an issue deleting your Service (service)", e);
-			return false;
-		}
-	}
-
-	/**
 	 * read all the standings in the DB
 	 * 
 	 * @return list of all the standings in the database
@@ -133,6 +115,24 @@ public class StandingService implements IService<Standing> {
 		} else {
 			log.warn("database is empty");
 			return listEmpty;
+		}
+	}
+
+	/**
+	 * delete an standing in the database thanks to the id put in the parameter
+	 * 
+	 * @param id of the standing
+	 * @return boolean true if the method worked and false if not
+	 */
+	public Boolean deleteById(Long id) {
+		try {
+			dao.deleteById(id);
+			log.info("Your Service was deleted (service)");
+			return true;
+		} catch (Exception e) {
+
+			log.error("There was an issue deleting your Service (service)", e);
+			return false;
 		}
 	}
 }

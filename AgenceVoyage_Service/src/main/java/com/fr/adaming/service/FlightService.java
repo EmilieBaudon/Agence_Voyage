@@ -27,8 +27,6 @@ public class FlightService implements IService<Flight> {
 	@Autowired
 	private IFlightDao dao;
 
-
-
 	/**
 	 * @param object to generate log
 	 */
@@ -99,6 +97,18 @@ public class FlightService implements IService<Flight> {
 	}
 
 	/**
+	 * This method read all the flights in the DB
+	 * 
+	 * @return a list of flight return from the database
+	 */
+	@Override
+	public List<Flight> readAll() {
+		List<Flight> list = dao.findAll();
+		log.info("all flights (service) have been read from the DB");
+		return list;
+	}
+
+	/**
 	 * This method delete an flight in the database thanks to the id put in the
 	 * parameter
 	 * 
@@ -117,17 +127,5 @@ public class FlightService implements IService<Flight> {
 			log.error("Exception detected (service)", e);
 			return false;
 		}
-	}
-
-	/**
-	 * This method read all the flights in the DB
-	 * 
-	 * @return a list of flight return from the database
-	 */
-	@Override
-	public List<Flight> readAll() {
-		List<Flight> list = dao.findAll();
-		log.info("all flights (service) have been read from the DB");
-		return list;
 	}
 }

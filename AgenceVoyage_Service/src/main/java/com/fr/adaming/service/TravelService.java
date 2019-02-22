@@ -92,6 +92,18 @@ public class TravelService implements IService<Travel> {
 	}
 
 	/**
+	 * read all the travels in the DB
+	 * 
+	 * @return list of all the travels in the database
+	 */
+	@Override
+	public List<Travel> readAll() {
+		log.info("List of activities printed (service)");
+		return dao.findAll();
+
+	}
+
+	/**
 	 * delete an travel in the database thanks to the id put in the parameter
 	 * 
 	 * @param id of the travel
@@ -106,16 +118,5 @@ public class TravelService implements IService<Travel> {
 			log.error("Exception detected (service)", e);
 			return false;
 		}
-	}
-
-	/**
-	 * read all the travels in the DB
-	 * 
-	 * @return list of all the travels in the database
-	 */
-	@Override
-	public List<Travel> readAll() {
-		log.info("List of activities printed (service)");
-		return dao.findAll();
 	}
 }

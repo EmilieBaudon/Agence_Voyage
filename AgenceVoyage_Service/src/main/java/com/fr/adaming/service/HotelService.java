@@ -94,6 +94,27 @@ public class HotelService implements IService<Hotel> {
 	}
 
 	/**
+	 * This method read all the hotels in the DB
+	 * 
+	 * @return a list of hotels return from the database
+	 */
+	@Override
+	public List<Hotel> readAll() {
+
+		List<Hotel> listH = dao.findAll();
+		List<Hotel> listNull = null;
+
+		if (!listH.isEmpty()) {
+			log.error("There was an issue reading all your Hotels (service)");
+			return listNull;
+		} else {
+			log.info("Your Hotel List: (service)");
+			return listH;
+		}
+
+	}
+
+	/**
 	 * This method delete an hotel in the database thanks to the id put in the
 	 * parameter
 	 * 
@@ -114,24 +135,4 @@ public class HotelService implements IService<Hotel> {
 		}
 	}
 
-	/**
-	 * This method read all the hotels in the DB
-	 * 
-	 * @return a list of hotels return from the database
-	 */
-	@Override
-	public List<Hotel> readAll() {
-
-		List<Hotel> listH = dao.findAll();
-		List<Hotel> listNull = null;
-
-		if (!listH.isEmpty()) {
-			log.error("There was an issue reading all your Hotels (service)");
-			return listNull;
-		} else {
-			log.info("Your Hotel List: (service)");
-			return listH;
-		}
-
-	}
 }
