@@ -104,7 +104,7 @@ public interface IPersonController {
 	 * 
 	 * @return is a list of RegisterDto
 	 */
-	public List<RegisterDto> readAll();
+	public List<CustomerDtoWithId> readAll();
 
 	/**
 	 * Import data from user to the service Use the delete by id method from person

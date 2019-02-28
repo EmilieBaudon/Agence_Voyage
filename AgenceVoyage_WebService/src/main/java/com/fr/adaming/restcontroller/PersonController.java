@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
-import com.fr.adaming.dto.RegisterDto;
 import com.fr.adaming.dto.TechnicianDto;
 import com.fr.adaming.dto.TechnicianDtoWithId;
 import com.fr.adaming.entity.Customer;
@@ -233,13 +232,12 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@GetMapping(path = "readAll")
-	public List<RegisterDto> readAll() {
+	public List<CustomerDtoWithId> readAll() {
 		List<Person> people = service.readAll();
-		List<RegisterDto> dtos = new ArrayList<>();
+		List<CustomerDtoWithId> dtos = new ArrayList<>();
 		for (int i = 0; i < people.size(); i++) {
 			dtos.add(
-					new RegisterDto(people.get(i).getName(), people.get(i).getFirstName(), people.get(i).getBirthDate(),
-							people.get(i).getAdress(), people.get(i).getMail(), people.get(i).getPwd()));
+					new CustomerDtoWithId(people.get(i).getId(), people.get(i).getName(),people.get(i).getFirstName(),people.get(i).getBirthDate(),people.get(i).getAdress(),people.get(i).getMail(),people.get(i).getPwd(),null,0L,null));
 		}
 		log.info("list complete for readAll in controller");
 		return dtos;
