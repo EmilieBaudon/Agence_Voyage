@@ -209,7 +209,7 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@GetMapping(path = "read/{email}")
+	@GetMapping(path = "readE/{email}")
 	public Person readByEmail(String email) {
 		return service.readByEmail(email);
 	}
@@ -221,7 +221,7 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@GetMapping(path = "read/{id}")
+	@GetMapping(path = "readI/{id}")
 	public Person readById(Long id) {
 		return service.readById(id);
 	}
