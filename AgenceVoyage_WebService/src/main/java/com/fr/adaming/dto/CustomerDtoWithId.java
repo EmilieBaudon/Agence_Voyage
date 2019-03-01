@@ -47,7 +47,7 @@ public class CustomerDtoWithId {
 	 * @param Person date of birth
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate birthDate;
 	/**
 	 * @param Person adress
