@@ -5,7 +5,6 @@ import java.util.List;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
-import com.fr.adaming.dto.RegisterDto;
 import com.fr.adaming.dto.TechnicianDto;
 import com.fr.adaming.dto.TechnicianDtoWithId;
 import com.fr.adaming.entity.Person;

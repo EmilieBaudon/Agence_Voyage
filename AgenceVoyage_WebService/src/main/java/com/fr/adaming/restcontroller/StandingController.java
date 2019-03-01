@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fr.adaming.dto.ActivityDto;
+import com.fr.adaming.dto.HotelDtoWithId;
 import com.fr.adaming.dto.StandingDto;
 import com.fr.adaming.dto.StandingDtoWithId;
+import com.fr.adaming.entity.Activity;
 import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
 import com.fr.adaming.service.ActivityService;
@@ -74,7 +77,7 @@ public class StandingController {
 
 		Hotel hotel = new Hotel();
 		hotel.setId(dtoId.getIdhotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
-												// reconnaitre l'Hotel.
+											// reconnaitre l'Hotel.
 
 		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(),
 				hotel, null);
@@ -128,8 +131,14 @@ public class StandingController {
 	@GetMapping(path = "read/{id}")
 	public StandingDtoWithId readById(@PathVariable(value = "id") Long id) {
 		Standing result = service.readById(id);
+		List<ActivityDto> listActivity = new ArrayList<>();
+		for (Activity activity : result.getLactivity()) {
+			listActivity.add(new ActivityDto(activity.getId(), activity.getName(), activity.getDesc()));
+		}
 		StandingDtoWithId dtoId = new StandingDtoWithId(result.getId(), result.getNbRoom(), result.getPriceChild(),
-				result.getPriceAdult(), result.getDesc(), null, null);
+				result.getPriceAdult(), result.getDesc(), new HotelDtoWithId(result.getHotel().getId(),
+						result.getHotel().getName(), result.getHotel().getDesc(), null, null),
+				listActivity);
 
 		if (dtoId == new StandingDtoWithId()) {
 			log.error("There was an issue reading your Standing (controller)");
@@ -152,8 +161,14 @@ public class StandingController {
 		List<Standing> result = service.readAll();
 		List<StandingDtoWithId> listDto = new ArrayList<>();
 		for (Standing temp : result) {
+			List<ActivityDto> listActivity = new ArrayList<>();
+			for (Activity activity : temp.getLactivity()) {
+				listActivity.add(new ActivityDto(activity.getId(), activity.getName(), activity.getDesc()));
+			}
 			listDto.add(new StandingDtoWithId(temp.getId(), temp.getNbRoom(), temp.getPriceChild(),
-					temp.getPriceAdult(), temp.getDesc(), null, null));
+					temp.getPriceAdult(), temp.getDesc(), new HotelDtoWithId(temp.getHotel().getId(),
+							temp.getHotel().getName(), temp.getHotel().getDesc(), null, null),
+					null));
 		}
 		if (listDto.isEmpty()) {
 			log.error("There was an issue reading all your Standings (controller)");

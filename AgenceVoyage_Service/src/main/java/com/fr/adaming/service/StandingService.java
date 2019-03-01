@@ -44,13 +44,13 @@ public class StandingService implements IService<Standing> {
 	 */
 	public Standing create(Standing standing) {
 		if (standing.getId() == null || standing.getId() == 0L) {
-
+			System.out.println(service.readById(standing.getHotel().getId()));
 			if (service.readById(standing.getHotel().getId()) != null) {// test si l'hotel rentré existe
 
 				log.info("Standing created (service)");
 				return dao.save(standing);
 			} else {
-				log.error("There was a problem creating your Standing (service)");
+				log.error("There was a problem creating your Standing (service1)");
 				return null;
 			}
 		} else {

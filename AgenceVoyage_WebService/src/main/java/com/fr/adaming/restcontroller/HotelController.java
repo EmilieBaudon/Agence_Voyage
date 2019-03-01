@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fr.adaming.dto.HotelDto;
 import com.fr.adaming.dto.HotelDtoWithId;
+import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
+import com.fr.adaming.entity.Travel;
 import com.fr.adaming.service.ActivityService;
 import com.fr.adaming.service.HotelService;
 
@@ -119,7 +121,15 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	public HotelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Hotel result = service.readById(id);
-		HotelDtoWithId dto = new HotelDtoWithId(result.getId(), result.getName(), result.getDesc(), null, null);
+		List<TravelDtoWithId> listTravel = new ArrayList<>();
+		for (Travel travel : result.getLtravel()) {
+			listTravel.add(new TravelDtoWithId(travel.getId(), travel.getNbrNight(), travel.getDestination(),
+					travel.getPeriodBegin(), travel.getPeriodEnd(), null, null,
+					new HotelDtoWithId(travel.getHotel().getId(), travel.getHotel().getName(),
+							travel.getHotel().getDesc(), null, null)));
+		}
+		HotelDtoWithId dto = new HotelDtoWithId(result.getId(), result.getName(), result.getDesc(), listTravel,
+				result.getStanding());
 
 		if (dto == new HotelDtoWithId()) {
 			log.error("There was an issue reading your Hotel (controller)");
@@ -145,7 +155,14 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 		List<HotelDtoWithId> listDto = new ArrayList<>();
 		List<HotelDtoWithId> listEmpty = new ArrayList<>();
 		for (Hotel temp : result) {
-			listDto.add(new HotelDtoWithId(temp.getId(), temp.getName(), temp.getDesc(), null, null));
+			List<TravelDtoWithId> listTravel = new ArrayList<>();
+			for (Travel travel : temp.getLtravel()) {
+				listTravel.add(new TravelDtoWithId(travel.getId(), travel.getNbrNight(), travel.getDestination(),
+						travel.getPeriodBegin(), travel.getPeriodEnd(), null, null,
+						new HotelDtoWithId(travel.getHotel().getId(), travel.getHotel().getName(),
+								travel.getHotel().getDesc(), null, null)));
+			}
+			listDto.add(new HotelDtoWithId(temp.getId(), temp.getName(), temp.getDesc(), null, temp.getStanding()));
 		}
 
 		if (listDto.isEmpty()) {

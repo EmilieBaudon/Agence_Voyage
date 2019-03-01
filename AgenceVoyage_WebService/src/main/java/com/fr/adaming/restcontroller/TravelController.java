@@ -16,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fr.adaming.dto.BookingDto;
+import com.fr.adaming.dto.FlightDto;
+import com.fr.adaming.dto.HotelDtoWithId;
 import com.fr.adaming.dto.TravelDto;
 import com.fr.adaming.dto.TravelDtoWithId;
+import com.fr.adaming.entity.Booking;
+import com.fr.adaming.entity.Flight;
 import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Travel;
 import com.fr.adaming.service.ActivityService;
@@ -107,8 +112,20 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	public TravelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Travel result = service.readById(id);
+		List<BookingDto> listBooking = new ArrayList<>();
+		List<FlightDto> listFlight = new ArrayList<>();
+		for (Booking booking : result.getLbooking()) {
+			listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
+					booking.getPointAddFidelity(), booking.getCustomer().getId(), booking.getTravel().getId()));
+		}
+		for (Flight flight : result.getLflight()) {
+			listFlight.add(new FlightDto(flight.getIdPlane(), flight.getDateArrival(), flight.getDateDeparture(),
+					flight.getAirportDeparture(), flight.getAirportArrival(), flight.getPrice()));
+		}
 		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
-				result.getPeriodBegin(), result.getPeriodEnd(), null, null, null);
+				result.getPeriodBegin(), result.getPeriodEnd(), listBooking, listFlight,
+				new HotelDtoWithId(result.getHotel().getId(), result.getHotel().getName(), result.getHotel().getDesc(),
+						null, null));
 		log.info("Travel print (controller)");
 		return dto;
 	}
@@ -124,8 +141,20 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 		List<Travel> result = service.readAll();
 		List<TravelDtoWithId> listDto = new ArrayList<>();
 		for (Travel temp : result) {
+			List<BookingDto> listBooking = new ArrayList<>();
+			List<FlightDto> listFlight = new ArrayList<>();
+			for (Booking booking : temp.getLbooking()) {
+				listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
+						booking.getPointAddFidelity(), booking.getCustomer().getId(), booking.getTravel().getId()));
+			}
+			for (Flight flight : temp.getLflight()) {
+				listFlight.add(new FlightDto(flight.getIdPlane(), flight.getDateArrival(), flight.getDateDeparture(),
+						flight.getAirportDeparture(), flight.getAirportArrival(), flight.getPrice()));
+			}
 			listDto.add(new TravelDtoWithId(temp.getId(), temp.getNbrNight(), temp.getDestination(),
-					temp.getPeriodBegin(), temp.getPeriodEnd(), null, null, null));
+					temp.getPeriodBegin(), temp.getPeriodEnd(), listBooking, listFlight,
+					new HotelDtoWithId(temp.getHotel().getId(), temp.getHotel().getName(), temp.getHotel().getDesc(),
+							null, temp.getHotel().getStanding())));
 		}
 		log.info("List of travels printed (controller)");
 		return listDto;
