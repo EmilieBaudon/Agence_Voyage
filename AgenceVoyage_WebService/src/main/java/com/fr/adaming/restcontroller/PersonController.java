@@ -237,7 +237,7 @@ public class PersonController implements IPersonController {
 	}
 
 	@Override
-	@GetMapping(path = "readCustomer/{id}")
+	@GetMapping(path = "readTechnician/{id}")
 	public TechnicianDtoWithId readByIdTech(Long id) {
 		Technician tech = service.readByIdTech(id);
 		return new TechnicianDtoWithId(tech.getId(), tech.getName(), tech.getFirstName(), tech.getBirthDate(),
