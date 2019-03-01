@@ -95,7 +95,9 @@ public interface IPersonController {
 	 * @param id is the id of Person
 	 * @return Person is a class
 	 */
-	public Person readById(Long id);
+	public CustomerDtoWithId readByIdCustomer(Long id);
+
+	public TechnicianDtoWithId readByIdTech(Long id);
 
 	/**
 	 * Import data from user to the service Use the read all method from person
@@ -103,7 +105,9 @@ public interface IPersonController {
 	 * 
 	 * @return is a list of RegisterDto
 	 */
-	public List<RegisterDto> readAll();
+	public List<CustomerDtoWithId> readAllCustomer();
+
+	public List<TechnicianDtoWithId> readAllTech();
 
 	/**
 	 * Import data from user to the service Use the delete by id method from person

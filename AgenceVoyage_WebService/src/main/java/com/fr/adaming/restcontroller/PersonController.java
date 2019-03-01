@@ -8,19 +8,22 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fr.adaming.dto.BookingDto;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
-import com.fr.adaming.dto.RegisterDto;
 import com.fr.adaming.dto.TechnicianDto;
 import com.fr.adaming.dto.TechnicianDtoWithId;
+import com.fr.adaming.entity.Booking;
 import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Person;
 import com.fr.adaming.entity.Technician;
@@ -32,11 +35,14 @@ import com.fr.adaming.service.IPersonService;
  *
  */
 @RestController
+@CrossOrigin
+@RequestMapping(path = "person/")
 public class PersonController implements IPersonController {
 
 	@Autowired
 	@Qualifier("PersonService")
 	IPersonService service;
+
 	private Logger log = Logger.getLogger(PersonController.class);
 	private static final String RESPONSE = "person has been created";
 	private static final String NULLRESPONSE = "return from service is null";
@@ -186,7 +192,7 @@ public class PersonController implements IPersonController {
 	@Override
 	@PutMapping(path = "updateTechEmail")
 	public String updateEmail(@Valid @RequestBody TechnicianDtoWithId dto) {
-		Technician person = (Technician) service.readById(dto.getId());
+		Technician person = (Technician) service.readByIdTech(dto.getId());
 		person.setId(dto.getId());
 		person.setMail(dto.getMail());
 		Person result = service.update(person);
@@ -217,9 +223,25 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@GetMapping(path = "read/{id}")
-	public Person readById(Long id) {
-		return service.readById(id);
+	@GetMapping(path = "readCustomer/{id}")
+	public CustomerDtoWithId readByIdCustomer(Long id) {
+		Customer customer = service.readById(id);
+		List<BookingDto> listBooking = new ArrayList<>();
+		for (Booking booking : customer.getLbooking()) {
+			listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
+					booking.getPointAddFidelity(), null, booking.getTravel().getId()));
+		}
+		return new CustomerDtoWithId(customer.getId(), customer.getName(), customer.getFirstName(),
+				customer.getBirthDate(), customer.getAdress(), customer.getMail(), customer.getPwd(),
+				customer.getCard(), customer.getFidelityPoint(), listBooking);
+	}
+
+	@Override
+	@GetMapping(path = "readCustomer/{id}")
+	public TechnicianDtoWithId readByIdTech(Long id) {
+		Technician tech = service.readByIdTech(id);
+		return new TechnicianDtoWithId(tech.getId(), tech.getName(), tech.getFirstName(), tech.getBirthDate(),
+				tech.getAdress(), tech.getMail(), tech.getPwd(), tech.getJob(), tech.getJobStartDate());
 	}
 
 	/**
@@ -228,14 +250,34 @@ public class PersonController implements IPersonController {
 	 * @return the person to be read from DB with email
 	 */
 	@Override
-	@GetMapping(path = "readAll")
-	public List<RegisterDto> readAll() {
-		List<Person> people = service.readAll();
-		List<RegisterDto> dtos = new ArrayList<>();
+	@GetMapping(path = "readAllCustomer")
+	public List<CustomerDtoWithId> readAllCustomer() {
+		List<Customer> people = service.readAllCustomer();
+		List<CustomerDtoWithId> dtos = new ArrayList<>();
 		for (int i = 0; i < people.size(); i++) {
-			dtos.add(
-					new RegisterDto(people.get(i).getName(), people.get(i).getFirstName(), people.get(i).getBirthDate(),
-							people.get(i).getAdress(), people.get(i).getMail(), people.get(i).getPwd()));
+			List<BookingDto> listBooking = new ArrayList<>();
+			for (Booking booking : people.get(i).getLbooking()) {
+				listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
+						booking.getPointAddFidelity(), booking.getCustomer().getId(), booking.getTravel().getId()));
+			}
+			dtos.add(new CustomerDtoWithId(people.get(i).getId(), people.get(i).getName(), people.get(i).getFirstName(),
+					people.get(i).getBirthDate(), people.get(i).getAdress(), people.get(i).getMail(),
+					people.get(i).getPwd(), people.get(i).getCard(), people.get(i).getFidelityPoint(), listBooking));
+		}
+		log.info("list complete for readAll in controller");
+		return dtos;
+	}
+
+	@Override
+	@GetMapping(path = "readAllTech")
+	public List<TechnicianDtoWithId> readAllTech() {
+		List<Technician> people = service.readAllTech();
+		List<TechnicianDtoWithId> dtos = new ArrayList<>();
+		for (int i = 0; i < people.size(); i++) {
+			dtos.add(new TechnicianDtoWithId(people.get(i).getId(), people.get(i).getName(),
+					people.get(i).getFirstName(), people.get(i).getBirthDate(), people.get(i).getAdress(),
+					people.get(i).getMail(), people.get(i).getPwd(), people.get(i).getJob(),
+					people.get(i).getJobStartDate()));
 		}
 		log.info("list complete for readAll in controller");
 		return dtos;

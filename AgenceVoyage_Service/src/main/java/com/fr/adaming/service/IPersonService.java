@@ -2,7 +2,9 @@ package com.fr.adaming.service;
 
 import java.util.List;
 
+import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Person;
+import com.fr.adaming.entity.Technician;
 
 /**
  * 
@@ -45,7 +47,8 @@ public interface IPersonService {
 	 * @param id a long id representing the id of the person to be read
 	 * @return the person read
 	 */
-	public Person readById(Long id);
+	public Customer readById(Long id);
+	public Technician readByIdTech(Long id);
 
 	/**
 	 * This method return all the people in the database return null if the database
@@ -53,7 +56,8 @@ public interface IPersonService {
 	 * 
 	 * @return the list of person in the database
 	 */
-	public List<Person> readAll();
+	public List<Customer> readAllCustomer();
+	public List<Technician> readAllTech();
 
 	/**
 	 * This method delete a person with its id if it exist in the database
