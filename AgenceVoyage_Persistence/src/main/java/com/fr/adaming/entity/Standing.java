@@ -60,30 +60,23 @@ public class Standing {
 	 */
 	@Column(name="descr")
 	private String desc;
-	/**
-	 * @param Hotel of the Standing 
-	 */
-	@JsonBackReference
-	@OneToOne
-	private Hotel hotel;
 	
 
 	/**
 	 * 
 	 * @param list of activities
 	 */
-	@JsonManagedReference
+	//@JsonManagedReference
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Activity> lactivity;
 
-	public Standing(int nbRoom, double priceChild, double priceAdult, String desc, Hotel hotel,
+	public Standing(int nbRoom, double priceChild, double priceAdult, String desc,
 			List<Activity> lactivity) {
 		super();
 		this.nbRoom = nbRoom;
 		this.priceChild = priceChild;
 		this.priceAdult = priceAdult;
 		this.desc = desc;
-		this.hotel = hotel;
 		this.lactivity = lactivity;
 	}
 

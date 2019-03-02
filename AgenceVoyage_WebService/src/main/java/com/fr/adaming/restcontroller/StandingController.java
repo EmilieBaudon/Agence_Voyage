@@ -77,12 +77,8 @@ public class StandingController {
 	@PostMapping(path = "create")
 	public String createObject(@RequestBody StandingDto dtoId) {
 
-		Hotel hotel = new Hotel();
-		hotel.setId(dtoId.getIdhotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
-											// reconnaitre l'Hotel.
 
-		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(),
-				hotel, null);
+		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(), null);
 
 		Standing standing = service.create(stand);
 
@@ -104,11 +100,9 @@ public class StandingController {
 	 */
 	@PutMapping(path = "update")
 	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
-		Hotel hotel = new Hotel();
-		hotel.setId(dtoId.getHotelDto().getId());
 
 		Standing standing = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
-				dtoId.getDesc(), hotel, null);
+				dtoId.getDesc(), null);
 		standing.setId(dtoId.getId());
 		service.update(standing);
 
@@ -138,8 +132,7 @@ public class StandingController {
 			listActivity.add(new ActivityDto(activity.getId(), activity.getName(), activity.getDesc()));
 		}
 		StandingDtoWithId dtoId = new StandingDtoWithId(result.getId(), result.getNbRoom(), result.getPriceChild(),
-				result.getPriceAdult(), result.getDesc(), new HotelDtoWithId(result.getHotel().getId(),
-						result.getHotel().getName(), result.getHotel().getDesc(), null, null),
+				result.getPriceAdult(), result.getDesc(),
 				listActivity);
 
 		if (dtoId == new StandingDtoWithId()) {
@@ -168,8 +161,7 @@ public class StandingController {
 				listActivity.add(new ActivityDto(activity.getId(), activity.getName(), activity.getDesc()));
 			}
 			listDto.add(new StandingDtoWithId(temp.getId(), temp.getNbRoom(), temp.getPriceChild(),
-					temp.getPriceAdult(), temp.getDesc(), new HotelDtoWithId(temp.getHotel().getId(),
-							temp.getHotel().getName(), temp.getHotel().getDesc(), null, null),
+					temp.getPriceAdult(), temp.getDesc(), 
 					null));
 		}
 		if (listDto.isEmpty()) {

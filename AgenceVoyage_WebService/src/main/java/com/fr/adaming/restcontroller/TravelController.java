@@ -88,8 +88,11 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	@Override
 	@PutMapping(path = "update")
 	public String updateObject(@Valid @RequestBody TravelDtoWithId dto) {
+		Hotel hotel = new Hotel();
+		hotel.setId(dto.getHotelDto().getId());
+		
 		Travel travel = new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(), dto.getPeriodEnd(),
-				null, null, null);
+				null, null, hotel);
 		travel.setId(dto.getId());
 		service.update(travel);
 		if (travel == new Travel()) {

@@ -96,7 +96,10 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	@Override
 	@PostMapping(path = "update")
 	public String updateObject(@RequestBody HotelDtoWithId dto) {
-		Hotel hotel = new Hotel(dto.getName(), dto.getDesc(), null, null);
+		Standing standing = new Standing();
+		standing.setId(dto.getLstandingDto().getId());
+		
+		Hotel hotel = new Hotel(dto.getName(), dto.getDesc(), null, standing);
 		hotel.setId(dto.getId());
 		service.update(hotel);
 		if (hotel == new Hotel()) {
@@ -123,24 +126,28 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	public HotelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
 		Hotel result = service.readById(id);
-		List<TravelDtoWithId> listTravel = new ArrayList<>();
-		for (Travel travel : result.getLtravel()) {
-			listTravel.add(new TravelDtoWithId(travel.getId(), travel.getNbrNight(), travel.getDestination(),
-					travel.getPeriodBegin(), travel.getPeriodEnd(), null, null,
-					new HotelDtoWithId(travel.getHotel().getId(), travel.getHotel().getName(),
-							travel.getHotel().getDesc(), null, null)));
-		}
-		HotelDtoWithId dto = new HotelDtoWithId(result.getId(), result.getName(), result.getDesc(), listTravel,
-				result.getStanding());
+		if (result != null) {
+			List<TravelDtoWithId> listTravel = new ArrayList<>();
+			for (Travel travel : result.getLtravel()) {
+				listTravel.add(new TravelDtoWithId(travel.getId(), travel.getNbrNight(), travel.getDestination(),
+						travel.getPeriodBegin(), travel.getPeriodEnd(), null, null,
+						new HotelDtoWithId(travel.getHotel().getId(), travel.getHotel().getName(),
+								travel.getHotel().getDesc(), null, null)));
+			}
+			HotelDtoWithId dto = new HotelDtoWithId(result.getId(), result.getName(), result.getDesc(), listTravel,
+					result.getStanding());
+			if (dto == new HotelDtoWithId()) {
+				log.error("There was an issue reading your Hotel (controller)");
+				return null;
+			} else {
+				log.info("Your Hotel : (controller)");
+				return dto;
+			}
 
-		if (dto == new HotelDtoWithId()) {
+		} else {
 			log.error("There was an issue reading your Hotel (controller)");
 			return null;
-		} else {
-			log.info("Your Hotel : (controller)");
-			return dto;
 		}
-
 	}
 
 	/**
