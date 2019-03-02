@@ -75,12 +75,13 @@ public class ActivityServiceTest {
 		assertFalse(objDelete);
 	}
 
-	@Test(expected = NoSuchElementException.class)
+	@Test
 	public void readNonExistingObject() {
 		/**
 		 * test the read of an activity which doesn't exist
 		 */
 		activity = activityService.readById(9999999L);
+		assertNull(activity);
 	}
 
 	@Test(expected = IndexOutOfBoundsException.class)

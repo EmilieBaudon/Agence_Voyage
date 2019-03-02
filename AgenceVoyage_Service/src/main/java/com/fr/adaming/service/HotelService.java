@@ -83,6 +83,9 @@ public class HotelService implements IService<Hotel> {
 		try {
 			if (optValue.isPresent()) {
 				hotel = optValue.get();
+			} else {
+				log.error("This id does not exist");
+				return null;
 			}
 			log.info("read by id done in service");
 			return hotel;
@@ -125,7 +128,7 @@ public class HotelService implements IService<Hotel> {
 		List<Hotel> listH = dao.findAll();
 		List<Hotel> listNull = null;
 
-		if (!listH.isEmpty()) {
+		if (listH.isEmpty()) {
 			log.error("There was an issue reading all your Hotels (service)");
 			return listNull;
 		} else {

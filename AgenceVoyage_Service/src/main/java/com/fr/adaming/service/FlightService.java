@@ -88,6 +88,9 @@ public class FlightService implements IService<Flight> {
 		try {
 			if (optValue.isPresent()) {
 				flight = optValue.get();
+			} else {
+				log.error("This id does not exist");
+				return null;
 			}
 			log.info("read by id done in service");
 			return flight;

@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.fr.adaming.dao.ICustomerDao;
 import com.fr.adaming.dao.IPersonDao;
+import com.fr.adaming.dao.ITechDao;
+import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Person;
+import com.fr.adaming.entity.Technician;
 
 /**
  * 
@@ -25,6 +29,10 @@ public class PersonService implements IPersonService {
 	 */
 	@Autowired
 	IPersonDao dao;
+	@Autowired
+	ICustomerDao daoc;
+	@Autowired
+	ITechDao daot;
 	private Logger log = Logger.getLogger(PersonService.class);
 
 	/**
@@ -105,11 +113,23 @@ public class PersonService implements IPersonService {
 	 * @return the object read
 	 */
 	@Override
-	public Person readById(Long id) {
+	public Customer readById(Long id) {
 		try {
-			Person person = dao.findById(id).get();
+			Customer customer = daoc.findById(id).get();
 			log.info("read by id done in service");
-			return person;
+			return customer;
+		} catch (Exception e) {
+			log.error("This id does not exist");
+			return null;
+		}
+	}
+	
+	@Override
+	public Technician readByIdTech(Long id) {
+		try {
+			Technician tech = daot.findById(id).get();
+			log.info("read by id done in service");
+			return tech;
 		} catch (Exception e) {
 			log.error("This id does not exist");
 			return null;
@@ -123,11 +143,23 @@ public class PersonService implements IPersonService {
 	 * @return a list of Person from the DB
 	 */
 	@Override
-	public List<Person> readAll() {
-		List<Person> listEmpty = new ArrayList<>();
+	public List<Customer> readAllCustomer() {
+		List<Customer> listEmpty = new ArrayList<>();
 		if (!dao.findAll().isEmpty()) {
 			log.info("read all done in service");
-			return dao.findAll();
+			return daoc.findAll();
+		} else {
+			log.warn("database is empty");
+			return listEmpty;
+		}
+	}
+	
+	@Override
+	public List<Technician> readAllTech(){
+		List<Technician> listEmpty = new ArrayList<>();
+		if (!dao.findAll().isEmpty()) {
+			log.info("read all done in service");
+			return daot.findAll();
 		} else {
 			log.warn("database is empty");
 			return listEmpty;

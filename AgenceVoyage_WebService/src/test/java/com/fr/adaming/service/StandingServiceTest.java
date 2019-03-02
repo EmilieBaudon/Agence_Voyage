@@ -37,10 +37,6 @@ public class StandingServiceTest {
 
 	private Standing testStanding;
 
-	@Autowired
-	private HotelService serviceH;
-
-	private Hotel createdHotel;
 
 	@After
 	public void after() {
@@ -48,27 +44,15 @@ public class StandingServiceTest {
 
 		if (testStanding != null && testStanding.getId() != null) {
 			service.deleteById(testStanding.getId());
-			service.deleteById(createdHotel.getId());
-			
-		if (createdHotel != null && createdHotel.getId() != null) {
-				serviceH.deleteById(createdHotel.getId());
 
-			}
 		}
 	}
 
-	public void createNewHotel() {
-
-		createdHotel = new Hotel("Hilton1", "hotel de riche", null, null);
-		createdHotel = serviceH.create(createdHotel);
-	}
 
 	// Création d'un objet valide
 	@Test
 	public void a_createStandingTest() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding = service.create(testStanding);
 		assertNotNull(testStanding);
 
@@ -77,9 +61,7 @@ public class StandingServiceTest {
 	// Créer objet deja existant
 	@Test
 	public void b_createExistingStandingTest() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		Standing testStanding2 = testStanding;
 		testStanding = service.create(testStanding);
 		testStanding2 = service.create(testStanding2);
@@ -90,9 +72,7 @@ public class StandingServiceTest {
 	// Créer un objet avec ID null
 	@Test
 	public void c_createNullIdStanding() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding.setId(null);
 		testStanding = service.create(testStanding);
 		assertNotNull(testStanding);
@@ -101,9 +81,7 @@ public class StandingServiceTest {
 	// Créer un objet avec ID = 0
 	@Test
 	public void d_createZeroIdStanding() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding.setId(0L);
 		testStanding = service.create(testStanding);
 		assertNotNull(testStanding);
@@ -112,7 +90,7 @@ public class StandingServiceTest {
 	// Modification d'un objet qui n'existe pas
 	@Test
 	public void g_updateNonExistingStanding() {
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding.setId(9999999L);
 		testStanding = service.update(testStanding);
 		assertNull(testStanding);
@@ -122,9 +100,7 @@ public class StandingServiceTest {
 	// Modification d'un objet qui existe dans la BD
 	@Test
 	public void h_updateExistingStanding() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding = service.create(testStanding);
 		testStanding = service.readAll().get(0);
 		testStanding = service.update(testStanding);
@@ -134,13 +110,10 @@ public class StandingServiceTest {
 	// Update un objet avec un ID null
 	@Test
 	public void i_updateNullIdStanding() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding = service.create(testStanding);
 
-		Standing testStanding2 = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding2.setHotel(createdHotel);
+		Standing testStanding2 = new Standing(1, 1, 2, "Desc", null);
 		testStanding2.setId(null);
 		System.out.println(testStanding.getId());
 		testStanding2 = service.update(testStanding2);
@@ -150,13 +123,10 @@ public class StandingServiceTest {
 	// Update un objet avec un ID =0
 	@Test
 	public void j_update0IdStanding() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding = service.create(testStanding);
 
-		Standing testStanding2 = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding2.setHotel(createdHotel);
+		Standing testStanding2 = new Standing(1, 1, 2, "Desc", null);
 		testStanding2.setId(0L);
 		System.out.println("S/DJFqzbfomzcomJHQMORFHOMQEHZROFH"+testStanding.getId());
 		testStanding2 = service.update(testStanding2);
@@ -173,9 +143,7 @@ public class StandingServiceTest {
 	// Delete objet existant
 	@Test
 	public void l_deleteExistingStanding() {
-		createNewHotel();
-		testStanding = new Standing(1, 1, 2, "Desc", null, null);
-		testStanding.setHotel(createdHotel);
+		testStanding = new Standing(1, 1, 2, "Desc", null);
 		testStanding = service.create(testStanding);
 		System.out.println("debug test delete" + testStanding.getId());
 		Boolean boolTest = service.deleteById(testStanding.getId());

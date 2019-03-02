@@ -43,10 +43,6 @@ public class StandingDto {
 	 */
 	private String desc;
 	/**
-	 * @param id_hotelDto associated to Standing	 
-	 */	
-	private Long idhotelDto;
-	/**
 	 * 
 	 * @param list of activities
 	 */

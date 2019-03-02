@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fr.adaming.dto.ActivityDto;
+import com.fr.adaming.dto.HotelDtoWithId;
 import com.fr.adaming.dto.StandingDto;
 import com.fr.adaming.dto.StandingDtoWithId;
+import com.fr.adaming.entity.Activity;
 import com.fr.adaming.entity.Hotel;
 import com.fr.adaming.entity.Standing;
 import com.fr.adaming.service.ActivityService;
@@ -31,6 +35,7 @@ import com.fr.adaming.service.StandingService;
 
 @RestController
 @RequestMapping(path = "standing/")
+@CrossOrigin
 public class StandingController {
 
 	/**
@@ -72,12 +77,8 @@ public class StandingController {
 	@PostMapping(path = "create")
 	public String createObject(@RequestBody StandingDto dtoId) {
 
-		Hotel hotel = new Hotel();
-		hotel.setId(dtoId.getIdhotelDto()); // On ne prend que l'ID car SQL n'a besoin que de l'ID pour
-												// reconnaitre l'Hotel.
 
-		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(),
-				hotel, null);
+		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(), null);
 
 		Standing standing = service.create(stand);
 
@@ -99,11 +100,9 @@ public class StandingController {
 	 */
 	@PutMapping(path = "update")
 	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
-		Hotel hotel = new Hotel();
-		hotel.setId(dtoId.getHotelDto().getId());
 
 		Standing standing = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
-				dtoId.getDesc(), hotel, null);
+				dtoId.getDesc(), null);
 		standing.setId(dtoId.getId());
 		service.update(standing);
 
@@ -128,8 +127,13 @@ public class StandingController {
 	@GetMapping(path = "read/{id}")
 	public StandingDtoWithId readById(@PathVariable(value = "id") Long id) {
 		Standing result = service.readById(id);
+		List<ActivityDto> listActivity = new ArrayList<>();
+		for (Activity activity : result.getLactivity()) {
+			listActivity.add(new ActivityDto(activity.getId(), activity.getName(), activity.getDesc()));
+		}
 		StandingDtoWithId dtoId = new StandingDtoWithId(result.getId(), result.getNbRoom(), result.getPriceChild(),
-				result.getPriceAdult(), result.getDesc(), null, null);
+				result.getPriceAdult(), result.getDesc(),
+				listActivity);
 
 		if (dtoId == new StandingDtoWithId()) {
 			log.error("There was an issue reading your Standing (controller)");
@@ -152,8 +156,13 @@ public class StandingController {
 		List<Standing> result = service.readAll();
 		List<StandingDtoWithId> listDto = new ArrayList<>();
 		for (Standing temp : result) {
+			List<ActivityDto> listActivity = new ArrayList<>();
+			for (Activity activity : temp.getLactivity()) {
+				listActivity.add(new ActivityDto(activity.getId(), activity.getName(), activity.getDesc()));
+			}
 			listDto.add(new StandingDtoWithId(temp.getId(), temp.getNbRoom(), temp.getPriceChild(),
-					temp.getPriceAdult(), temp.getDesc(), null, null));
+					temp.getPriceAdult(), temp.getDesc(), 
+					null));
 		}
 		if (listDto.isEmpty()) {
 			log.error("There was an issue reading all your Standings (controller)");

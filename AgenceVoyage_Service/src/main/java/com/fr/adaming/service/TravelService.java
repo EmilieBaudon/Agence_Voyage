@@ -42,10 +42,10 @@ public class TravelService implements IService<Travel> {
 		if ((travel.getId() == null || travel.getId() == 0L)
 				&& (travel.getPeriodBegin() != null && travel.getPeriodBegin().isAfter(LocalDate.now()))) {
 			travel.setPeriodEnd(travel.getPeriodBegin().plusDays(travel.getNbrNight() + 1L));
-			log.info("activity created (service)");
+			log.info("travel created (service)");
 			return dao.save(travel);
 		} else {
-			log.warn("The activity you want to create has an id which already exist (service)");
+			log.warn("The travel you want to create has an id which already exist (service)");
 			return null;
 		}
 	}

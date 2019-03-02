@@ -30,12 +30,12 @@ public class FlightDto {
 	/**
 	 * @param dateArrival
 	 */
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate dateArrival;
 	/**
 	 * @param dateDeaprture
 	 */
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate dateDeparture;
 	/**
 	 * @param airportDeparture

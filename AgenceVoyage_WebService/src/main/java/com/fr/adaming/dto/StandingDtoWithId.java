@@ -48,10 +48,6 @@ public class StandingDtoWithId {
 	 */
 	private String desc;
 	/**
-	 * @param hotel associated to Standing	 
-	 */	
-	private HotelDtoWithId hotelDto;
-	/**
 	 * 
 	 * @param list of activities
 	 */

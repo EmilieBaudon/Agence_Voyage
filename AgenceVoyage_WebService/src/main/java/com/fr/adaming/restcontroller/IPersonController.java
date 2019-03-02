@@ -5,7 +5,6 @@ import java.util.List;
 import com.fr.adaming.dto.CustomerDto;
 import com.fr.adaming.dto.CustomerDtoWithId;
 import com.fr.adaming.dto.LoginDto;
-import com.fr.adaming.dto.RegisterDto;
 import com.fr.adaming.dto.TechnicianDto;
 import com.fr.adaming.dto.TechnicianDtoWithId;
 import com.fr.adaming.entity.Person;
@@ -96,7 +95,9 @@ public interface IPersonController {
 	 * @param id is the id of Person
 	 * @return Person is a class
 	 */
-	public Person readById(Long id);
+	public CustomerDtoWithId readByIdCustomer(Long id);
+
+	public TechnicianDtoWithId readByIdTech(Long id);
 
 	/**
 	 * Import data from user to the service Use the read all method from person
@@ -104,7 +105,9 @@ public interface IPersonController {
 	 * 
 	 * @return is a list of RegisterDto
 	 */
-	public List<RegisterDto> readAll();
+	public List<CustomerDtoWithId> readAllCustomer();
+
+	public List<TechnicianDtoWithId> readAllTech();
 
 	/**
 	 * Import data from user to the service Use the delete by id method from person
@@ -129,7 +132,7 @@ public interface IPersonController {
 	 * person service
 	 * 
 	 * @param login contain the mail and the password
-	 * @return a string saying if the login has been successful
+	 * @return a person instance with the given mail and password
 	 */
-	public String login(LoginDto login);
+	public Person login(LoginDto login);
 }

@@ -32,25 +32,33 @@ public class CustomerDtoWithId {
 	 */
 	@NotNull
 	private Long id;
-	/**
-	 * @param Person adress
-	 */
-	@NotNull
-	private String adress;
 	
 	/**
-	 * @param Person date of birth
+	 * @param Person name
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone="CET")
-	private LocalDate birthDate;
-	
-	
+	private String name;
 	/**
 	 * @param Person first name
 	 */
 	@NotNull
 	private String firstName;
+	/**
+	 * @param Person date of birth
+	 */
+	@NotNull
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone="CET")
+	private LocalDate birthDate;
+	/**
+	 * @param Person adress
+	 */
+	@NotNull
+	private String adress;
+	/**
+	 * @param Person mail
+	 */
+	@Email
+	private String mail;
 	/**
 	 * @param Person password
 	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
@@ -63,11 +71,7 @@ public class CustomerDtoWithId {
 	 */
 
 	private String card;
-	/**
-	 * @param Person name
-	 */
-	@NotNull
-	private String name;
+
 	/**
 	 * @param Customer's fidelity points
 	 */
@@ -77,11 +81,4 @@ public class CustomerDtoWithId {
 	 * @param lbookingDto
 	 */
 	List<BookingDto> lbookingDto;
-	
-	/**
-	 * @param Person mail
-	 */
-	
-	@Email
-	private String mail;
 }

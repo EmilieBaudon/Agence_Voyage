@@ -20,6 +20,7 @@ import lombok.Setter;
  *
  */
 
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,59 +33,49 @@ public class TechnicianDtoWithId {
 	 */
 	@NotNull
 	private Long id;
-
-	/**
-	 * @param Person first name
-	 */
-	@NotNull
-	private String firstName;
-
+	
 	/**
 	 * @param Person name
 	 */
 	@NotNull
 	private String name;
-
+	/**
+	 * @param Person first name
+	 */
+	@NotNull
+	private String firstName;
 	/**
 	 * @param Person date of birth
 	 */
 	@NotNull
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate birthDate;
 	/**
 	 * @param Person adress
 	 */
-
-	@Email
-	private String mail;
-	/**
-	 * @param Person password Minimum eight characters, at least one uppercase
-	 *               letter, one lowercase letter, one number and one special
-	 *               character
-	 */
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
-	private String pwd;
-
-	/**
-	 * @param Technician's job
-	 */
-	private String job;
-
 	@NotNull
 	private String adress;
 	/**
 	 * @param Person mail
 	 */
+	@Email
+	private String mail;
+	/**
+	 * @param Person password
+	 * Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+	 */
+	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*]).{8,}$")
+	private String pwd;
+	
+	/**
+	 * @param Technician's job
+	 */
+	private String job;
 
 	/**
 	 * @param Technician's job start date
 	 */
-	@JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING, timezone = "CET")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone="CET")
 	private LocalDate jobStartDate;
-
-	/**
-	 * @param list of travel associated to a technician
-	 */
-	private List<TravelDto> ltravelDto;
 
 }
