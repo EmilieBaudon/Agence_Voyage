@@ -42,7 +42,7 @@ import com.fr.adaming.service.TravelService;
 @RestController
 @RequestMapping(path = "travel/")
 @CrossOrigin
-public class TravelController implements IController<TravelDto, TravelDtoWithId> {
+public class TravelController {
 
 	/**
 	 * @param service TravelService is an object used to access the database
@@ -58,14 +58,20 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @param dto is a data transfer object representing the service
 	 * @return a string saying if the creation has been successful
 	 */
-	@Override
 	@PostMapping(path = "create")
-	public String createObject(@Valid @RequestBody TravelDto dto) {
+	public String createObject(@Valid @RequestBody TravelDtoWithId dto) {
 		Hotel hotel = new Hotel();
-		hotel.setId(dto.getIdhotelDto());
+		hotel.setId(dto.getHotelDto().getId());
+		
+		List<Flight> listFlight = new ArrayList<>();
 
+		for (FlightDto flight : dto.getLflightDto()) {
+			listFlight.add(new Flight(flight.getIdPlane(), flight.getDateArrival(), flight.getDateDeparture(),
+					flight.getAirportDeparture(), flight.getAirportArrival(), flight.getPrice()));
+		}
+		
 		Travel travel = service.create(new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(),
-				dto.getPeriodEnd(), null, null, hotel));
+				dto.getPeriodEnd(), null, listFlight, hotel));
 
 		if (travel != null) {
 			log.info("Travel created (controller)");
@@ -85,7 +91,6 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @param dto is a data transfer object representing the service
 	 * @return a string saying if the updating has been successful
 	 */
-	@Override
 	@PutMapping(path = "update")
 	public String updateObject(@Valid @RequestBody TravelDtoWithId dto) {
 		Hotel hotel = new Hotel();
@@ -112,7 +117,6 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @param id is the id of TravelDtoWithId
 	 * @return a dto object
 	 */
-	@Override
 	@GetMapping(path = "read/{id}")
 	public TravelDtoWithId readById(@PathVariable(value = "id") Long id) {
 
@@ -140,7 +144,6 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * 
 	 * @return an array list of TravelDtoWithId
 	 */
-	@Override
 	@GetMapping(path = "readall")
 	public List<TravelDtoWithId> readAll() {
 		List<Travel> result = service.readAll();
@@ -172,7 +175,6 @@ public class TravelController implements IController<TravelDto, TravelDtoWithId>
 	 * @param id of the object that must be deleted
 	 * @return a string saying if the delete has been successful
 	 */
-	@Override
 	@DeleteMapping(path = "delete/{id}")
 	public String delete(Long id) {
 		if (service.deleteById(id)) {

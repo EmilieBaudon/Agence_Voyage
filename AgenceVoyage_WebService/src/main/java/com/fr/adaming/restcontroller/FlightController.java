@@ -48,12 +48,12 @@ public class FlightController {
 	 * @return a String to signify if the method has worked
 	 */
 	@PostMapping(path = "create")
-	public Long createObject(@RequestBody FlightDto obj) {
+	public Flight createObject(@RequestBody FlightDto obj) {
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice()));
 		if (result != null) {
 			log.info("flight created (controller)");
-			return result.getId();
+			return result;
 		} else {
 			log.warn("flight has not been created (controller)");
 			return null;

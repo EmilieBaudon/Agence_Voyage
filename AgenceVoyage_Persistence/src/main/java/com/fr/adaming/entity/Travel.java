@@ -71,7 +71,7 @@ public class Travel {
 	/**
 	 * @param list of flight
 	 */
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private List<Flight> lflight;
 	/**
 	 * @param hotel
