@@ -83,6 +83,7 @@ public class PersonController implements IPersonController {
 	public String create(@Valid @RequestBody CustomerDto dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				dto.getMail(), dto.getPwd(), dto.getCard());
+		person.setFidelityPoint(dto.getFidelityPoint());
 		Person result = service.create(person);
 		if (result != null) {
 			log.info("customer created in controller");
@@ -127,6 +128,7 @@ public class PersonController implements IPersonController {
 	public String update(@Valid @RequestBody CustomerDtoWithId dto) {
 		Customer person = new Customer(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
 				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getCard());
+		person.setFidelityPoint(dto.getFidelityPoint());
 		person.setId(dto.getId());
 		Person result = service.update(person);
 		if (result != null) {
@@ -149,7 +151,7 @@ public class PersonController implements IPersonController {
 	@PutMapping(path = "updateTech")
 	public String update(@Valid @RequestBody TechnicianDtoWithId dto) {
 		Technician person = new Technician(dto.getName(), dto.getFirstName(), dto.getBirthDate(), dto.getAdress(),
-				service.readById(dto.getId()).getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
+				dto.getMail(), dto.getPwd(), dto.getJob(), dto.getJobStartDate());
 		person.setId(dto.getId());
 		Person result = service.update(person);
 		if (result != null) {
