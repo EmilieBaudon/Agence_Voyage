@@ -132,7 +132,7 @@ public interface IPersonController {
 	 * person service
 	 * 
 	 * @param login contain the mail and the password
-	 * @return a string saying if the login has been successful
+	 * @return a person instance with the given mail and password
 	 */
-	public String login(LoginDto login);
+	public Person login(LoginDto login);
 }

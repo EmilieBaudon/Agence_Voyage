@@ -331,14 +331,14 @@ public class PersonController implements IPersonController {
 	 */
 	@Override
 	@PostMapping(path = "login")
-	public String login(@RequestBody LoginDto login) {
+	public Person login(@RequestBody LoginDto login) {
 		Person result = service.login(login.getMail(), login.getPwd());
 		if (result != null) {
 			log.info("connection done in controller");
-			return "Login done";
+			return result;
 		} else {
 			log.warn("connection can not be done in controller");
-			return "Email or password are incorrect";
+			return null;
 		}
 	}
 }
