@@ -3,6 +3,7 @@ package com.fr.adaming.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -63,7 +64,7 @@ public class Hotel {
 	 * 
 	 */
 	@JsonManagedReference
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(unique=true)
 	private Standing standing;
 

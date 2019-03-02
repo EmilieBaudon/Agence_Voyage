@@ -22,9 +22,8 @@ import lombok.Setter;
 
 public class FlightDto {
 
-	
 	/**
-	 * @param Idplane
+	 * @param idplane
 	 */
 	private String idPlane;
 	/**

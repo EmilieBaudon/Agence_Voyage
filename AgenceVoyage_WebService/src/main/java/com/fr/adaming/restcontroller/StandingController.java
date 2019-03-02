@@ -75,7 +75,7 @@ public class StandingController {
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@PostMapping(path = "create")
-	public String createObject(@RequestBody StandingDto dtoId) {
+	public Standing createObject(@RequestBody StandingDto dtoId) {
 
 
 		Standing stand = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(), dtoId.getDesc(), null);
@@ -84,10 +84,10 @@ public class StandingController {
 
 		if (standing != null) {
 			log.info("Standing created (controller)");
-			return "Standing created";
+			return standing;
 		} else {
 			log.error("There was a problem creating your Standing (controller)");
-			return "Standing not created";
+			return null;
 		}
 	}
 

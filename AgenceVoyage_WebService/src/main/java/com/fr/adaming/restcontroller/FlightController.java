@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import com.fr.adaming.service.FlightService;
 @RestController
 @RequestMapping(path = "flight/")
 @CrossOrigin
-public class FlightController implements IController<FlightDto, FlightDtoWithId> {
+public class FlightController {
 
 	/**
 	 * @param FlightService is an object used to access the database
@@ -46,18 +47,16 @@ public class FlightController implements IController<FlightDto, FlightDtoWithId>
 	 *            here to create an object in the database with the parameter
 	 * @return a String to signify if the method has worked
 	 */
-	@Override
-	@PutMapping(path = "create")
-	public String createObject(@RequestBody FlightDto obj) {
-
+	@PostMapping(path = "create")
+	public Long createObject(@RequestBody FlightDto obj) {
 		Flight result = service.create(new Flight(obj.getIdPlane(), obj.getDateArrival(), obj.getDateDeparture(),
 				obj.getAirportDeparture(), obj.getAirportArrival(), obj.getPrice()));
 		if (result != null) {
 			log.info("flight created (controller)");
-			return "A flight has been created";
+			return result.getId();
 		} else {
 			log.warn("flight has not been created (controller)");
-			return "A problem has occurred ";
+			return null;
 		}
 	}
 
