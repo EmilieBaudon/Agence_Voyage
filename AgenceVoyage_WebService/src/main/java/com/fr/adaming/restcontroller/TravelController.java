@@ -96,8 +96,15 @@ public class TravelController {
 		Hotel hotel = new Hotel();
 		hotel.setId(dto.getHotelDto().getId());
 		
+		List<Flight> listFlight = new ArrayList<>();
+
+		for (FlightDto flight : dto.getLflightDto()) {
+			listFlight.add(new Flight(flight.getIdPlane(), flight.getDateArrival(), flight.getDateDeparture(),
+					flight.getAirportDeparture(), flight.getAirportArrival(), flight.getPrice()));
+		}
+		
 		Travel travel = new Travel(dto.getNbrNight(), dto.getDestination(), dto.getPeriodBegin(), dto.getPeriodEnd(),
-				null, null, hotel);
+				null, listFlight, hotel);
 		travel.setId(dto.getId());
 		service.update(travel);
 		if (travel == new Travel()) {

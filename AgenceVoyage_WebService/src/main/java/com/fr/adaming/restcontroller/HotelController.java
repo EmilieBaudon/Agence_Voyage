@@ -96,8 +96,9 @@ public class HotelController implements IController<HotelDto, HotelDtoWithId> {
 	@Override
 	@PostMapping(path = "update")
 	public String updateObject(@RequestBody HotelDtoWithId dto) {
-		Standing standing = new Standing();
+		Standing standing = new Standing(dto.getLstandingDto().getNbRoom(), dto.getLstandingDto().getPriceChild(), dto.getLstandingDto().getPriceAdult(), dto.getLstandingDto().getDesc(), dto.getLstandingDto().getLactivity());
 		standing.setId(dto.getLstandingDto().getId());
+		
 		
 		Hotel hotel = new Hotel(dto.getName(), dto.getDesc(), null, standing);
 		hotel.setId(dto.getId());

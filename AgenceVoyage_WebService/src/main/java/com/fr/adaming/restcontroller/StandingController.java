@@ -99,7 +99,7 @@ public class StandingController {
 	 * @return the return is a String describing the status of the method outcome
 	 */
 	@PutMapping(path = "update")
-	public String updateObject(@RequestBody StandingDtoWithId dtoId) {
+	public Standing updateObject(@RequestBody StandingDtoWithId dtoId) {
 
 		Standing standing = new Standing(dtoId.getNbRoom(), dtoId.getPriceChild(), dtoId.getPriceAdult(),
 				dtoId.getDesc(), null);
@@ -109,11 +109,11 @@ public class StandingController {
 		if (standing == new Standing()) {
 
 			log.error("There was a problem updting your Standing (controller)");
-			return "Standing not updated";
+			return null;
 		} else {
 
 			log.info("Standing updated (controller)");
-			return "Standing updated";
+			return standing;
 		}
 	}
 
