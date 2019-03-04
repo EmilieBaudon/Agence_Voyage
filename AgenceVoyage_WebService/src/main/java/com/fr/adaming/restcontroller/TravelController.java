@@ -25,6 +25,7 @@ import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Booking;
 import com.fr.adaming.entity.Flight;
 import com.fr.adaming.entity.Hotel;
+import com.fr.adaming.entity.Standing;
 import com.fr.adaming.entity.Travel;
 import com.fr.adaming.service.ActivityService;
 import com.fr.adaming.service.TravelService;
@@ -93,7 +94,10 @@ public class TravelController {
 	 */
 	@PutMapping(path = "update")
 	public String updateObject(@Valid @RequestBody TravelDtoWithId dto) {
-		Hotel hotel = new Hotel();
+		Standing standing = new Standing(dto.getHotelDto().getLstandingDto().getNbRoom(), dto.getHotelDto().getLstandingDto().getPriceChild(), dto.getHotelDto().getLstandingDto().getPriceAdult(), dto.getHotelDto().getLstandingDto().getDesc(), dto.getHotelDto().getLstandingDto().getLactivity());
+		standing.setId(dto.getHotelDto().getLstandingDto().getId());
+		
+		Hotel hotel = new Hotel(dto.getHotelDto().getName(), dto.getHotelDto().getDesc(), null,standing);
 		hotel.setId(dto.getHotelDto().getId());
 		
 		List<Flight> listFlight = new ArrayList<>();
