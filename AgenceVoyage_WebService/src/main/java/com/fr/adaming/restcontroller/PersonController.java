@@ -212,10 +212,25 @@ public class PersonController implements IPersonController {
 	 * @param email of the person
 	 * @return the person to be read from DB with email
 	 */
+//	@Override
+//	@GetMapping(path = "read/{email}")
+//	public Person readByEmail(String email) {
+//		return service.readByEmail(email);
+//	}
+	
 	@Override
 	@GetMapping(path = "read/{email}")
-	public Person readByEmail(String email) {
-		return service.readByEmail(email);
+	public CustomerDtoWithId readByEmail(String email) {
+		Customer customer= service.readByEmail(email);
+		List<BookingDto> listBooking = new ArrayList<>();
+		for (Booking booking : customer.getLbooking()) {
+			listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
+					booking.getPointAddFidelity(), null, booking.getTravel().getId()));
+		}
+		return new CustomerDtoWithId(customer.getId(), customer.getName(), customer.getFirstName(),
+				customer.getBirthDate(), customer.getAdress(), customer.getMail(), customer.getPwd(),
+				customer.getCard(), customer.getFidelityPoint(), listBooking);
+		
 	}
 
 	/**

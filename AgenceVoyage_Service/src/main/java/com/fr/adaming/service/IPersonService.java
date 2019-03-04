@@ -38,7 +38,8 @@ public interface IPersonService {
 	 * @param email a string with an email value of the person
 	 * @return the person read
 	 */
-	public Person readByEmail(String email);
+	//public Person readByEmail(String email);
+	public Customer readByEmail(String email);
 
 	/**
 	 * This method Return a person with its Mail Return Null if the Mail do not
