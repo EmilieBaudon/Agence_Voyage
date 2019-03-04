@@ -87,13 +87,29 @@ public class PersonService implements IPersonService {
 	 * 
 	 * @return the object read
 	 */
+//	@Override
+//	public Person readByEmail(String email) {
+//		if (email != null) {
+//			try {
+//				dao.findByMail(email);
+//				log.info("person read in service");
+//				return dao.findByMail(email);
+//			} catch (Exception e) {
+//				log.error("this email does not exist");
+//				return null;
+//			}
+//		} else {
+//			log.warn("email can not be null");
+//			return null;
+//		}
+//	}
 	@Override
-	public Person readByEmail(String email) {
+	public Customer readByEmail(String email) {
 		if (email != null) {
 			try {
 				dao.findByMail(email);
 				log.info("person read in service");
-				return dao.findByMail(email);
+				return daoc.findByMail(email);
 			} catch (Exception e) {
 				log.error("this email does not exist");
 				return null;
