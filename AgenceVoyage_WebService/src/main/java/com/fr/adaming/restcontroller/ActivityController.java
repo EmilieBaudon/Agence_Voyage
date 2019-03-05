@@ -29,7 +29,7 @@ import com.fr.adaming.service.ActivityService;
 @RestController
 @RequestMapping(path = "activity/")
 @CrossOrigin
-public class ActivityController implements IController<ActivityDto, ActivityDto> {
+public class ActivityController{
 
 	@Autowired
 	private ActivityService serviceActivity;
@@ -45,14 +45,14 @@ public class ActivityController implements IController<ActivityDto, ActivityDto>
 	 */
 
 	@PostMapping(path = "create")
-	public String createObject(@RequestBody ActivityDto obj) {
+	public Activity createObject(@RequestBody ActivityDto obj) {
 		Activity result = serviceActivity.create(new Activity(obj.getName(), obj.getDesc()));
 		if (result != null) {
 			log.info("activity created (controller)");
-			return "activity created";
+			return result;
 		} else {
 			log.warn("The activity you want to create has an id which already exist (controller)");
-			return "problem";
+			return null;
 		}
 	}
 
