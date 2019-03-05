@@ -40,6 +40,8 @@ public interface IPersonService {
 	 */
 	//public Person readByEmail(String email);
 	public Customer readByEmail(String email);
+	
+	public Technician readByEmailTech(String email);
 
 	/**
 	 * This method Return a person with its Mail Return Null if the Mail do not

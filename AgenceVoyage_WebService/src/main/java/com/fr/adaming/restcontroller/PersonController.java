@@ -211,13 +211,7 @@ public class PersonController implements IPersonController {
 	 * 
 	 * @param email of the person
 	 * @return the person to be read from DB with email
-	 */
-//	@Override
-//	@GetMapping(path = "read/{email}")
-//	public Person readByEmail(String email) {
-//		return service.readByEmail(email);
-//	}
-	
+	 */	
 	@Override
 	@GetMapping(path = "read/{email}")
 	public CustomerDtoWithId readByEmail(String email) {
@@ -232,6 +226,22 @@ public class PersonController implements IPersonController {
 				customer.getCard(), customer.getFidelityPoint(), listBooking);
 		
 	}
+	
+	/**
+	 * Read an object person with his email
+	 * 
+	 * @param email of the person
+	 * @return the person to be read from DB with email
+	 */	
+	@Override
+	@GetMapping(path = "readEmailTech/{email}")
+	public Technician readByEmailTech(String email) {
+		Technician technician= service.readByEmailTech(email);
+		return technician;
+		
+	}
+	
+	
 
 	/**
 	 * Read an object person with his id
