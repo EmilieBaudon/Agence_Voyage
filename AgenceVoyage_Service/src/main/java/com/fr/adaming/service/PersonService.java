@@ -119,6 +119,23 @@ public class PersonService implements IPersonService {
 			return null;
 		}
 	}
+	
+	@Override
+	public Technician readByEmailTech(String email) {
+		if (email != null) {
+			try {
+				dao.findByMail(email);
+				log.info("person read in service");
+				return daot.findByMail(email);
+			} catch (Exception e) {
+				log.error("this email does not exist");
+				return null;
+			}
+		} else {
+			log.warn("email can not be null");
+			return null;
+		}
+	}
 
 	/**
 	 * This method Return a person with its Mail Return Null if the Mail do not

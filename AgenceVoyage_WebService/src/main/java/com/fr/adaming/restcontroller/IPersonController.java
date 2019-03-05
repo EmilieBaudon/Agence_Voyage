@@ -9,6 +9,7 @@ import com.fr.adaming.dto.TechnicianDto;
 import com.fr.adaming.dto.TechnicianDtoWithId;
 import com.fr.adaming.entity.Customer;
 import com.fr.adaming.entity.Person;
+import com.fr.adaming.entity.Technician;
 
 /**
  * 
@@ -89,6 +90,7 @@ public interface IPersonController {
 	 */
 	//public Person readByEmail(String email);
 	public CustomerDtoWithId readByEmail(String email);
+	public Technician readByEmailTech(String email);
 	/**
 	 * Import data from user to the service Use the read by id method from person
 	 * service
