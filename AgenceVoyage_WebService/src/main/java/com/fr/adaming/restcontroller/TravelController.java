@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fr.adaming.dto.BookingDto;
 import com.fr.adaming.dto.FlightDto;
 import com.fr.adaming.dto.HotelDtoWithId;
+import com.fr.adaming.dto.StandingDtoWithId;
 import com.fr.adaming.dto.TravelDto;
 import com.fr.adaming.dto.TravelDtoWithId;
 import com.fr.adaming.entity.Booking;
@@ -134,6 +135,7 @@ public class TravelController {
 		Travel result = service.readById(id);
 		List<BookingDto> listBooking = new ArrayList<>();
 		List<FlightDto> listFlight = new ArrayList<>();
+		
 		for (Booking booking : result.getLbooking()) {
 			listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
 					booking.getPointAddFidelity(), booking.getCustomer().getId(), booking.getTravel().getId()));
@@ -145,7 +147,7 @@ public class TravelController {
 		TravelDtoWithId dto = new TravelDtoWithId(result.getId(), result.getNbrNight(), result.getDestination(),
 				result.getPeriodBegin(), result.getPeriodEnd(), listBooking, listFlight,
 				new HotelDtoWithId(result.getHotel().getId(), result.getHotel().getName(), result.getHotel().getDesc(),
-						null, null));
+						null, result.getHotel().getStanding()));
 		log.info("Travel print (controller)");
 		return dto;
 	}
