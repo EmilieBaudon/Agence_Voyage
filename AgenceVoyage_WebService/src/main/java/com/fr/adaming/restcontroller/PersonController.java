@@ -217,9 +217,11 @@ public class PersonController implements IPersonController {
 	public CustomerDtoWithId readByEmail(String email) {
 		Customer customer= service.readByEmail(email);
 		List<BookingDto> listBooking = new ArrayList<>();
-		for (Booking booking : customer.getLbooking()) {
-			listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
-					booking.getPointAddFidelity(), null, booking.getTravel().getId()));
+		if (customer != null) {
+			for (Booking booking : customer.getLbooking()) {
+				listBooking.add(new BookingDto(booking.getNbrAdult(), booking.getNbrChild(), booking.getTotalPrice(),
+						booking.getPointAddFidelity(), null, booking.getTravel().getId()));
+			}
 		}
 		return new CustomerDtoWithId(customer.getId(), customer.getName(), customer.getFirstName(),
 				customer.getBirthDate(), customer.getAdress(), customer.getMail(), customer.getPwd(),
